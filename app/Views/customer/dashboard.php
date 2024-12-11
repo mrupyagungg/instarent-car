@@ -234,7 +234,6 @@
                                             Rent now
                                         </a>
                                     </div>
-
                                 </div>
 
                             </div>
