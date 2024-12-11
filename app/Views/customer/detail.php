@@ -200,7 +200,6 @@ p {
 
                 <form action="<?= base_url('pelanggan/add_data_pelanggan/' . esc($kendaraan['id_kendaraan'])) ?>"
                     method="post">
-
                     <div class="mb-3">
                         <label for="tanggal_awal" class="form-label"><strong>Tanggal Awal:</strong></label>
                         <input type="date" id="tanggal_awal" name="tanggal_awal" class="form-control"
@@ -220,6 +219,11 @@ p {
                             readonly>
                     </div>
 
+                    <div class="mb-3">
+                        <label for="lama_pemesanan" class="form-label"><strong>Lama Pemesanan (Hari):</strong></label>
+                        <input type="number" id="lama_pemesanan" name="lama_pemesanan" class="form-control" readonly>
+                    </div>
+
                     <button type="submit" class="btn btn-primary">Simpan</button>
                 </form>
 
@@ -228,36 +232,30 @@ p {
                     const tanggalAwalInput = document.getElementById('tanggal_awal');
                     const tanggalAkhirInput = document.getElementById('tanggal_akhir');
                     const totalHargaInput = document.getElementById('total_harga');
+                    const lamaPemesananInput = document.getElementById('lama_pemesanan');
                     const hargaPerHari = <?= esc($kendaraan['harga_sewa_kendaraan']) ?>; // Harga per hari
 
-                    // Function to format date to dd/mm/yy
-                    function formatDate(date) {
-                        const day = date.getDate().toString().padStart(2, '0'); // Add leading zero if needed
-                        const month = (date.getMonth() + 1).toString().padStart(2,
-                            '0'); // Add leading zero if needed
-                        const year = date.getFullYear().toString().slice(-2); // Get last 2 digits of the year
-                        return `${day}/${month}/${year}`;
-                    }
-
-                    // Format Rupiah function
+                    // Function to format Rupiah
                     function formatRupiah(value) {
                         value = value.replace(/[^0-9]/g, ''); // Remove non-numeric characters
                         return 'Rp ' + value.replace(/\B(?=(\d{3})+(?!\d))/g, '.'); // Format value to Rupiah
                     }
 
-                    // Function to calculate and update total price
+                    // Function to calculate and update total price and booking duration
                     function calculateTotalHarga() {
-                        const tanggalAwal = new Date(tanggalAwalInput.value.split('/').reverse().join(
-                            '-')); // Convert dd/mm/yy to Date
-                        const tanggalAkhir = new Date(tanggalAkhirInput.value.split('/').reverse().join(
-                            '-')); // Convert dd/mm/yy to Date
+                        const tanggalAwal = new Date(tanggalAwalInput.value); // Convert to Date
+                        const tanggalAkhir = new Date(tanggalAkhirInput.value); // Convert to Date
 
                         if (tanggalAwal && tanggalAkhir && tanggalAwal <= tanggalAkhir) {
                             const durasi = Math.ceil((tanggalAkhir - tanggalAwal) / (1000 * 60 * 60 * 24)) + 1;
                             const totalHarga = durasi * hargaPerHari;
+
+                            // Update total price and booking duration
                             totalHargaInput.value = formatRupiah(totalHarga.toString());
+                            lamaPemesananInput.value = durasi; // Set the number of days
                         } else {
                             totalHargaInput.value = formatRupiah(hargaPerHari.toString());
+                            lamaPemesananInput.value = ''; // Clear the duration if invalid
                         }
                     }
 
@@ -270,6 +268,7 @@ p {
                 <p class="mt-3 text-center">atau hubungi</p>
                 <p class="text-center text-muted">0822-2123-2123</p>
             </div>
+
         </div>
     </div>
 </div>

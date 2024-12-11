@@ -29,18 +29,7 @@ class Pemesanan extends BaseController
             'title' => 'Transaksi Penerimaan',
             'pemesanan' => $this->pemesananModel->getAll(),
         ];
-        return view('pemesanan/view_data_pemesanan', $data);
-    }
-
-    public function add()
-    {
-        $data = [
-            'title' => 'Tambah Data Pemesanan',
-            'kode_pemesanan' => $this->pemesananModel->getKodePemesanan(),
-            'pelanggan' => $this->pelangganModel->findAll(),
-            'kendaraan' => $this->kendaraanModel->findAll(),
-        ];
-        return view('pemesanan/add_data_pemesanan', $data);
+        return view('pelanggan/add_data_pelanggan', $data);
     }
 
     public function create()
@@ -106,7 +95,7 @@ class Pemesanan extends BaseController
             return redirect()->to(base_url('pemesanan'));
         } else {
             $data['validation'] = $this->validation;
-            return view('pemesanan/add_data_pemesanan', $data);
+            return view('pelanggan/add_data_pelanggan', $data);
         }
     }
 

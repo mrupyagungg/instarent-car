@@ -131,7 +131,7 @@ $routes->get('pemesanan/nota/(:num)', 'Pemesanan::nota/$1');
 
 $routes->get('customer/dashboard', 'Customer::index');
 
-$routes->get('pelanggan/add_data_pelanggan/(:num)', 'Pelanggan::create/$1');
+$routes->post('pelanggan/add_data_pelanggan/(:num)', 'Pelanggan::create/$1');
 
 
 $routes->get('rent/(:num)', 'Customer::show/$1');
