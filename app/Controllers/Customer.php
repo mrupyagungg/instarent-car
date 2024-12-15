@@ -104,4 +104,24 @@ class Customer extends BaseController
 
         return view('customer/detail', ['kendaraan' => $kendaraan]);
     }
+
+    public function add_data_pelanggan($id_kendaraan)
+    {
+        $pemesananModel = new PemesananModel();
+
+        // Ambil data dari form
+        $data = [
+            'id_kendaraan'    => $id_kendaraan,
+            'tanggal_awal'    => $this->request->getPost('tanggal_awal'),
+            'tanggal_akhir'   => $this->request->getPost('tanggal_akhir'),
+            'lama_pemesanan'  => $this->request->getPost('lama_pemesanan'),
+            'total_harga'     => str_replace(['Rp', '.', ' '], '', $this->request->getPost('total_harga')), // Remove formatting
+        ];
+
+        // Simpan ke database
+        $pemesananModel->save($data);
+
+        // Redirect dengan pesan sukses
+        return redirect()->to('/pemesanan')->with('success', 'Detail pemesanan berhasil disimpan.');
+    }
 }

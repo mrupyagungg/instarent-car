@@ -268,6 +268,11 @@ p {
                 <p class="mt-3 text-center">atau hubungi</p>
                 <p class="text-center text-muted">0822-2123-2123</p>
             </div>
+            <?php if (session()->getFlashdata('success')): ?>
+            <div class="alert alert-success">
+                <?= session()->getFlashdata('success'); ?>
+            </div>
+            <?php endif; ?>
 
         </div>
     </div>

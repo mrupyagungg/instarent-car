@@ -6,7 +6,7 @@ use CodeIgniter\Model;
 
 class Pemesanan extends Model
 {
-    protected $table = 'pemesanans'; // Nama tabel
+    protected $table = 'pemesanan'; // Nama tabel
     protected $primaryKey = 'id_pemesanan'; // Primary key tabel
 
     // Kolom yang diizinkan untuk operasi mass-assignment
@@ -16,8 +16,6 @@ class Pemesanan extends Model
         'tanggal_akhir',
         'lama_pemesanan',
         'total_harga',
-        'created_at',
-        'updated_at',
     ];
 
     // Mengaktifkan fitur timestamps
@@ -28,8 +26,8 @@ class Pemesanan extends Model
         'kendaraan_id'    => 'required|integer',
         'tanggal_awal'    => 'required|valid_date',
         'tanggal_akhir'   => 'required|valid_date',
-        'lama_pemesanan'  => 'required|integer',
-        'total_harga'     => 'required|decimal',
+        'lama_pemesanan'  => 'required|integer|greater_than[0]',
+        'total_harga'     => 'required|decimal|greater_than[0]',
     ];
 
     protected $validationMessages = [
@@ -46,12 +44,14 @@ class Pemesanan extends Model
             'valid_date'  => 'Tanggal akhir harus dalam format tanggal yang valid.',
         ],
         'lama_pemesanan' => [
-            'required' => 'Lama pemesanan wajib diisi.',
-            'integer'  => 'Lama pemesanan harus berupa angka.',
+            'required'    => 'Lama pemesanan wajib diisi.',
+            'integer'     => 'Lama pemesanan harus berupa angka.',
+            'greater_than' => 'Lama pemesanan harus lebih dari 0.',
         ],
         'total_harga' => [
-            'required' => 'Total harga wajib diisi.',
-            'decimal'  => 'Total harga harus berupa angka desimal.',
+            'required'    => 'Total harga wajib diisi.',
+            'decimal'     => 'Total harga harus berupa angka desimal.',
+            'greater_than' => 'Total harga harus lebih dari 0.',
         ],
     ];
 }

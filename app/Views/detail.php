@@ -110,6 +110,39 @@ p {
     background-color: #e0a800;
     color: #fff;
 }
+
+.text-center {
+    text-align: center;
+}
+
+.form-label {
+    font-weight: bold;
+    color: #495057;
+}
+
+.form-control {
+    border-radius: 5px;
+    border: 1px solid #ced4da;
+    padding: 10px;
+    font-size: 1em;
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.form-control:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.form-header {
+    font-size: 1.5em;
+    color: #007bff;
+    margin-bottom: 20px;
+    text-align: center;
+    background-color: #f8f9fa;
+    padding: 10px;
+    border-radius: 8px;
+}
 </style>
 
 <!-- Home Content -->
@@ -122,8 +155,8 @@ p {
             <!-- Column 1: Vehicle Image -->
             <div class="col">
                 <img src="<?= base_url('uploads/' . esc($kendaraan['gambar_kendaraan'], 'url')) ?>" alt="Detail Mobil"
-                    class="img-fluid">
-                <h3>deskripsi</h3>
+                    class="img-fluid"><br>
+                <h3>Deskripsi</h3>
                 <div>
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident, perspiciatis dicta!
                         Dicta soluta praesentium, voluptatum dignissimos sequi dolorum natus iure quo eum unde
@@ -138,7 +171,7 @@ p {
                     <tbody>
                         <tr>
                             <td><strong>Tahun</strong></td>
-                            <td><?= esc($kendaraan['tahun_kendaraan']) ?>< /td>
+                            <td><?= esc($kendaraan['tahun_kendaraan']) ?>
                         </tr>
                         <tr>
                             <td><strong>Warna</strong></td>
@@ -164,23 +197,78 @@ p {
             <!-- Column 3: Booking Information -->
             <div class="col">
                 <h4 class="form-header">Detail Pesanan</h4>
-                <p><strong>Lokasi:</strong> Dalam Kota</p>
-                <p><strong>Durasi:</strong> 1 × 12 Jam - Sopir & BBM</p>
-                <p><strong>Tanggal:</strong> 10 Des 2024</p>
 
-                <h3 class="text-primary">Rp 450.000</h3>
-                <p class="text-muted">
-                    <strong>Biaya Termasuk:</strong> Sopir & BBM<br>
-                    <strong>Tidak Termasuk:</strong> Makan Sopir, Parkir & Tol
-                </p>
+                <form action="<?= base_url('pelanggan/add_data_pelanggan/' . esc($kendaraan['id_kendaraan'])) ?>"
+                    method="post">
+                    <div class="mb-3">
+                        <label for="tanggal_awal" class="form-label"><strong>Tanggal Awal:</strong></label>
+                        <input type="date" id="tanggal_awal" name="tanggal_awal" class="form-control"
+                            placeholder="dd/mm/yy">
+                    </div>
 
-                <a href="<?= base_url('pelanggan/add_data_pelanggan/' . esc($kendaraan['id_kendaraan'])) ?>"
-                    class="btn">
-                    Book Now
-                </a>
+                    <div class="mb-3">
+                        <label for="tanggal_akhir" class="form-label"><strong>Tanggal Akhir:</strong></label>
+                        <input type="date" id="tanggal_akhir" name="tanggal_akhir" class="form-control"
+                            placeholder="dd/mm/yy">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="total_harga" class="form-label"><strong>Total Harga:</strong></label>
+                        <input type="text" id="total_harga" name="total_harga" class="form-control"
+                            value="<?= 'Rp ' . number_format($kendaraan['harga_sewa_kendaraan'], 0, ',', '.') ?>"
+                            readonly>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="lama_pemesanan" class="form-label"><strong>Lama Pemesanan (Hari):</strong></label>
+                        <input type="number" id="lama_pemesanan" name="lama_pemesanan" class="form-control" readonly>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Simpan</button>
+                </form>
+
+                <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    const tanggalAwalInput = document.getElementById('tanggal_awal');
+                    const tanggalAkhirInput = document.getElementById('tanggal_akhir');
+                    const totalHargaInput = document.getElementById('total_harga');
+                    const lamaPemesananInput = document.getElementById('lama_pemesanan');
+                    const hargaPerHari = <?= esc($kendaraan['harga_sewa_kendaraan']) ?>; // Harga per hari
+
+                    // Function to format Rupiah
+                    function formatRupiah(value) {
+                        value = value.replace(/[^0-9]/g, ''); // Remove non-numeric characters
+                        return 'Rp ' + value.replace(/\B(?=(\d{3})+(?!\d))/g, '.'); // Format value to Rupiah
+                    }
+
+                    // Function to calculate and update total price and booking duration
+                    function calculateTotalHarga() {
+                        const tanggalAwal = new Date(tanggalAwalInput.value); // Convert to Date
+                        const tanggalAkhir = new Date(tanggalAkhirInput.value); // Convert to Date
+
+                        if (tanggalAwal && tanggalAkhir && tanggalAwal <= tanggalAkhir) {
+                            const durasi = Math.ceil((tanggalAkhir - tanggalAwal) / (1000 * 60 * 60 * 24)) + 1;
+                            const totalHarga = durasi * hargaPerHari;
+
+                            // Update total price and booking duration
+                            totalHargaInput.value = formatRupiah(totalHarga.toString());
+                            lamaPemesananInput.value = durasi; // Set the number of days
+                        } else {
+                            totalHargaInput.value = formatRupiah(hargaPerHari.toString());
+                            lamaPemesananInput.value = ''; // Clear the duration if invalid
+                        }
+                    }
+
+                    // Event listeners for date input changes
+                    tanggalAwalInput.addEventListener('change', calculateTotalHarga);
+                    tanggalAkhirInput.addEventListener('change', calculateTotalHarga);
+                });
+                </script>
+
                 <p class="mt-3 text-center">atau hubungi</p>
                 <p class="text-center text-muted">0822-2123-2123</p>
             </div>
+
         </div>
     </div>
 </div>

@@ -4,20 +4,21 @@ namespace App\Controllers;
 use \App\Models\KendaraanModel;
 use \App\Models\Laporan\JurnalModel;
 use \App\Models\PelangganModel;
-use \App\Models\PemesananModel;
+use \App\Models\pemesanans;
 
 class Pemesanan extends BaseController
 {
     protected $validation;
-    protected $pemesananModel;
+    protected $pemesanans;
     protected $kendaraanModel;
     protected $jurnalModel;
     protected $pelangganModel;
 
     public function __construct()
     {
+        // Load validation service and models
         $this->validation = \Config\Services::validation();
-        $this->pemesananModel = new PemesananModel();
+        $this->pemesanans = new pemesanans();
         $this->kendaraanModel = new KendaraanModel();
         $this->jurnalModel = new JurnalModel();
         $this->pelangganModel = new PelangganModel();
@@ -27,14 +28,14 @@ class Pemesanan extends BaseController
     {
         $data = [
             'title' => 'Transaksi Penerimaan',
-            'pemesanan' => $this->pemesananModel->getAll(),
+            'pemesanan' => $this->pemesanans->getAll(),
         ];
         return view('pelanggan/add_data_pelanggan', $data);
     }
 
     public function create()
     {
-        $kode_pemesanan = $this->pemesananModel->getKodePemesanan();
+        $kode_pemesanan = $this->pemesanans->getKodePemesanan();
         $data = [
             'title' => 'Tambah Data Pemesanan',
             'kode_pemesanan' => $kode_pemesanan,
@@ -42,34 +43,30 @@ class Pemesanan extends BaseController
             'kendaraan' => $this->kendaraanModel->findAll(),
         ];
 
-        $this->validation->setRules($this->pemesananModel->rules());
+        // Validation rules
+        $this->validation->setRules($this->pemesanans->rules());
         $isDataValid = $this->validation->withRequest($this->request)->run();
 
         if ($isDataValid) {
+            // Calculate total price and handle file upload
             $harga_sewa = $this->kendaraanModel->where('id_kendaraan', $this->request->getPost('kendaraan_id'))->get()->getFirstRow()->harga_sewa_kendaraan;
             $total_harga = $this->request->getPost('lama_pemesanan') * $harga_sewa;
             $jaminan_identitas = $this->request->getFile('jaminan_identitas');
 
-            if (!is_dir(ROOTPATH . 'uploads/images/')) {
-                mkdir(ROOTPATH . 'uploads/images/', 0777, true);
-            }
-
-            $fileName = time() . '.' . $jaminan_identitas->getExtension();
-            $jaminan_identitas->move('uploads/images/', $fileName);
-
+            // Prepare data for insertion
             $pemesanan = array(
                 'kode_pemesanan' => $data['kode_pemesanan'],
                 'lama_pemesanan' => $this->request->getPost('lama_pemesanan'),
                 'tanggal_pemesanan' => $this->request->getPost('tanggal_pemesanan'),
                 'total_harga' => $total_harga,
-                'plat_nomor' => $this->request->getPost('plat_nomor'),
-                'jaminan_identitas' => $fileName,
+
                 'pelanggan_id' => $this->request->getPost('pelanggan_id'),
                 'kendaraan_id' => $this->request->getPost('kendaraan_id'),
             );
 
-            $this->pemesananModel->createPemesanan($pemesanan);
+            $this->pemesanans->createPemesanan($pemesanan);
 
+            // Create journal entries
             $jurnal = [
                 [
                     'tanggal' => date('Y-m-d'),
@@ -99,185 +96,72 @@ class Pemesanan extends BaseController
         }
     }
 
-
-public function downloadNota($id)
-{
-    // buat ngambil data dari row nya aja
-    $pemesanan = $this->pemesananModel->getById($id);
-    $pelanggan = $this->pelangganModel->find($pemesanan['pelanggan_id']);
-    $kendaraan = $this->kendaraanModel->find($pemesanan['kendaraan_id']);
-
-    // buat isi nya
-    $content = "
-        Nota Pemesanan\n
-        Kode Pemesanan: {$pemesanan['kode_pemesanan']}\n
-        Nama Pelanggan: {$pelanggan['nama_pelanggan']}\n
-        Nama Kendaraan: {$kendaraan['nama_kendaraan']}\n
-        Tanggal Pemesanan: {$pemesanan['tanggal_pemesanan']}\n
-        Lama Pemesanan: {$pemesanan['lama_pemesanan']} Hari\n
-        Total Harga: {$pemesanan['total_harga']}\n
-    ";
-
-}
-
-
-    public function edit($id)
+    public function downloadNota($id)
     {
-        $pemesanan = $this->pemesananModel->getById($id);
-        $data = [
-            'title' => 'Edit Data Pemesanan',
-            'pemesanan' => $pemesanan,
-            'pelanggan' => $this->pelangganModel->findAll(),
-            'kendaraan' => $this->kendaraanModel->findAll(),
-        ];
+        $pemesanan = $this->pemesanans->getById($id);
+        $pelanggan = $this->pelangganModel->find($pemesanan['pelanggan_id']);
+        $kendaraan = $this->kendaraanModel->find($pemesanan['kendaraan_id']);
 
-        $this->validation->setRules([
-            'tanggal_pemesanan' => [
-                'label' => 'Tanggal Pemesanan',
-                'rules' => 'required',
-                'errors' => [
-                    'required' => '{field} mohon diisi',
-                ],
-            ],
-            'lama_pemesanan' => [
-                'label' => 'Lama Pemesanan',
-                'rules' => 'required',
-                'errors' => [
-                    'required' => '{field} mohon diisi',
-                ],
-            ],
-            'pelanggan_id' => [
-                'label' => 'Pelanggan',
-                'rules' => 'required',
-                'errors' => [
-                    'required' => '{field} mohon diisi',
-                ],
-            ],
-            'kendaraan_id' => [
-                'label' => 'Kendaraan',
-                'rules' => 'required',
-                'errors' => [
-                    'required' => '{field} mohon diisi',
-                ],
-            ],
-            'plat_nomor' => [
-                'label' => 'Plat Nomor',
-                'rules' => 'required',
-                'errors' => [
-                    'required' => '{field} mohon diisi',
-                ],
-            ],
-            'jaminan_identitas' => [
-                'label' => 'Jaminan Identitas',
-                'rules' => [
-                    'is_image[jaminan_identitas]',
-                    'mime_in[jaminan_identitas,image/jpg,image/jpeg,image/png,image/gif]',
-                    'max_size[jaminan_identitas,1024]',
-                ],
-                'errors' => [
-                    'is_image' => '{field} harus berupa gambar',
-                    'mime_in' => '{field} harus berformat jpg, jpeg, png, gif',
-                    'max_size' => '{field} melebihi 1MB',
-                ],
-            ],
-        ]);
-        $isDataValid = $this->validation->withRequest($this->request)->run();
+        $content = "Nota Pemesanan\n\n";
+        $content .= "Kode Pemesanan: {$pemesanan['kode_pemesanan']}\n";
+        $content .= "Nama Pelanggan: {$pelanggan['nama_pelanggan']}\n";
+        $content .= "Nama Kendaraan: {$kendaraan['nama_kendaraan']}\n";
+        $content .= "Tanggal Pemesanan: {$pemesanan['tanggal_pemesanan']}\n";
+        $content .= "Lama Pemesanan: {$pemesanan['lama_pemesanan']} Hari\n";
+        $content .= "Total Harga: {$pemesanan['total_harga']}\n";
 
-        if ($isDataValid) {
-            $jurnal_debit = $this->jurnalModel->where('reff', $pemesanan['kode_pemesanan'])->where('id_akun', 101)->get()->getFirstRow()->id;
-            $jurnal_kredit = $this->jurnalModel->where('reff', $pemesanan['kode_pemesanan'])->get()->getLastRow()->id;
-            $harga_sewa = $this->kendaraanModel->where('id_kendaraan', $this->request->getPost('kendaraan_id'))->get()->getFirstRow()->harga_sewa_kendaraan;
-            $total_harga = $this->request->getPost('lama_pemesanan') * $harga_sewa;
-            $jaminan_identitas = $this->request->getFile('jaminan_identitas');
+        $fileName = 'nota_pemesanan_' . $pemesanan['kode_pemesanan'] . '.txt';
 
-            if ($jaminan_identitas->getFilename() == "") {
-                $fileName = $pemesanan['jaminan_identitas'];
-            } else {
-                $fileName = time() . '.' . $jaminan_identitas->getExtension();
-                $jaminan_identitas->move('uploads/images/', $fileName);
-                unlink('uploads/images/' . $pemesanan['jaminan_identitas']);
-            }
-
-            $pemesanan = array(
-                'lama_pemesanan' => $this->request->getPost('lama_pemesanan'),
-                'tanggal_pemesanan' => $this->request->getPost('tanggal_pemesanan'),
-                'total_harga' => $total_harga,
-                'plat_nomor' => $this->request->getPost('plat_nomor'),
-                'jaminan_identitas' => $fileName,
-                'pelanggan_id' => $this->request->getPost('pelanggan_id'),
-                'kendaraan_id' => $this->request->getPost('kendaraan_id'),
-            );
-
-            $this->pemesananModel->update($id, $pemesanan);
-
-            $jurnal = [
-                'nominal' => $total_harga,
-            ];
-
-            $this->jurnalModel->updateJurnal($jurnal, $jurnal_debit);
-            $this->jurnalModel->updateJurnal($jurnal, $jurnal_kredit);
-            session()->setFlashdata('success', 'Data Pemesanan berhasil diubah');
-            return redirect()->to('pemesanan');
-        } else {
-            return view('pemesanan/edit_data_pemesanan', $data);
-        }
+        return $this->response
+            ->setHeader('Content-Type', 'text/plain')
+            ->setHeader('Content-Disposition', 'attachment; filename="' . $fileName . '"')
+            ->setBody($content);
     }
 
     public function approve($id)
-{    
-    $pemesanan = $this->pemesananModel->getById($id);    
-    if (!$pemesanan) {
-        throw new \CodeIgniter\Exceptions\PageNotFoundException('Data not found');
-    }    
-    $this->pemesananModel->update($id, [
-        'persetujuan' => 'approved'
-    ]);
-    session()->setFlashdata('success', 'Pemesanan telah di setujui');
-    return redirect()->to(base_url('pemesanan'));
-}
+    {
+        $pemesanan = $this->pemesanans->getById($id);
+        if (!$pemesanan) {
+            throw new \CodeIgniter\Exceptions\PageNotFoundException('Data not found');
+        }
 
-public function disapprove($id)
-{   
-    $pemesanan = $this->pemesananModel->getById($id);   
-    if (!$pemesanan) {
-        throw new \CodeIgniter\Exceptions\PageNotFoundException('Data tidak ditemukan');
+        $this->pemesanans->update($id, ['persetujuan' => 'approved']);
+        session()->setFlashdata('success', 'Pemesanan telah disetujui');
+        return redirect()->to(base_url('pemesanan'));
     }
-    $this->pemesananModel->update($id, [
-        'persetujuan' => 'disapproved' 
-    ]);
-    session()->setFlashdata('success', 'Pemesanan tidak disetujui');
-    return redirect()->to(base_url('pemesanan'));
-}
 
+    public function disapprove($id)
+    {
+        $pemesanan = $this->pemesanans->getById($id);
+        if (!$pemesanan) {
+            throw new \CodeIgniter\Exceptions\PageNotFoundException('Data tidak ditemukan');
+        }
+
+        $this->pemesanans->update($id, ['persetujuan' => 'disapproved']);
+        session()->setFlashdata('success', 'Pemesanan tidak disetujui');
+        return redirect()->to(base_url('pemesanan'));
+    }
 
     public function nota($id)
-{
-    // buat ambil data dari row yang dipilih
-    $pemesanan = $this->pemesananModel->getById($id);
+    {
+        $pemesanan = $this->pemesanans->getById($id);
 
-    // buat cek ketersediaan data
-    if (!$pemesanan) {
-        throw new \CodeIgniter\Exceptions\PageNotFoundException('Data not found');
+        if (!$pemesanan) {
+            throw new \CodeIgniter\Exceptions\PageNotFoundException('Data not found');
+        }
+
+        $content = "< NOTA >\n";
+        $content .= "Kode Pemesanan: {$pemesanan['kode_pemesanan']}\n";
+        $content .= "Lama Pemesanan: {$pemesanan['lama_pemesanan']}\n";
+        $content .= "Tanggal Pemesanan: {$pemesanan['tanggal_pemesanan']}\n";
+        $content .= "Total Harga: {$pemesanan['total_harga']}\n";
+        $content .= "Plat Nomor: {$pemesanan['plat_nomor']}\n";
+
+        $fileName = 'nota_pemesanan_' . $pemesanan['kode_pemesanan'] . '.txt';
+
+        return $this->response
+            ->setHeader('Content-Type', 'text/plain')
+            ->setHeader('Content-Disposition', 'attachment; filename="' . $fileName . '"')
+            ->setBody($content);
     }
-
-    // buat isi nya
-    $content = "< NOTA >\n";
-    $content .= "\nKode Pemesanan: " . $pemesanan['kode_pemesanan'] . "\n";
-    $content .= "Lama Pemesanan: " . $pemesanan['lama_pemesanan'] . "\n";
-    $content .= "Tanggal Pemesanan: " . $pemesanan['tanggal_pemesanan'] . "\n";
-    $content .= "Total Harga: " . $pemesanan['total_harga'] . "\n";
-    $content .= "Plat Nomor: " . $pemesanan['plat_nomor'] . "\n";
-
-    // buat nama file
-    $fileName = 'nota_pemesanan_' . $pemesanan['kode_pemesanan'] . '.txt';
-
-    // buat header
-    $this->response->setHeader('Content-Type', 'text/plain');
-    $this->response->setHeader('Content-Disposition', 'attachment; filename="' . $fileName . '"');
-    $this->response->setBody($content);
-
-    return $this->response;
-}
-
-
 }
