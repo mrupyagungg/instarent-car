@@ -1203,3 +1203,32 @@ button, a { transition: var(--transition); }
   
 }
 
+.navbar-header h3 {
+  font-family: 'Lobster', cursive;
+  font-size: 35px;
+  color: black;
+}
+
+.btn-create, .btn-login {
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 20px;
+  display: inline-block;
+  text-decoration: none;
+}
+
+.btn-create {
+  background-color: #28a745;
+}
+
+.btn-login {
+  background-color: rgb(0, 20, 173);
+}
+
+.btn-create:hover {
+  background-color: #218838;
+}

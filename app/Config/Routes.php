@@ -26,7 +26,7 @@ $routes->set404Override();
 
 // Auth routes
 $routes->get('/customer/dashboard', 'Customer::index');
-$routes->get('/', 'Customer::index');
+$routes->get('/', 'Customer::guest');
 
 $routes->get('/', 'Login::index');
 $routes->get('/login', 'Login::index');
@@ -90,6 +90,9 @@ $routes->group('pemesanan', ['filter' => 'auth'], function($routes) {
     $routes->get('nota/(:num)', 'Pemesanan::nota/$1');
 });
 
+$routes->get('pemesanan/index', 'PemesananController::index');
+$routes->get('pemesanan/index(:num)', 'PemesananController::index/$1');
+
 // Pengeluaran
 $routes->group('pengeluaran', ['filter' => 'auth'], function($routes) {
     $routes->get('/', 'Pengeluaran::index');
@@ -115,7 +118,7 @@ $routes->group('laba-rugi', ['filter' => 'auth'], function($routes) {
 });
 
 // Rent
-$routes->get('rent/(:num)', 'Customer::show/$1');
+$routes->get('detail/(:num)', 'Customer::show/$1');
 
 // Additional routes for environment-specific configs
 if (is_file(APPPATH . 'Config/' . ENVIRONMENT . '/Routes.php')) {

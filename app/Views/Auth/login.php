@@ -7,11 +7,13 @@
     <meta name="description" content="">
     <meta name="author" content="ThemeMakker">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
-    <title>:: INSTARENT :: Login</title>
+    <title> INSTARENT | Sign In</title>
     <link rel="stylesheet" href="<?= base_url('assets/vendor/themify-icons/themify-icons.css') ?>">
     <link rel="stylesheet" href="<?= base_url('assets/vendor/fontawesome/css/font-awesome.min.css') ?>">
 
     <link rel="stylesheet" href="<?= base_url('assets/css/main.css') ?>" type="text/css">
+    <link rel="stylesheet" href="<?= base_url('assets/css/bootstrap.css') ?>" type="text/css">
+    <link rel="stylesheet" href="<?= base_url('assets/css/bootstrap.min.css') ?>" type="text/css">
 </head>
 
 <body class="theme-indigo">
@@ -28,13 +30,14 @@
             <div class="vertical-align-middle auth-main">
                 <div class="auth-box">
                     <div class="top">
+                        <!-- logo image -->
                         <img src="<?= base_url('assets/images/brand/instarentlogopng.png') ?>" alt="Lucid" style="width: 150px; height: auto;">
 
                         <!-- <strong>INSTARENT</strong> <span></span> -->
                     </div>
                     <div class="card">
                         <div class="header">
-                            <p class="lead">Login to your account</p>
+                            <p class="lead justify-content-center">Sign In</p>
                         </div>
                         <div class="body pt-0 mt-0">
                             <?php if (session()->getFlashdata('msg')) : ?>
@@ -42,14 +45,14 @@
                             <?php endif; ?>
                             <form class="custom-form mt-4 pt-2" action="<?= base_url('login/auth') ?>" method="post">
                                 <div class="form-group">
-                                    <label for="signin-email" class="control-label sr-only">Email</label>
-                                    <input type="username" name="username" class="form-control" value="<?= set_value('username') ?>" placeholder="Enter username">
+                                    <label for="signin-email" class="control-label">Ussername</label>
+                                    <input type="test" name="username" class="form-control" value="<?= set_value('username') ?>" placeholder="Enter username">
                                 </div>
                                 <div class="form-group">
-                                    <label for="signin-password" class="control-label sr-only">Password</label>
+                                    <label for="signin-password" class="control-label ">Password</label>
                                     <input type="password" class="form-control" name="password" placeholder="Enter password" aria-label="Password" aria-describedby="password-addon">
                                 </div>
-                                <button type="submit" class="btn btn-primary btn-lg btn-block">LOGIN</button>
+                                <button type="submit" class="btn btn-primary btn-lg btn-block">LOGIN</button><br>
                                 <div class="footer">
                                     <p class="text-center">Don't have an account? <a href="<?= base_url('register') ?>">Sign Up</a></p>
                                 </div>

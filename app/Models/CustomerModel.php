@@ -19,20 +19,28 @@ class CustomerModel extends Model
 
     // Validation rules
     protected $validationRules = [
-        'nama_pelanggan'       => 'required|min_length[3]',
+        'nama_pelanggan'       => 'required|min_length[3]|is_unique[pelanggan.nama_pelanggan]',
         'kode_pelanggan'       => 'required|is_unique[pelanggan.kode_pelanggan]',
-        'email_pelanggan'      => 'required|valid_email',
+        'email_pelanggan'      => 'required|valid_email|is_unique[pelanggan.email_pelanggan]',
         'no_telp_pelanggan'    => 'required|min_length[10]|numeric',
         'alamat_pelanggan'     => 'required',
-        'jenis_kelamin_pelanggan' => 'required|in_list[Laki-laki,Perempuan]'
+        'jenis_kelamin_pelanggan' => 'required|in_list[Laki-laki,Perempuan]',
     ];
+    
 
     // Custom error messages
     protected $validationMessages = [
         'kode_pelanggan' => [
             'is_unique' => 'Kode pelanggan sudah digunakan. Harap coba lagi dengan kode yang berbeda.'
+        ],
+        'email_pelanggan' => [
+            'is_unique' => 'Email pelanggan ini sudah terdaftar.'
+        ],
+        'nama_pelanggan' => [
+            'is_unique' => 'Nama pelanggan ini sudah terdaftar.'
         ]
     ];
+    
 
     // Timestamps
     protected $useTimestamps = true;

@@ -56,7 +56,7 @@
                 <ul class="navbar-list">
 
                     <li>
-                        <a href="#home" class="navbar-link" data-nav-link>Home</a>
+                        <a href="/customer/dashboard" class="navbar-link" data-nav-link>Home</a>
                     </li>
 
                     <li>
@@ -64,14 +64,11 @@
                     </li>
 
                     <li>
-                        <a href="#" class="navbar-link" data-nav-link>About us</a>
-                    </li>
-
-                    <li>
-                        <a href="#blog" class="navbar-link" data-nav-link>Blog</a>
+                        <a href="/customer/about" class="navbar-link" data-nav-link>About us</a>
                     </li>
 
                 </ul>
+
             </nav>
 
             <div class="header-actions">
@@ -102,44 +99,41 @@
 
             <section class="section hero" id="home">
                 <div class="container">
-
+                    <!-- Tampilkan pesan welcome jika username ada di session -->
+                    <h1 class="hero-text">
+                        <?= session()->has('username') ? 'Welcome, ' . session()->get('username') : 'Welcome, Guest'; ?>
+                    </h1><br>
                     <div class="hero-content">
                         <h2 class="h1 hero-title">The easy way to takeover a lease</h2>
 
                         <p class="hero-text">
-                            Live in New York, New Jerset and Connecticut!
+                            Live in New York, New Jersey, and Connecticut!
                         </p>
                     </div>
 
                     <div class="hero-banner"></div>
 
                     <form action="" class="hero-form">
-
                         <div class="input-wrapper">
                             <label for="input-1" class="input-label">Car, model, or brand</label>
-
                             <input type="text" name="car-model" id="input-1" class="input-field"
-                                placeholder="What car are you looking?">
+                                placeholder="What car are you looking for?">
                         </div>
 
                         <div class="input-wrapper">
                             <label for="input-2" class="input-label">Max. monthly payment</label>
-
                             <input type="text" name="monthly-pay" id="input-2" class="input-field"
                                 placeholder="Add an amount in $">
                         </div>
 
                         <div class="input-wrapper">
                             <label for="input-3" class="input-label">Make Year</label>
-
                             <input type="text" name="year" id="input-3" class="input-field"
                                 placeholder="Add a minimal make year">
                         </div>
 
                         <button type="submit" class="btn">Search</button>
-
                     </form>
-
                 </div>
             </section>
 
@@ -182,7 +176,7 @@
                                     </div>
 
                                     <ul class="card-list">
-                                       
+
                                         <li class="card-list-item">
                                             <ion-icon name="flash-outline"></ion-icon>
                                             <span class="card-item-text">
@@ -202,13 +196,12 @@
                                             <strong>
                                                 <?= number_format($kendaraan['harga_sewa_kendaraan'], 2) ?>
                                             </strong> / month
-                                        </p>
-
-                                        <button class="btn fav-btn" aria-label="Add to favourite list">
+                                        </p>    
+                                        <!-- <button class="btn fav-btn" aria-label="Add to favourite list">
                                             <ion-icon name="heart-outline"></ion-icon>
-                                        </button>
+                                        </button> -->
 
-                                        <a href="<?= base_url('rent/' . esc($kendaraan['id_kendaraan'])) ?>"
+                                        <a href="<?= base_url('detail/' . esc($kendaraan['id_kendaraan'])) ?>"
                                             class="btn">
                                             Rent now
                                         </a>
@@ -247,7 +240,7 @@
                                     If you are going to use a passage of Lorem Ipsum, you need to be sure.
                                 </p>
 
-                                <a href="#" class="card-link">Get started</a>
+                                <a href="#featured-car" class="card-link">Get started</a>
 
                             </div>
                         </li>
@@ -307,180 +300,59 @@
                     </ul>
 
                 </div>
-            </section>
+            </section><br><br>
 
-            <!-- 
-    - #FOOTER
-  -->
+            <!-- footer -->
+            <link rel="stylesheet" href="<?= base_url('assets/css/detail.css') ?>">
 
             <footer class="footer">
+
                 <div class="container">
 
+                    <!-- Footer Top Section -->
                     <div class="footer-top">
-
-                        <div class="footer-brand">
-                            <a href="#" class="logo">
-                                <img src="./assets/images/logo.svg" alt="Ridex logo">
-                            </a>
-
-                            <p class="footer-text">
-                                Search for cheap rental cars in New York. With a diverse fleet of 19,000 vehicles,
-                                Waydex offers
-                                its
-                                consumers an
-                                attractive and fun selection.
-                            </p>
+                        <div class="footer-column">
+                            <h3 class="footer-title-insta">Instarent</h3>
+                            <p class="footer-description">Sewa mobil terbaik untuk kebutuhan perjalanan Anda. Nyaman,
+                                mudah, dan
+                                terpercaya.</p>
                         </div>
 
-                        <ul class="footer-list">
+                        <div class="footer-column">
+                            <h4 class="footer-title">Quick Links</h4>
+                            <ul class="footer-links">
+                                <li><a href="/customer/dashboard" class="footer-link">Home</a></li>
+                                <li><a href="/customer/detail" class="footer-link">Explore Cars</a></li>
+                                <li><a href="/about" class="footer-link">About Us</a></li>
+                            </ul>
+                        </div>
 
-                            <li>
-                                <p class="footer-list-title">Company</p>
-                            </li>
+                        <div class="footer-column">
+                            <h4 class="footer-title">Contact Us</h4>
+                            <p><i class="material-icons">phone</i> 8 800 234 56 78</p>
+                            <p><i class="material-icons">email</i> support@instarent.com</p>
+                            <p><i class="material-icons">location_on</i> Bandung, Indonesia</p>
+                        </div>
 
-                            <li>
-                                <a href="#" class="footer-link">About us</a>
-                            </li>
-
-                            <li>
-                                <a href="#" class="footer-link">Pricing plans</a>
-                            </li>
-
-                            <li>
-                                <a href="#" class="footer-link">Our blog</a>
-                            </li>
-
-                            <li>
-                                <a href="#" class="footer-link">Contacts</a>
-                            </li>
-
-                        </ul>
-
-                        <ul class="footer-list">
-
-                            <li>
-                                <p class="footer-list-title">Support</p>
-                            </li>
-
-                            <li>
-                                <a href="#" class="footer-link">Help center</a>
-                            </li>
-
-                            <li>
-                                <a href="#" class="footer-link">Ask a question</a>
-                            </li>
-
-                            <li>
-                                <a href="#" class="footer-link">Privacy policy</a>
-                            </li>
-
-                            <li>
-                                <a href="#" class="footer-link">Terms & conditions</a>
-                            </li>
-
-                        </ul>
-
-                        <ul class="footer-list">
-
-                            <li>
-                                <p class="footer-list-title">Neighborhoods in New York</p>
-                            </li>
-
-                            <li>
-                                <a href="#" class="footer-link">Manhattan</a>
-                            </li>
-
-                            <li>
-                                <a href="#" class="footer-link">Central New York City</a>
-                            </li>
-
-                            <li>
-                                <a href="#" class="footer-link">Upper East Side</a>
-                            </li>
-
-                            <li>
-                                <a href="#" class="footer-link">Queens</a>
-                            </li>
-
-                            <li>
-                                <a href="#" class="footer-link">Theater District</a>
-                            </li>
-
-                            <li>
-                                <a href="#" class="footer-link">Midtown</a>
-                            </li>
-
-                            <li>
-                                <a href="#" class="footer-link">SoHo</a>
-                            </li>
-
-                            <li>
-                                <a href="#" class="footer-link">Chelsea</a>
-                            </li>
-
-                        </ul>
-
+                        <!-- Payment Methods -->
+                        <div class="footer-colum">
+                            <h4 class="footer-title">Payment</h4>
+                            <div class="payment-icons">
+                                <div>
+                                    <div class="payment-icons">
+                                        <img src="<?= base_url('assets/images/Logo Bank Pembayaran.png') ?>" alt="BCA">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-
-                    <div class="footer-bottom">
-
-                        <ul class="social-list">
-
-                            <li>
-                                <a href="#" class="social-link">
-                                    <ion-icon name="logo-facebook"></ion-icon>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="#" class="social-link">
-                                    <ion-icon name="logo-instagram"></ion-icon>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="#" class="social-link">
-                                    <ion-icon name="logo-twitter"></ion-icon>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="#" class="social-link">
-                                    <ion-icon name="logo-linkedin"></ion-icon>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="#" class="social-link">
-                                    <ion-icon name="logo-skype"></ion-icon>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="#" class="social-link">
-                                    <ion-icon name="mail-outline"></ion-icon>
-                                </a>
-                            </li>
-
-                        </ul>
-
-                        <p class="copyright">
-                            &copy; 2022 <a href="#">codewithsadee</a>. All Rights Reserved
-                        </p>
-
-                    </div>
-
                 </div>
             </footer>
 
-            <!-- 
-    - custom js link
-  -->
+            <!-- js -->
             <script src="./assets/js/script.js"></script>
 
-            <!-- 
-    - ionicon link
-  -->
+            <!-- link icon -->
             <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
             <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 

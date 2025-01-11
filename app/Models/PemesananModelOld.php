@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\Model;
 
 use CodeIgniter\Model;
 
@@ -68,11 +68,9 @@ class PemesananModel extends Model
 
     public function getAll()
 {
-    return $this->db->table('pemesanan as a')
-        ->select('a.*, b.nama_pelanggan, c.nama_kendaraan, c.gambar_kendaraan')
-        ->join('pelanggan as b', 'a.pelanggan_id = b.id_pelanggan', 'left')
-        ->join('kendaraan as c', 'a.kendaraan_id = c.id_kendaraan', 'left')
-        ->get()->getResultArray();
+    return $this->select('pemesanan.*, kendaraan.nama_kendaraan, kendaraan.jenis_kendaraan, kendaraan.gambar_kendaraan')
+                ->join('kendaraan', 'kendaraan.id_kendaraan = pemesanan.kendaraan_id', 'left')
+                ->findAll();
 }
 
 
@@ -114,3 +112,4 @@ class PemesananModel extends Model
         return $query;
     }
 }
+

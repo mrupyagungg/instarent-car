@@ -133,3 +133,186 @@ p {
     padding: 10px;
     border-radius: 8px;
 }
+
+/* Breadcrumb container styling */
+.breadcrumb {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f5f5f5;
+    padding: 5px 20px;
+    border-radius: 8px;
+    margin: 10px 0; /* Tambahkan lebih banyak margin atas dan bawah */
+}
+
+/* Individual breadcrumb items */
+.breadcrumb-item {
+    flex: 1;
+    text-align: center;
+    padding: 10px 15px;
+    font-size: 16px;
+    font-family: 'Nunito', sans-serif;
+    color: #666;
+    border-right: 1px solid #ddd;
+}
+
+.breadcrumb-item:last-child {
+    border-right: none;
+}
+
+/* Active item styling */
+.breadcrumb-item.active {
+    font-weight: bold;
+    color: white;
+    background-color: #007bff;
+}
+
+/* Container styling for icons */
+.payment-icons {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+/* Styling each icon image */
+.payment-icons img {
+    width: 400px; /* Set the width */
+    height: auto; /* Maintain aspect ratio */
+    object-fit: contain; /* Ensure the image fits within the box */
+    transition: transform 0.3s ease; /* Add hover effect */
+}
+
+/* Hover effect to scale icon */
+.payment-icons img:hover {
+    transform: scale(1.1); /* Slightly enlarge the icon */
+}
+
+/* Footer Styling */
+.footer {
+    background-color: #222;
+    color: #fff;
+    padding: 40px 20px;
+    font-family: 'Nunito', sans-serif;
+}
+
+.footer .container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-top {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.footer-column {
+    flex: 1;
+    min-width: 200px;
+}
+
+.footer-title {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #f5c518;
+}
+.footer-title-insta {
+    font-family: 'Lobster', cursive;
+  font-size: 35px;
+  color: #f5c518;
+}
+
+.footer-description {
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 10px;
+}
+
+.footer-links {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-link {
+    text-decoration: none;
+    color: #ccc;
+    font-size: 14px;
+    line-height: 2;
+    transition: color 0.3s;
+}
+
+.footer-link:hover {
+    color: #f5c518;
+}
+
+.footer-social {
+    display: flex;
+    gap: 10px;
+}
+
+.social-link {
+    color: #ccc;
+    font-size: 24px;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.social-link:hover {
+    color: #f5c518;
+}
+
+.footer-bottom {
+    text-align: center;
+    font-size: 14px;
+    border-top: 1px solid #333;
+    padding-top: 10px;
+    margin-top: 20px;
+}
+
+/* alert */
+/* CSS untuk Alert Success */
+.custom-alert {
+    background-color: #28a745; /* Warna hijau untuk alert success */
+    color: #fff; /* Teks berwarna putih */
+    padding: 15px;
+    border-radius: 5px;
+    font-size: 16px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    position: relative;
+}
+.alert-danger {
+    background-color:rgb(255, 0, 0); /* Warna hijau untuk alert success */
+    color: #fff; /* Teks berwarna putih */
+    padding: 15px;
+    border-radius: 5px;
+    font-size: 16px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    position: relative;
+}
+
+
+/* Hover effect untuk tombol close */
+.custom-alert .close-btn:hover {
+    color: #dcdcdc;
+}
+
+/* Untuk menampilkan efek fade */
+.fade-in {
+    animation: fadeIn 0.5s ease-out;
+}
+
+/* Efek Fade */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}

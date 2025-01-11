@@ -6,6 +6,9 @@
     <?= $this->renderSection('content') ?>
     <!-- Bagian ini akan diisi oleh konten spesifik halaman -->
 </main>
+
+
+<?= $this->include('template/footer') ?>
 <!-- 
     - custom js link
   -->

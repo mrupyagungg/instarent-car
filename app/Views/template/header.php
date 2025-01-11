@@ -56,19 +56,15 @@
                 <ul class="navbar-list">
 
                     <li>
-                        <a href="#home" class="navbar-link" data-nav-link>Home</a>
+                        <a href="/customer/dashboard" class="navbar-link" data-nav-link>Home</a>
                     </li>
 
                     <li>
-                        <a href="#featured-car" class="navbar-link" data-nav-link>Explore cars</a>
+                        <a href="/customer/dashboard" class="navbar-link" data-nav-link>Explore cars</a>
                     </li>
 
                     <li>
-                        <a href="#" class="navbar-link" data-nav-link>About us</a>
-                    </li>
-
-                    <li>
-                        <a href="#blog" class="navbar-link" data-nav-link>Blog</a>
+                        <a href="/customer/dashboard" class="navbar-link" data-nav-link>About us</a>
                     </li>
 
                 </ul>
