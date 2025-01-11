@@ -82,16 +82,6 @@
                     <span class="contact-time">Mon - Sat: 9:00 am - 6:00 pm</span>
                 </div>
 
-                <a href="#featured-car" class="btn" aria-labelledby="aria-label-txt">
-                    <ion-icon name="car-outline"></ion-icon>
-
-                    <span id="aria-label-txt">Explore cars</span>
-                </a>
-
-                <a href="#" class="btn user-btn" aria-label="Profile">
-                    <ion-icon name="person-outline"></ion-icon>
-                </a>
-
                 <button class="nav-toggle-btn" data-nav-toggle-btn aria-label="Toggle Menu">
                     <span class="one"></span>
                     <span class="two"></span>
@@ -192,12 +182,7 @@
                                     </div>
 
                                     <ul class="card-list">
-                                        <li class="card-list-item">
-                                            <ion-icon name="people-outline"></ion-icon>
-                                            <span class="card-item-text">
-                                                <?= esc($kendaraan['kapasitas']) ?> People
-                                            </span>
-                                        </li>
+                                       
                                         <li class="card-list-item">
                                             <ion-icon name="flash-outline"></ion-icon>
                                             <span class="card-item-text">
@@ -210,12 +195,6 @@
                                                 <?= esc(ucwords($kendaraan['merk_kendaraan'])) ?></span>
                                         </li>
 
-                                        <li class="card-list-item">
-                                            <ion-icon name="hardware-chip-outline"></ion-icon>
-                                            <span class="card-item-text">
-                                                <?= esc(ucwords($kendaraan['transmisi'])) ?>
-                                            </span>
-                                        </li>
                                     </ul>
 
                                     <div class="card-price-wrapper">

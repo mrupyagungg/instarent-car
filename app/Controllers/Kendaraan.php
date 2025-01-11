@@ -55,11 +55,11 @@ class Kendaraan extends BaseController
             ];
 
             // Proses upload gambar
-            if ($this->request->getFile('gambar_kendaraan')->isValid() && !$this->request->getFile('gambar_kendaraan')->hasMoved()) {
-                $file = $this->request->getFile('gambar_kendaraan');
-                $newName = $file->getRandomName();
-                $file->move('uploads', $newName); // Sesuaikan dengan path yang Anda inginkan
-                $kendaraan['gambar_kendaraan'] = $newName; // Simpan nama file ke database
+            $gambarFile = $this->request->getFile('gambar_kendaraan');
+            if ($gambarFile && $gambarFile->isValid() && !$gambarFile->hasMoved()) {
+                $newName = $gambarFile->getRandomName();
+                $gambarFile->move('uploads/kendaraan', $newName);  // Pastikan folder 'uploads/kendaraan' sudah ada
+                $kendaraan['gambar_kendaraan'] = $newName; // Simpan nama file gambar ke database
             }
 
             $this->kendaraanModel->createKendaraan($kendaraan);
@@ -70,7 +70,6 @@ class Kendaraan extends BaseController
             return view('kendaraan/add_data_kendaraan', $data);
         }
     }
-
 
     public function edit($id)
     {
@@ -84,21 +83,27 @@ class Kendaraan extends BaseController
         $isDataValid = $this->validation->withRequest($this->request)->run();
 
         if ($isDataValid) {
-            $kendaraanUpdate = array(
+            $kendaraanUpdate = [
                 'jenis_kendaraan' => $this->request->getPost('jenis_kendaraan'),
                 'nama_kendaraan' => $this->request->getPost('nama_kendaraan'),
                 'merk_kendaraan' => $this->request->getPost('merk_kendaraan'),
                 'tahun_kendaraan' => $this->request->getPost('tahun_kendaraan'),
                 'warna_kendaraan' => $this->request->getPost('warna_kendaraan'),
                 'harga_sewa_kendaraan' => replace_nominal($this->request->getPost('harga_sewa_kendaraan')),
-            );
+            ];
 
             // Menangani Upload Gambar
-            if ($this->request->getFile('gambar_kendaraan')->isValid()) {
-                $gambar = $this->request->getFile('gambar_kendaraan');
-                $gambarNama = $gambar->getRandomName();
-                $gambar->move('uploads/kendaraan/', $gambarNama);
-                $kendaraanUpdate['gambar_kendaraan'] = $gambarNama; // Update nama gambar
+            $gambarFile = $this->request->getFile('gambar_kendaraan');
+            if ($gambarFile && $gambarFile->isValid()) {
+                // Hapus gambar lama (jika ada)
+                if (!empty($kendaraan['gambar_kendaraan']) && file_exists('uploads/kendaraan/' . $kendaraan['gambar_kendaraan'])) {
+                    unlink('uploads/kendaraan/' . $kendaraan['gambar_kendaraan']);
+                }
+
+                // Proses upload gambar baru
+                $gambarNama = $gambarFile->getRandomName();
+                $gambarFile->move('uploads/kendaraan/', $gambarNama);
+                $kendaraanUpdate['gambar_kendaraan'] = $gambarNama;
             }
 
             $this->kendaraanModel->updateKendaraan($kendaraanUpdate, $id);
@@ -109,9 +114,17 @@ class Kendaraan extends BaseController
         }
     }
 
-
     public function delete($id)
     {
+        // Ambil data kendaraan untuk mendapatkan nama gambar
+        $kendaraan = $this->kendaraanModel->getById($id);
+
+        // Hapus gambar kendaraan jika ada
+        if (!empty($kendaraan['gambar_kendaraan']) && file_exists('uploads/kendaraan/' . $kendaraan['gambar_kendaraan'])) {
+            unlink('uploads/kendaraan/' . $kendaraan['gambar_kendaraan']);
+        }
+
+        // Hapus data kendaraan dari database
         $this->kendaraanModel->deleteKendaraan($id);
         session()->setFlashdata('success', 'Data Kendaraan berhasil dihapus');
         return redirect()->to('kendaraan');

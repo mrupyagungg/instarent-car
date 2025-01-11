@@ -11,145 +11,113 @@ if (is_file(SYSTEMPATH . 'Config/Routes.php')) {
     require SYSTEMPATH . 'Config/Routes.php';
 }
 
-/*
- * --------------------------------------------------------------------
- * Router Setup
- * --------------------------------------------------------------------
- */
+// --------------------------------------------------------------------
+// Router Setup
+// --------------------------------------------------------------------
 $routes->setDefaultNamespace('App\Controllers');
 $routes->setDefaultController('Dashboard');
 $routes->setDefaultMethod('index');
 $routes->setTranslateURIDashes(false);
 $routes->set404Override();
-// The Auto Routing (Legacy) is very dangerous. It is easy to create vulnerable apps
-// where controller filters or CSRF protection are bypassed.
-// If you don't want to define all routes, please use the Auto Routing (Improved).
-// Set `$autoRoutesImproved` to true in `app/Config/Feature.php` and set the following to true.
-// $routes->setAutoRoute(false);
 
-/*
- * --------------------------------------------------------------------
- * Route Definitions
- * --------------------------------------------------------------------
- */
+// --------------------------------------------------------------------
+// Route Definitions
+// --------------------------------------------------------------------
 
-// We get a performance increase by specifying the default
-// route since we don't have to scan directories.
-
-// $routes->get('/', 'Dashboard::index', ['filter' => 'auth']);
-$routes->get('/dashboard', 'Dashboard::index', ['filter' => 'auth']);
-
+// Auth routes
 $routes->get('/customer/dashboard', 'Customer::index');
+$routes->get('/', 'Customer::index');
 
 $routes->get('/', 'Login::index');
 $routes->get('/login', 'Login::index');
-// $routes->get('/', 'Login::index');
-$routes->get('/logout', 'Login::logout');
 $routes->post('/login/auth', 'Login::auth');
-
+$routes->get('/logout', 'Login::logout');
 $routes->get('/register', 'Register::index');
 $routes->post('/register/save', 'Register::save');
 
-// akses COA
-$routes->get('/coa', 'Coa::index', ['filter' => 'auth']);
-$routes->get('/coa/add', 'Coa::add', ['filter' => 'auth']);
-$routes->post('/coa/create', 'Coa::create', ['filter' => 'auth']);
-$routes->post('/coa/add', 'Coa::add', ['filter' => 'auth']);
-$routes->post('/coa/edit', 'Coa::edit', ['filter' => 'auth']);
-$routes->post('/coa/delete', 'Coa::delete', ['filter' => 'auth']);
-
-// akses jenis pengeluaran
-$routes->get('/jenispengeluaran', 'JenisPengeluaran::index', ['filter' => 'auth']);
-$routes->post('/jenispengeluaran/add', 'JenisPengeluaran::create', ['filter' => 'auth']);
-$routes->post('/jenispengeluaran/edit', 'JenisPengeluaran::update', ['filter' => 'auth']);
-$routes->post('/jenispengeluaran/delete', 'JenisPengeluaran::delete', ['filter' => 'auth']);
-
-// akses pelanggan
-$routes->get('/pelanggan', 'Pelanggan::index', ['filter' => 'auth']);
-$routes->get('/pelanggan/add', 'Pelanggan::add', ['filter' => 'auth']);
-$routes->post('/pelanggan/create', 'Pelanggan::create', ['filter' => 'auth']);
-$routes->get('/pelanggan/edit/(:any)', 'Pelanggan::edit/$1', ['filter' => 'auth']);
-$routes->post('/pelanggan/edit/(:any)', 'Pelanggan::edit/$1', ['filter' => 'auth']);
-$routes->get('/pelanggan/delete/(:any)', 'Pelanggan::delete/$1', ['filter' => 'auth']);
-
-// akses kendaraan
-$routes->get('/kendaraan', 'Kendaraan::index', ['filter' => 'auth']);
-$routes->get('/kendaraan/add', 'Kendaraan::add', ['filter' => 'auth']);
-$routes->post('/kendaraan/create', 'Kendaraan::create', ['filter' => 'auth']);
-$routes->get('/kendaraan/edit/(:any)', 'Kendaraan::edit/$1', ['filter' => 'auth']);
-$routes->post('/kendaraan/edit/(:any)', 'Kendaraan::edit/$1', ['filter' => 'auth']);
-$routes->get('/kendaraan/delete/(:any)', 'Kendaraan::delete/$1', ['filter' => 'auth']);
-
-/*
- * --------------------------------------------------------------------
- * Transaction
- * --------------------------------------------------------------------
- */
-
-// akses pemesanan
-$routes->get('/pemesanan', 'Pemesanan::index', ['filter' => 'auth']);
-$routes->get('/pemesanan/add', 'Pemesanan::add', ['filter' => 'auth']);
-$routes->post('/pemesanan/create', 'Pemesanan::create', ['filter' => 'auth']);
-$routes->get('/pemesanan/edit/(:any)', 'Pemesanan::edit/$1', ['filter' => 'auth']);
-$routes->post('/pemesanan/edit/(:any)', 'Pemesanan::edit/$1', ['filter' => 'auth']);
-$routes->get('pemesanan/approve/(:num)', 'Pemesanan::approve/$1');
-$routes->get('pemesanan/disapprove/(:num)', 'Pemesanan::disapprove/$1');
+// Customer
+$routes->get('/dashboard', 'Dashboard::index', ['filter' => 'auth']);
+$routes->get('/customer/dashboard', 'Customer::index', ['filter' => 'auth']);
+$routes->post('customer/store', 'Customer::store');
 
 
+// COA routes
+$routes->group('coa', ['filter' => 'auth'], function($routes) {
+    $routes->get('/', 'Coa::index');
+    $routes->get('add', 'Coa::add');
+    $routes->post('create', 'Coa::create');
+    $routes->post('edit', 'Coa::edit');
+    $routes->post('delete', 'Coa::delete');
+});
 
-// akses Pengeluaran
-$routes->get('/pengeluaran', 'Pengeluaran::index', ['filter' => 'auth']);
-$routes->get('/pengeluaran/add', 'Pengeluaran::add', ['filter' => 'auth']);
-$routes->post('/pengeluaran/create', 'Pengeluaran::create', ['filter' => 'auth']);
-$routes->get('/pengeluaran/edit/(:any)', 'Pengeluaran::edit/$1', ['filter' => 'auth']);
-$routes->post('/pengeluaran/edit/(:any)', 'Pengeluaran::edit/$1', ['filter' => 'auth']);
-$routes->post('/pengeluaran/delete', 'Pengeluaran::delete', ['filter' => 'auth']);
+// Jenis Pengeluaran
+$routes->group('jenispengeluaran', ['filter' => 'auth'], function($routes) {
+    $routes->get('/', 'JenisPengeluaran::index');
+    $routes->post('add', 'JenisPengeluaran::create');
+    $routes->post('edit', 'JenisPengeluaran::update');
+    $routes->post('delete', 'JenisPengeluaran::delete');
+});
 
-/*
- * --------------------------------------------------------------------
- * Report
- * --------------------------------------------------------------------
- */
+// Pelanggan
+$routes->group('pelanggan', ['filter' => 'auth'], function($routes) {
+    $routes->get('/', 'Pelanggan::index');
+    $routes->get('add', 'Pelanggan::add');
+    $routes->post('create', 'Pelanggan::create');
+    $routes->get('edit/(:any)', 'Pelanggan::edit/$1');
+    $routes->post('edit/(:any)', 'Pelanggan::edit/$1');
+    $routes->get('delete/(:any)', 'Pelanggan::delete/$1');
+});
 
-// akses Jurnal
-$routes->get('/jurnal', 'Laporan\Jurnal::index', ['filter' => 'auth']);
-$routes->get('/jurnal/index', 'Laporan\Jurnal::index', ['filter' => 'auth']);
-$routes->post('/jurnal/(:any)', 'Laporan\Jurnal::show_data_jurnal', ['filter' => 'auth']);
+// Kendaraan
+$routes->group('kendaraan', ['filter' => 'auth'], function($routes) {
+    $routes->get('/', 'Kendaraan::index');
+    $routes->get('add', 'Kendaraan::add');
+    $routes->post('create', 'Kendaraan::create');
+    $routes->get('edit/(:any)', 'Kendaraan::edit/$1');
+    $routes->post('edit/(:any)', 'Kendaraan::edit/$1');
+    $routes->get('delete/(:any)', 'Kendaraan::delete/$1');
+});
 
-//akses Buku Besar
-$routes->get('/buku-besar', 'Laporan\BukuBesar::index', ['filter' => 'auth']);
-$routes->get('/buku-besar/index', 'Laporan\BukuBesar::index', ['filter' => 'auth']);
-$routes->post('/buku-besar/(:any)', 'Laporan\BukuBesar::show_data_buku_besar', ['filter' => 'auth']);
+// Pemesanan
+$routes->group('pemesanan', ['filter' => 'auth'], function($routes) {
+    $routes->get('/', 'Pemesanan::index');
+    $routes->get('add', 'Pemesanan::add');
+    $routes->post('create', 'Pemesanan::create');
+    $routes->get('edit/(:any)', 'Pemesanan::edit/$1');
+    $routes->post('edit/(:any)', 'Pemesanan::edit/$1');
+    $routes->get('approve/(:num)', 'Pemesanan::approve/$1');
+    $routes->get('disapprove/(:num)', 'Pemesanan::disapprove/$1');
+    $routes->get('nota/(:num)', 'Pemesanan::nota/$1');
+});
 
-//akses Laba Rugi
-$routes->get('/laba-rugi', 'Laporan\LabaRugi::index', ['filter' => 'auth']);
-$routes->get('/laba-rugi/index', 'Laporan\LabaRugi::index', ['filter' => 'auth']);
-$routes->post('/laba-rugi/(:any)', 'Laporan\LabaRugi::show_data_laba_rugi', ['filter' => 'auth']);
+// Pengeluaran
+$routes->group('pengeluaran', ['filter' => 'auth'], function($routes) {
+    $routes->get('/', 'Pengeluaran::index');
+    $routes->get('add', 'Pengeluaran::add');
+    $routes->post('create', 'Pengeluaran::create');
+    $routes->get('edit/(:any)', 'Pengeluaran::edit/$1');
+    $routes->post('edit/(:any)', 'Pengeluaran::edit/$1');
+    $routes->post('delete', 'Pengeluaran::delete');
+});
 
-//buat unduh nota
-$routes->get('pemesanan/nota/(:num)', 'Pemesanan::nota/$1');
+// Report routes
+$routes->group('jurnal', ['filter' => 'auth'], function($routes) {
+    $routes->get('/', 'Laporan\Jurnal::index');
+    $routes->post('(:any)', 'Laporan\Jurnal::show_data_jurnal');
+});
+$routes->group('buku-besar', ['filter' => 'auth'], function($routes) {
+    $routes->get('/', 'Laporan\BukuBesar::index');
+    $routes->post('(:any)', 'Laporan\BukuBesar::show_data_buku_besar');
+});
+$routes->group('laba-rugi', ['filter' => 'auth'], function($routes) {
+    $routes->get('/', 'Laporan\LabaRugi::index');
+    $routes->post('(:any)', 'Laporan\LabaRugi::show_data_laba_rugi');
+});
 
-$routes->get('customer/dashboard', 'Customer::index');
-
-$routes->post('pelanggan/add_data_pelanggan/(:num)', 'Pelanggan::create/$1');
-
-
+// Rent
 $routes->get('rent/(:num)', 'Customer::show/$1');
 
-
-/*
- * --------------------------------------------------------------------
- * Additional Routing
- * --------------------------------------------------------------------
- *
- * There will often be times that you need additional routing and you
- * need it to be able to override any defaults in this file. Environment
- * based routes is one such time. require() additional route files here
- * to make that happen.
- *
- * You will have access to the $routes object within that file without
- * needing to reload it.
- */
+// Additional routes for environment-specific configs
 if (is_file(APPPATH . 'Config/' . ENVIRONMENT . '/Routes.php')) {
     require APPPATH . 'Config/' . ENVIRONMENT . '/Routes.php';
 }

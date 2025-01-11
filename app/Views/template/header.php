@@ -82,22 +82,7 @@
                     <span class="contact-time">Mon - Sat: 9:00 am - 6:00 pm</span>
                 </div>
 
-                <a href="#featured-car" class="btn" aria-labelledby="aria-label-txt">
-                    <ion-icon name="car-outline"></ion-icon>
-
-                    <span id="aria-label-txt">Explore cars</span>
-                </a>
-
-                <a href="#" class="btn user-btn" aria-label="Profile">
-                    <ion-icon name="person-outline"></ion-icon>
-                </a>
-
-                <button class="nav-toggle-btn" data-nav-toggle-btn aria-label="Toggle Menu">
-                    <span class="one"></span>
-                    <span class="two"></span>
-                    <span class="three"></span>
-                </button>
-
+             
             </div>
 
         </div>

@@ -5,145 +5,7 @@
 
 <!-- Material Icons CDN -->
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
-<style>
-/* General Styles */
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f8f9fa;
-    margin: 0;
-    padding: 0;
-}
-
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-}
-
-h2,
-h4 {
-    color: #343a40;
-}
-
-p {
-    line-height: 1.6;
-    color: #6c757d;
-}
-
-/* Vehicle Detail Section */
-#home {
-    margin-top: 50px;
-    padding: 20px;
-    background: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-#home .row {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-}
-
-#home .col {
-    padding: 10px;
-    background-color: #fff;
-    border: 1px solid #dee2e6;
-    border-radius: 8px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-}
-
-#home .col img {
-    width: 100%;
-    border-radius: 8px;
-    object-fit: cover;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.table {
-    width: 100%;
-    margin-bottom: 1rem;
-    color: #212529;
-    border-collapse: collapse;
-}
-
-.table th,
-.table td {
-    border: 1px solid #dee2e6;
-    padding: 8px;
-    text-align: left;
-}
-
-.table th {
-    background-color: #f8f9fa;
-    font-weight: bold;
-}
-
-.text-muted {
-    font-size: 0.9rem;
-    color: #6c757d;
-}
-
-.form-header {
-    color: black;
-    background-color: #f8f9fa;
-    margin-bottom: 15px;
-    font-size: 1.2rem;
-    text-align: center;
-    padding: 10px;
-    border-radius: 8px;
-}
-
-.btn-warning {
-    background-color: #ffc107;
-    color: #212529;
-    border: none;
-    padding: 10px 20px;
-    font-size: 1rem;
-    border-radius: 5px;
-    text-transform: uppercase;
-    font-weight: bold;
-}
-
-.btn-warning:hover {
-    background-color: #e0a800;
-    color: #fff;
-}
-
-.text-center {
-    text-align: center;
-}
-
-.form-label {
-    font-weight: bold;
-    color: #495057;
-}
-
-.form-control {
-    border-radius: 5px;
-    border: 1px solid #ced4da;
-    padding: 10px;
-    font-size: 1em;
-    width: 100%;
-    margin-bottom: 15px;
-}
-
-.form-control:focus {
-    border-color: #007bff;
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
-}
-
-.form-header {
-    font-size: 1.5em;
-    color: #007bff;
-    margin-bottom: 20px;
-    text-align: center;
-    background-color: #f8f9fa;
-    padding: 10px;
-    border-radius: 8px;
-}
-</style>
+<link rel="stylesheet" href="<?= base_url('assets/css/detail.css') ?>">
 
 <!-- Home Content -->
 <div id="home">
@@ -152,20 +14,10 @@ p {
         <h2 class="mb-4">Detail <?= esc($kendaraan['jenis_kendaraan']) ?></h2>
 
         <div class="row">
-            <!-- Column 1: Vehicle Image -->
+            <!-- Column 1: data kendaraan -->
             <div class="col">
                 <img src="<?= base_url('uploads/' . esc($kendaraan['gambar_kendaraan'], 'url')) ?>" alt="Detail Mobil"
                     class="img-fluid"><br>
-                <h3>Deskripsi</h3>
-                <div>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident, perspiciatis dicta!
-                        Dicta soluta praesentium, voluptatum dignissimos sequi dolorum natus iure quo eum unde
-                        impedit. Tenetur neque cum eos explicabo architecto?</p>
-                </div>
-            </div>
-
-            <!-- Column 2: Vehicle Specifications -->
-            <div class="col">
                 <h4 class="form-header">Spesifikasi</h4>
                 <table class="table">
                     <tbody>
@@ -181,18 +33,61 @@ p {
                             <td><strong>Bahan Bakar</strong></td>
                             <td>Pertalite</td>
                         </tr>
-                        <tr>
-                            <td><strong>Transmisi</strong></td>
-                            <td><?= esc($kendaraan['transmisi']) ?></td>
-                        </tr>
-                        <tr>
-                            <td><strong>Kapasitas Penumpang</strong></td>
-                            <td><?= esc($kendaraan['kapasitas']) ?> Orang</td>
-                        </tr>
 
                     </tbody>
                 </table>
+
             </div>
+
+
+            <!-- Column 2: Input Pelanggan -->
+            <div class="col">
+                <h4 class="form-header">Input Pelanggan</h4>
+                <?php if (session()->getFlashdata('success')): ?>
+                <div class="alert alert-success">
+                    <?= session()->getFlashdata('success') ?>
+                </div>
+                <?php endif; ?>
+
+                <form action="/customer/store" method="post">
+                    <?= csrf_field() ?>
+                    <div class="form-group">
+                        <label for="nama_pelanggan">Nama Pelanggan</label>
+                        <input type="text" class="form-control" id="nama_pelanggan" name="nama_pelanggan"
+                            value="<?= old('nama_pelanggan') ?>" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="no_telp_pelanggan">No Telepon</label>
+                        <input type="text" class="form-control" id="no_telp_pelanggan" name="no_telp_pelanggan"
+                            value="<?= old('no_telp_pelanggan') ?>" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email_pelanggan">Email</label>
+                        <input type="email" class="form-control" id="email_pelanggan" name="email_pelanggan"
+                            value="<?= old('email_pelanggan') ?>" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="alamat_pelanggan">Alamat</label>
+                        <textarea class="form-control" id="alamat_pelanggan" name="alamat_pelanggan"
+                            required><?= old('alamat_pelanggan') ?></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="jenis_kelamin_pelanggan">Jenis Kelamin</label>
+                        <select class="form-control" id="jenis_kelamin_pelanggan" name="jenis_kelamin_pelanggan"
+                            required>
+                            <option value="">-- Pilih --</option>
+                            <option value="Laki-laki"
+                                <?= old('jenis_kelamin_pelanggan') === 'Laki-laki' ? 'selected' : '' ?>>Laki-laki
+                            </option>
+                            <option value="Perempuan"
+                                <?= old('jenis_kelamin_pelanggan') === 'Perempuan' ? 'selected' : '' ?>>Perempuan
+                            </option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Simpan</button>
+                </form>
+            </div>
+
 
             <!-- Column 3: Booking Information -->
             <div class="col">
@@ -216,12 +111,12 @@ p {
                         <label for="total_harga" class="form-label"><strong>Total Harga:</strong></label>
                         <input type="text" id="total_harga" name="total_harga" class="form-control"
                             value="<?= 'Rp ' . number_format($kendaraan['harga_sewa_kendaraan'], 0, ',', '.') ?>"
-                            readonly>
+                            disabled>
                     </div>
 
                     <div class="mb-3">
                         <label for="lama_pemesanan" class="form-label"><strong>Lama Pemesanan (Hari):</strong></label>
-                        <input type="number" id="lama_pemesanan" name="lama_pemesanan" class="form-control" readonly>
+                        <input type="number" id="lama_pemesanan" name="lama_pemesanan" class="form-control" disabled>
                     </div>
 
                     <button type="submit" class="btn btn-primary">Simpan</button>
@@ -268,12 +163,6 @@ p {
                 <p class="mt-3 text-center">atau hubungi</p>
                 <p class="text-center text-muted">0822-2123-2123</p>
             </div>
-            <?php if (session()->getFlashdata('success')): ?>
-            <div class="alert alert-success">
-                <?= session()->getFlashdata('success'); ?>
-            </div>
-            <?php endif; ?>
-
         </div>
     </div>
 </div>
