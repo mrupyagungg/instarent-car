@@ -41,10 +41,6 @@
                                 <input type="number" class="form-control" name="lama_pemesanan" value="<?=$pemesanan['lama_pemesanan']?>" autocomplete="off">
                             </div>
                             <div class="col-md-12 mb-3">
-                                <label class="form-label">Plat Nomor</label>
-                                <input type="text" class="form-control" name="plat_nomor" placeholder="Plat Nomor" value="<?=$pemesanan['plat_nomor']?>" autocomplete="off">
-                            </div>
-                            <div class="col-md-12 mb-3">
                                 <label class="form-label">Jaminan Identitas</label>
                                 <input type="file" class="form-control" name="jaminan_identitas" autocomplete="off">
                                 <img src="/uploads/images/<?=$pemesanan['jaminan_identitas']?>" alt="" width="400px" class="mt-2">

@@ -50,13 +50,7 @@
                                         <span class="badge bg-danger"> <?=$validation->getError('lama_pemesanan')?></span>
                                 <?php endif;?>
                             </div>
-                            <div class="col-md-12 mb-3">
-                                <label class="form-label">Plat Nomor</label>
-                                <input type="text" class="form-control" name="plat_nomor" placeholder="Plat Nomor" autocomplete="off">
-                                <?php if (isset($validation)): ?>
-                                        <span class="badge bg-danger"> <?=$validation->getError('plat_nomor')?></span>
-                                <?php endif;?>
-                            </div>
+                           
                             <div class="col-md-12 mb-3">
                                 <label class="form-label">Jaminan Identitas</label>
                                 <input type="file" class="form-control" name="jaminan_identitas" autocomplete="off">

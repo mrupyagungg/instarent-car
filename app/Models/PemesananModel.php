@@ -41,13 +41,13 @@ class PemesananModel extends Model
                     'required' => '{field} mohon diisi',
                 ],
             ],
-            'plat_nomor' => [
-                'label' => 'Plat Nomor',
-                'rules' => 'required',
-                'errors' => [
-                    'required' => '{field} mohon diisi',
-                ],
-            ],
+            // 'plat_nomor' => [
+            //     'label' => 'Plat Nomor',
+            //     'rules' => 'required',
+            //     'errors' => [
+            //         'required' => '{field} mohon diisi',
+            //     ],
+            // ],
             'jaminan_identitas' => [
                 'label' => 'Jaminan Identitas',
                 'rules' => [

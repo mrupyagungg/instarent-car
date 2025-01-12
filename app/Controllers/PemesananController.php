@@ -160,7 +160,7 @@ class PemesananController extends BaseController
         $content .= "Lama Pemesanan: {$pemesanan['lama_pemesanan']}\n";
         $content .= "Tanggal Pemesanan: {$pemesanan['tanggal_pemesanan']}\n";
         $content .= "Total Harga: {$pemesanan['total_harga']}\n";
-        $content .= "Plat Nomor: {$pemesanan['plat_nomor']}\n";
+        // $content .= "Plat Nomor: {$pemesanan['plat_nomor']}\n";
 
         $fileName = 'nota_pemesanan_' . $pemesanan['kode_pemesanan'] . '.txt';
 

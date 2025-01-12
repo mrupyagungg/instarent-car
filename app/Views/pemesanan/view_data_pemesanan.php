@@ -61,7 +61,6 @@
                                             <td><?= esc($data['lama_pemesanan']) ?> Hari</td>
                                             <td><?= date('d F Y', strtotime($data['tanggal_pemesanan'] . ' +' . $data['lama_pemesanan'] . ' days')) ?></td>
                                             <td><?= nominal($data['total_harga']) ?></td>
-                                            <td><?= esc($data['plat_nomor']) ?></td>
                                             <td>
                                                 <img src="/uploads/images/<?= esc($data['jaminan_identitas']) ?>" alt="<?= esc($data['kode_pemesanan']) ?>" width="150px">
                                             </td>

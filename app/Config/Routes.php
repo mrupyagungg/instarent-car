@@ -120,6 +120,8 @@ $routes->group('laba-rugi', ['filter' => 'auth'], function($routes) {
 // Rent
 $routes->get('detail/(:num)', 'Customer::show/$1');
 
+
+
 // Additional routes for environment-specific configs
 if (is_file(APPPATH . 'Config/' . ENVIRONMENT . '/Routes.php')) {
     require APPPATH . 'Config/' . ENVIRONMENT . '/Routes.php';

@@ -30,9 +30,9 @@
         <div class="row">
             <!-- Column 1: Data Kendaraan -->
             <div class="col">
+                <h4 class="form-header">Spesifikasi</h4>
                 <img src="<?= base_url('uploads/' . esc($kendaraan['gambar_kendaraan'], 'url')) ?>" alt="Detail Mobil"
                     class="img-fluid detail-img"><br>
-                <h4 class="form-header">Spesifikasi</h4>
                 <table class="table">
                     <tbody>
                         <tr>
@@ -108,20 +108,11 @@
                     Lanjut
                 </a>
             </div>
+
+            <!-- col3 -- -->
             <div class="col">
-            <h4 class="form-header">Input Pelanggan</h4>
-                <?php if (session()->getFlashdata('success')): ?>
-                <div class="custom-alert fade-in" id="success-alert">
-                    <strong>Success!</strong> <?= session()->getFlashdata('success') ?>
-                </div>
-                <?php endif; ?>
-                <?php if (session()->getFlashdata('error')): ?>
-                <div class="alert-danger alert-danger fade-in" id="error-alert">
-                    <strong>Error!</strong> <?= session()->getFlashdata('error') ?>
-                </div>
-                <?php endif; ?>
-
-
+            <h4 class="form-header">Feedback</h4>
+                
             </div>
         </div>
     </div>

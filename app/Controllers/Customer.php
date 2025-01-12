@@ -12,7 +12,7 @@ class Customer extends BaseController
     public function guest()
     {
         $data = [
-            'title' => 'Dashboard Customer',
+            'title' => '𝙄𝙉𝙎𝙏𝘼𝙍𝙀𝙉𝙏 (𝙈𝙤𝙗𝙞𝙡 & 𝙈𝙤𝙩𝙤𝙧)',
         ];
 
         // Memuat helper URL
@@ -34,7 +34,7 @@ class Customer extends BaseController
     public function index()
     {
         $data = [
-            'title' => 'Dashboard Customer',
+            'title' => '𝙄𝙉𝙎𝙏𝘼𝙍𝙀𝙉𝙏 (𝙈𝙤𝙗𝙞𝙡 & 𝙈𝙤𝙩𝙤𝙧)',
         ];
 
         // Memuat helper URL
@@ -191,6 +191,10 @@ public function getLastPelanggan()
     
     public function show($id)
     {
+        $data = [
+            'title' => '𝙄𝙉𝙎𝙏𝘼𝙍𝙀𝙉𝙏 (𝙈𝙤𝙗𝙞𝙡 & 𝙈𝙤𝙩𝙤𝙧)',
+        ];
+
         $model = new KendaraanModel();
         $kendaraan = $model->find($id);
     
@@ -198,7 +202,7 @@ public function getLastPelanggan()
             throw new \CodeIgniter\Exceptions\PageNotFoundException('Kendaraan tidak ditemukan');
         }
     
-        return view('customer/detail', ['kendaraan' => $kendaraan]);
+        return view('customer/detail', ['kendaraan' => $kendaraan], $data);
     }
     
     public function add_data_pelanggan($id_kendaraan)
@@ -233,6 +237,9 @@ public function getLastPelanggan()
 
     public function detail($id)
     {
+        $data = [
+            'title' => '𝙄𝙉𝙎𝙏𝘼𝙍𝙀𝙉𝙏 (𝙈𝙤𝙗𝙞𝙡 & 𝙈𝙤𝙩𝙤𝙧)',
+        ];
         $model = new KendaraanModel();
         $data['kendaraan'] = $model->find($id);
 
