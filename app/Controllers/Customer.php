@@ -61,67 +61,69 @@ class Customer extends BaseController
     }
 
     public function store()
-    {
-        // Data validation
-        $validationRules = [
-            'nama_pelanggan' => 'required|min_length[3]',
-            'email_pelanggan' => 'required|valid_email',
-            'no_telp_pelanggan' => 'required|min_length[10]',
-            'alamat_pelanggan' => 'required',
-            'jenis_kelamin_pelanggan' => 'required|in_list[Laki-laki,Perempuan]',
-        ];
-    
-        // Validasi input
-        if (!$this->validate($validationRules)) {
-            return redirect()->back()->withInput()->with('validation', $this->validator);
-        }
-    
-        // Ambil data inputan
-        $nama = $this->request->getPost('nama_pelanggan');
-        $email = $this->request->getPost('email_pelanggan');
-    
-        // Cek apakah nama atau email sudah ada di database
-        $existingCustomer = $this->pelangganModel->where('nama_pelanggan', $nama)
-            ->orWhere('email_pelanggan', $email)
-            ->first();
-    
-        if ($existingCustomer) {
-            // Jika nama atau email sudah ada, tampilkan pesan error
-            return redirect()->back()->with('error', 'Nama atau email sudah terdaftar.')->withInput();
-        }
-    
-        // Siapkan data pelanggan
-        $data = [
-            'nama_pelanggan' => $nama,
-            'email_pelanggan' => $email,
-            'no_telp_pelanggan' => $this->request->getPost('no_telp_pelanggan'),
-            'alamat_pelanggan' => $this->request->getPost('alamat_pelanggan'),
-            'jenis_kelamin_pelanggan' => $this->request->getPost('jenis_kelamin_pelanggan'),
-            'kode_pelanggan' => $this->generateKodePelanggan(), // Membuat kode pelanggan
-        ];
-    
-        // Mulai transaksi database
-        $db = \Config\Database::connect();
-        $db->transStart();
-    
-        // Insert data pelanggan
-        if (!$this->pelangganModel->insert($data)) {
-            $db->transRollback();
-            return redirect()->back()->with('error', 'Terjadi kesalahan saat menyimpan data.');
-        }
-    
-        // Commit transaksi jika berhasil
-        $db->transComplete();
-    
-        // Periksa status transaksi
-        if ($db->transStatus() === false) {
-            return redirect()->back()->with('error', 'Gagal menyimpan data pelanggan.');
-        }
-    
-        // Sukses menyimpan data
-        return redirect()->back()->with('success', 'Data anda berhasil disimpan.');
+{
+    // Data validation
+    $validationRules = [
+        'nama_pelanggan' => 'required|min_length[3]',
+        'email_pelanggan' => 'required|valid_email',
+        'no_telp_pelanggan' => 'required|min_length[10]',
+        'alamat_pelanggan' => 'required',
+        'jenis_kelamin_pelanggan' => 'required|in_list[Laki-laki,Perempuan]',
+    ];
+
+    // Validasi input
+    if (!$this->validate($validationRules)) {
+        return redirect()->back()->withInput()->with('validation', $this->validator);
+    }
+
+    // Ambil data inputan
+    $nama = $this->request->getPost('nama_pelanggan');
+    $email = $this->request->getPost('email_pelanggan');
+
+    // Cek apakah nama atau email sudah ada di database
+    $existingCustomer = $this->pelangganModel->where('nama_pelanggan', $nama)
+        ->orWhere('email_pelanggan', $email)
+        ->first();
+
+    if ($existingCustomer) {
+        // Jika nama atau email sudah ada, tampilkan pesan error
+        return redirect()->back()->withInput()->with('error', 'Nama atau email sudah terdaftar.');
+    }
+
+    // Siapkan data pelanggan
+    $data = [
+        'nama_pelanggan' => $nama,
+        'email_pelanggan' => $email,
+        'no_telp_pelanggan' => $this->request->getPost('no_telp_pelanggan'),
+        'alamat_pelanggan' => $this->request->getPost('alamat_pelanggan'),
+        'jenis_kelamin_pelanggan' => $this->request->getPost('jenis_kelamin_pelanggan'),
+        'kode_pelanggan' => $this->generateKodePelanggan(), // Membuat kode pelanggan
+    ];
+
+    // Mulai transaksi database
+    $db = \Config\Database::connect();
+    $db->transStart();
+
+    // Insert data pelanggan
+    if (!$this->pelangganModel->insert($data)) {
+        $db->transRollback();
+        return redirect()->back()->withInput()->with('error', 'Terjadi kesalahan saat menyimpan data.');
     }
     
+    // Commit transaksi jika berhasil
+    $db->transComplete();
+
+    // Periksa status transaksi
+    if ($db->transStatus() === false) {
+        return redirect()->back()->withInput()->with('error', 'Gagal menyimpan data pelanggan.');
+    }
+
+    // Sukses menyimpan data
+    return redirect()->back()->with('success', 'Data berhasil disimpan!');
+    
+    session()->setFlashdata('success', 'Data pelanggan berhasil disimpan.');
+    return redirect()->to('/detail/1');
+}
     
 
     private function generateKodePelanggan()
@@ -249,4 +251,5 @@ public function getLastPelanggan()
 
         return view('customer/detail', $data);
     }
+    
 }

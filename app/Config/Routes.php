@@ -120,6 +120,9 @@ $routes->group('laba-rugi', ['filter' => 'auth'], function($routes) {
 // Rent
 $routes->get('detail/(:num)', 'Customer::show/$1');
 
+$routes->post('pemesanan/store', 'PemesananController::store', ['as' => 'pemesanan_store']);
+$routes->post('pemesanan/store', 'PemesananController::store');
+
 
 
 // Additional routes for environment-specific configs

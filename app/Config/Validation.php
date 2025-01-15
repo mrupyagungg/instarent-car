@@ -38,7 +38,15 @@ class Validation extends BaseConfig
         'single' => 'CodeIgniter\Validation\Views\single',
     ];
 
+    
+
     // --------------------------------------------------------------------
     // Rules
     // --------------------------------------------------------------------
+
+    public $tanggalAfter = [
+        'tanggal_awal' => 'required|valid_date[Y-m-d]',
+        'tanggal_akhir' => 'required|valid_date[Y-m-d]|callback_date_after[tanggal_awal]',
+    ];
+
 }

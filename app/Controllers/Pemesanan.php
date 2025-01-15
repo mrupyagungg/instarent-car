@@ -4,7 +4,7 @@ namespace App\Controllers;
 use \App\Models\KendaraanModel;
 use \App\Models\Laporan\JurnalModel;
 use \App\Models\PelangganModel;
-use \App\Models\pemesanans;
+use \App\Models\PemesananModel;
 
 class Pemesanan extends BaseController
 {
@@ -18,7 +18,7 @@ class Pemesanan extends BaseController
     {
         // Load validation service and models
         $this->validation = \Config\Services::validation();
-        $this->pemesanans = new pemesanans();
+        $this->pemesanans = new PemesananModel();
         $this->kendaraanModel = new KendaraanModel();
         $this->jurnalModel = new JurnalModel();
         $this->pelangganModel = new PelangganModel();
@@ -30,7 +30,7 @@ class Pemesanan extends BaseController
             'title' => 'Transaksi Penerimaan',
             'pemesanan' => $this->pemesanans->getAll(),
         ];
-        return view('pelanggan/add_data_pelanggan', $data);
+        return view('pemesanan/view_data_pemesanan', $data);
     }
 
     public function create()

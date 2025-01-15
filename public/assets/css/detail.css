@@ -147,7 +147,7 @@ p {
     background-color: #f5f5f5;
     padding: 10px 10px; /* Padding atas bawah dan kiri kanan */
     margin: 10px auto;  /* Margin auto untuk jarak kiri kanan */
-    width: 90%; /* Menyesuaikan lebar breadcrumb agar tidak melewati halaman */
+    width: 80%; /* Menyesuaikan lebar breadcrumb agar tidak melewati halaman */
 }
 
 /* Individual breadcrumb items */
@@ -321,4 +321,63 @@ p {
     to {
         opacity: 1;
     }
+}
+/* Header feedback */
+.col .form-header {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Container feedback */
+.col .feedback-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    overflow: hidden; /* Menyembunyikan elemen di luar tampilan */
+    height: 460px; /* Sesuaikan tinggi dengan kebutuhan */
+    position: relative;
+}
+
+/* Grup feedback */
+.col .feedback-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    opacity: 0;
+    transform: translateY(100%);
+    transition: all 0.8s ease-in-out;
+}
+
+.col .feedback-group.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Item feedback */
+.col .feedback-item {
+    background-color: #fff;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.col .feedback-item p {
+    margin: 0;
+    color: #555;
+    font-size: 14px;
+}
+
+.col .feedback-item p strong {
+    color: #222;
+}
+
+#btnSimpan:hover {
+    background-color: #28a745; /* Warna hijau lebih cerah */
+    transform: scale(1.02); /* Sedikit pembesaran */
+    transition: all 0.3s ease-in-out;
 }

@@ -3,16 +3,19 @@
 namespace App\Controllers;
 
 use \App\Models\PelangganModel;
+use \App\Models\KendaraanModel;
 
 class Pelanggan extends BaseController
 {
     protected $validation;
     protected $pelangganModel;
+    protected $KendaraanModel;
 
     public function __construct()
     {
         $this->validation = \Config\Services::validation();
         $this->pelangganModel = new PelangganModel();
+        $this->kendaraanModel = new KendaraanModel(); 
     }
 
     public function index()
@@ -20,6 +23,7 @@ class Pelanggan extends BaseController
         $data = [
             'title' => 'Data Pelanggan',
             'pelanggan' => $this->pelangganModel->findAll(),
+            'kendaraan' => $this->KendaraanModel->findAll(),
         ];
         return view('pelanggan/view_data_pelanggan', $data);
     }
