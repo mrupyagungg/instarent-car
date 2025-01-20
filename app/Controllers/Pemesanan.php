@@ -35,37 +35,47 @@ class Pemesanan extends BaseController
 
     public function create()
     {
+        // Get the kendaraan data (ensure you have a valid ID)
+        $id_kendaraan = $this->request->getPost('kendaraan_id'); // Assume this is coming from form input
+        $kendaraan = $this->kendaraanModel->find($id_kendaraan);
+    
+        // Check if the kendaraan data exists
+        if (!$kendaraan) {
+            // Handle case when data is not found
+            session()->setFlashdata('error', 'Data kendaraan tidak ditemukan.');
+            return redirect()->back(); // Redirect back or show an error page
+        }
+    
         $kode_pemesanan = $this->pemesanans->getKodePemesanan();
         $data = [
             'title' => 'Tambah Data Pemesanan',
             'kode_pemesanan' => $kode_pemesanan,
             'pelanggan' => $this->pelangganModel->findAll(),
-            'kendaraan' => $this->kendaraanModel->findAll(),
+            'kendaraan' => $kendaraan, // Pass the correct 'kendaraan' data to the view
         ];
-
-        // Validation rules
+    
+        // Proceed with the validation and other logic
         $this->validation->setRules($this->pemesanans->rules());
         $isDataValid = $this->validation->withRequest($this->request)->run();
-
+    
         if ($isDataValid) {
             // Calculate total price and handle file upload
-            $harga_sewa = $this->kendaraanModel->where('id_kendaraan', $this->request->getPost('kendaraan_id'))->get()->getFirstRow()->harga_sewa_kendaraan;
+            $harga_sewa = $kendaraan['harga_sewa_kendaraan']; // Access the 'harga_sewa_kendaraan' directly
             $total_harga = $this->request->getPost('lama_pemesanan') * $harga_sewa;
             $jaminan_identitas = $this->request->getFile('jaminan_identitas');
-
+    
             // Prepare data for insertion
-            $pemesanan = array(
+            $pemesanan = [
                 'kode_pemesanan' => $data['kode_pemesanan'],
                 'lama_pemesanan' => $this->request->getPost('lama_pemesanan'),
                 'tanggal_pemesanan' => $this->request->getPost('tanggal_pemesanan'),
                 'total_harga' => $total_harga,
-
                 'pelanggan_id' => $this->request->getPost('pelanggan_id'),
                 'kendaraan_id' => $this->request->getPost('kendaraan_id'),
-            );
-
+            ];
+    
             $this->pemesanans->createPemesanan($pemesanan);
-
+    
             // Create journal entries
             $jurnal = [
                 [
@@ -85,16 +95,17 @@ class Pemesanan extends BaseController
                     'transaksi' => 'Pendapatan Sewa',
                 ],
             ];
-
+    
             $this->jurnalModel->createOrderJurnal($jurnal);
-
+    
             session()->setFlashdata('success', 'Data Pemesanan berhasil disimpan');
             return redirect()->to(base_url('pemesanan'));
         } else {
             $data['validation'] = $this->validation;
-            return view('pelanggan/add_data_pelanggan', $data);
+            return view('pemesanan/add_data_pemesanan', $data);
         }
     }
+    
 
     public function downloadNota($id)
     {

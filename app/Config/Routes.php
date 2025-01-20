@@ -90,8 +90,9 @@ $routes->group('pemesanan', ['filter' => 'auth'], function($routes) {
     $routes->get('nota/(:num)', 'Pemesanan::nota/$1');
 });
 
-$routes->get('pemesanan/index', 'PemesananController::index');
-$routes->get('pemesanan/index(:num)', 'PemesananController::index/$1');
+$routes->get('pemesanan/index', 'Pemesanan::index');
+$routes->get('pemesanan/index(:num)', 'Pemesanan::index/$1');
+$routes->get('pemesanan/add_data_pemesanan', 'Pemesanan::create');
 
 // Pengeluaran
 $routes->group('pengeluaran', ['filter' => 'auth'], function($routes) {

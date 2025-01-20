@@ -20,7 +20,7 @@
             <span>Registrasi</span>
         </div>
         <div class="breadcrumb-item">
-            <a href="<?= base_url('pemesanan/index') ?>">Pesan</a>
+            <a href="<?= base_url('pemesanan/add_data_pemesanan') ?>">Pesan</a>
         </div>
         <div class="breadcrumb-item">
             <a href="<?= base_url('bayar') ?>">Bayar</a>
