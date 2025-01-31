@@ -35,48 +35,57 @@ class Pemesanan extends BaseController
 
     public function create()
     {
-        // Get the kendaraan data (ensure you have a valid ID)
-        $id_kendaraan = $this->request->getPost('kendaraan_id'); // Assume this is coming from form input
+        // Ambil data kendaraan berdasarkan ID yang dipilih dari form
+        $id_kendaraan = $this->request->getPost('kendaraan_id');
         $kendaraan = $this->kendaraanModel->find($id_kendaraan);
-    
-        // Check if the kendaraan data exists
+
+        // Validasi jika kendaraan tidak ditemukan
         if (!$kendaraan) {
-            // Handle case when data is not found
             session()->setFlashdata('error', 'Data kendaraan tidak ditemukan.');
-            return redirect()->back(); // Redirect back or show an error page
+            return redirect()->back();
         }
-    
+
+        // Ambil kode pemesanan baru
         $kode_pemesanan = $this->pemesanans->getKodePemesanan();
+
+        // Kirim data ke view
         $data = [
             'title' => 'Tambah Data Pemesanan',
             'kode_pemesanan' => $kode_pemesanan,
             'pelanggan' => $this->pelangganModel->findAll(),
-            'kendaraan' => $kendaraan, // Pass the correct 'kendaraan' data to the view
+            'kendaraan' => $kendaraan,
         ];
-    
-        // Proceed with the validation and other logic
+
+        // Validasi data pemesanan
         $this->validation->setRules($this->pemesanans->rules());
         $isDataValid = $this->validation->withRequest($this->request)->run();
-    
+
         if ($isDataValid) {
-            // Calculate total price and handle file upload
-            $harga_sewa = $kendaraan['harga_sewa_kendaraan']; // Access the 'harga_sewa_kendaraan' directly
-            $total_harga = $this->request->getPost('lama_pemesanan') * $harga_sewa;
+            // Hitung total harga berdasarkan lama pemesanan
+            $harga_sewa = $kendaraan['harga_sewa_kendaraan'];
+            $lama_pemesanan = $this->request->getPost('lama_pemesanan');
+            $total_harga = $lama_pemesanan * $harga_sewa;
+
+            // Tangani file upload jaminan identitas
             $jaminan_identitas = $this->request->getFile('jaminan_identitas');
-    
-            // Prepare data for insertion
+            if ($jaminan_identitas && !$jaminan_identitas->hasMoved()) {
+                $jaminan_identitas->move(WRITEPATH . 'uploads');
+            }
+
+            // Simpan data pemesanan
             $pemesanan = [
-                'kode_pemesanan' => $data['kode_pemesanan'],
-                'lama_pemesanan' => $this->request->getPost('lama_pemesanan'),
+                'kode_pemesanan' => $kode_pemesanan,
+                'lama_pemesanan' => $lama_pemesanan,
                 'tanggal_pemesanan' => $this->request->getPost('tanggal_pemesanan'),
                 'total_harga' => $total_harga,
                 'pelanggan_id' => $this->request->getPost('pelanggan_id'),
-                'kendaraan_id' => $this->request->getPost('kendaraan_id'),
+                'kendaraan_id' => $id_kendaraan,
             ];
-    
-            $this->pemesanans->createPemesanan($pemesanan);
-    
-            // Create journal entries
+
+            // Insert pemesanan ke database
+            $this->pemesanans->insert($pemesanan);
+
+            // Insert data jurnal transaksi
             $jurnal = [
                 [
                     'tanggal' => date('Y-m-d'),
@@ -95,24 +104,34 @@ class Pemesanan extends BaseController
                     'transaksi' => 'Pendapatan Sewa',
                 ],
             ];
-    
-            $this->jurnalModel->createOrderJurnal($jurnal);
-    
+
+            // Insert batch jurnal ke database
+            $this->jurnalModel->insertBatch($jurnal);
+
+            // Beri notifikasi dan redirect
             session()->setFlashdata('success', 'Data Pemesanan berhasil disimpan');
             return redirect()->to(base_url('pemesanan'));
-        } else {
-            $data['validation'] = $this->validation;
-            return view('pemesanan/add_data_pemesanan', $data);
         }
+
+        // Jika validasi gagal, tampilkan form dengan error
+        $data['validation'] = $this->validation;
+        return view('pemesanan/add_data_pemesanan', $data);
     }
-    
 
     public function downloadNota($id)
     {
-        $pemesanan = $this->pemesanans->getById($id);
+        // Ambil data pemesanan berdasarkan ID
+        $pemesanan = $this->pemesanans->find($id);
+
+        if (!$pemesanan) {
+            throw new \CodeIgniter\Exceptions\PageNotFoundException('Data tidak ditemukan');
+        }
+
+        // Ambil data pelanggan dan kendaraan terkait
         $pelanggan = $this->pelangganModel->find($pemesanan['pelanggan_id']);
         $kendaraan = $this->kendaraanModel->find($pemesanan['kendaraan_id']);
 
+        // Format konten nota pemesanan
         $content = "Nota Pemesanan\n\n";
         $content .= "Kode Pemesanan: {$pemesanan['kode_pemesanan']}\n";
         $content .= "Nama Pelanggan: {$pelanggan['nama_pelanggan']}\n";
@@ -121,8 +140,10 @@ class Pemesanan extends BaseController
         $content .= "Lama Pemesanan: {$pemesanan['lama_pemesanan']} Hari\n";
         $content .= "Total Harga: {$pemesanan['total_harga']}\n";
 
+        // Nama file nota
         $fileName = 'nota_pemesanan_' . $pemesanan['kode_pemesanan'] . '.txt';
 
+        // Return file nota sebagai download
         return $this->response
             ->setHeader('Content-Type', 'text/plain')
             ->setHeader('Content-Disposition', 'attachment; filename="' . $fileName . '"')
@@ -131,11 +152,14 @@ class Pemesanan extends BaseController
 
     public function approve($id)
     {
-        $pemesanan = $this->pemesanans->getById($id);
+        // Ambil data pemesanan berdasarkan ID
+        $pemesanan = $this->pemesanans->find($id);
+
         if (!$pemesanan) {
-            throw new \CodeIgniter\Exceptions\PageNotFoundException('Data not found');
+            throw new \CodeIgniter\Exceptions\PageNotFoundException('Data tidak ditemukan');
         }
 
+        // Update status pemesanan menjadi approved
         $this->pemesanans->update($id, ['persetujuan' => 'approved']);
         session()->setFlashdata('success', 'Pemesanan telah disetujui');
         return redirect()->to(base_url('pemesanan'));
@@ -143,36 +167,16 @@ class Pemesanan extends BaseController
 
     public function disapprove($id)
     {
-        $pemesanan = $this->pemesanans->getById($id);
+        // Ambil data pemesanan berdasarkan ID
+        $pemesanan = $this->pemesanans->find($id);
+
         if (!$pemesanan) {
             throw new \CodeIgniter\Exceptions\PageNotFoundException('Data tidak ditemukan');
         }
 
+        // Update status pemesanan menjadi disapproved
         $this->pemesanans->update($id, ['persetujuan' => 'disapproved']);
         session()->setFlashdata('success', 'Pemesanan tidak disetujui');
         return redirect()->to(base_url('pemesanan'));
-    }
-
-    public function nota($id)
-    {
-        $pemesanan = $this->pemesanans->getById($id);
-
-        if (!$pemesanan) {
-            throw new \CodeIgniter\Exceptions\PageNotFoundException('Data not found');
-        }
-
-        $content = "< NOTA >\n";
-        $content .= "Kode Pemesanan: {$pemesanan['kode_pemesanan']}\n";
-        $content .= "Lama Pemesanan: {$pemesanan['lama_pemesanan']}\n";
-        $content .= "Tanggal Pemesanan: {$pemesanan['tanggal_pemesanan']}\n";
-        $content .= "Total Harga: {$pemesanan['total_harga']}\n";
-        // $content .= "Plat Nomor: {$pemesanan['plat_nomor']}\n";
-
-        $fileName = 'nota_pemesanan_' . $pemesanan['kode_pemesanan'] . '.txt';
-
-        return $this->response
-            ->setHeader('Content-Type', 'text/plain')
-            ->setHeader('Content-Disposition', 'attachment; filename="' . $fileName . '"')
-            ->setBody($content);
     }
 }

@@ -9,13 +9,13 @@ class Pelanggan extends BaseController
 {
     protected $validation;
     protected $pelangganModel;
-    protected $KendaraanModel;
+    protected $kendaraan;
 
     public function __construct()
     {
         $this->validation = \Config\Services::validation();
         $this->pelangganModel = new PelangganModel();
-        $this->kendaraanModel = new KendaraanModel(); 
+        $this->kendaraan = new KendaraanModel(); 
     }
 
     public function index()
@@ -23,7 +23,7 @@ class Pelanggan extends BaseController
         $data = [
             'title' => 'Data Pelanggan',
             'pelanggan' => $this->pelangganModel->findAll(),
-            'kendaraan' => $this->KendaraanModel->findAll(),
+            'kendaraan' => $this->kendaraan->findAll(),
         ];
         return view('pelanggan/view_data_pelanggan', $data);
     }

@@ -1,105 +1,78 @@
-<!-- view.detail.php -->
-<?= $this->extend('template/layout') ?>
+<?=$this->extend('templates/head');?>
+<?=$this->section('content-admin');?>
 
-<!-- Content section -->
-<?= $this->section('content') ?>
-<!-- Material Icons CDN -->
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
-<!-- Home Content -->
-<div id="home">
-    <div class="container mt-5">
-        <!-- Vehicle Details -->
-        <h2 class="mb-4">Detail <?= esc($kendaraan['jenis_kendaraan']) ?></h2>
-        <div class="row">
-            <div class="col-md-6">
-                <img src="<?= base_url('uploads/' . esc($kendaraan['gambar_kendaraan'], 'url')) ?>" alt="Detail Mobil"
-                    class="img-fluid mb-3 rounded">
-            </div>
-            <div class="col-md-6">
-                <h3 class="mb-3"><?= esc(ucwords($kendaraan['merk_kendaraan'] . ' ' . $kendaraan['nama_kendaraan'])) ?>
-                </h3>
-                <ul class="list-unstyled">
-                    <li><strong>Tahun:</strong> <?= esc($kendaraan['tahun_kendaraan']) ?></li>
-                    <li><strong>Harga Sewa:</strong> Rp.
-                        <?= number_format(esc($kendaraan['harga_sewa_kendaraan']), 2) ?> /hari</li>
-                </ul>
-                <p class="text-muted">Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur,
-                    adipisci velit, sed quia non.</p>
-
-                <!-- Booking Form -->
-                <h4 class="form-header mt-4">Form Pemesanan</h4>
-                <form action="" method="POST" class="no-validated row g-3">
+<div class="page-content">
+    <div class="container-fluid">
 
 
-                    <!-- Nama Pelanggan -->
-                    <div class="col-md-12 mb-3">
-                        <label class="form-label">Nama Pelanggan</label>
-                        <input class="form-control" type="text" id="name" name="name"
-                            value="<?= esc(session()->get('username')) ?>" disabled>
-                        <?php if (isset($validation)): ?>
-                        <span class="badge bg-danger"> <?= $validation->getError('nama_pelanggan') ?></span>
-                        <?php endif; ?>
+        <div class="row pt-5 pb-2">
+            <div class="col-12">
+                <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                    <h4 class="mb-sm-0 font-size-18">Transaksi Pemesanan</h4>
+
+                    <div class="page-title-right">
+                        <ol class="breadcrumb m-0">
+                            <li class="breadcrumb-item"><a href="javascript:void(0);">Pemesanan</a></li>
+                            <li class="breadcrumb-item active">Transaksi Pemesanan</li>
+                        </ol>
                     </div>
-
-                    <div class="col-md-12 mb-3">
-                        <label class="form-label">Nama Pelanggan</label>
-                        <input class="form-control" type="email" id="email" name="email"
-                            value="<?= esc(session()->get('email')) ?>" disabled>
-                        <?php if (isset($validation)): ?>
-                        <span class="badge bg-danger"> <?= $validation->getError('nama_pelanggan') ?></span>
-                        <?php endif; ?>
-                    </div>
-
-                    <!-- Nomor Telepon Pelanggan -->
-                    <div class="col-md-12 mb-3">
-                        <label class="form-label">Nomor Telepon Pelanggan</label>
-                        <input type="number" class="form-control" name="no_telp_pelanggan" autocomplete="off"
-                            maxlength="13">
-                        <?php if (isset($validation)): ?>
-                        <span class="badge bg-danger"> <?= $validation->getError('no_telp_pelanggan') ?></span>
-                        <?php endif; ?>
-                    </div>
-
-                    <!-- Alamat Pelanggan -->
-                    <div class="col-md-12 mb-3">
-                        <label class="form-label">Alamat Pelanggan</label>
-                        <textarea type="text" class="form-control" name="alamat_pelanggan" rows="3"
-                            autocomplete="off"></textarea>
-                        <?php if (isset($validation)): ?>
-                        <span class="badge bg-danger"> <?= $validation->getError('alamat_pelanggan') ?></span>
-                        <?php endif; ?>
-                    </div>
-
-                    <!-- Jenis Kelamin Pelanggan -->
-                    <div class="col-md-12 mb-3">
-                        <label class="form-label">Jenis Kelamin Pelanggan</label>
-                        <div class="form-check">
-                            <input type="radio" class="form-check-input" name="jenis_kelamin_pelanggan" id="laki-laki"
-                                value="Laki-Laki" autocomplete="off">
-                            <label for="laki-laki" class="form-check-label">Laki-Laki</label>
-                        </div>
-                        <div class="form-check">
-                            <input type="radio" class="form-check-input" name="jenis_kelamin_pelanggan" id="perempuan"
-                                value="Perempuan" autocomplete="off">
-                            <label for="perempuan" class="form-check-label">Perempuan</label>
-                        </div>
-                        <?php if (isset($validation)): ?>
-                        <span class="badge bg-danger"> <?= $validation->getError('jenis_kelamin_pelanggan') ?></span>
-                        <?php endif; ?>
-                    </div>
-
-                    <hr>
-                    <!-- Buttons -->
-                    <div class="col-12 pt-2">
-                        <a href="<?= base_url('pelanggan') ?>" class="btn btn-warning">Batal</a>
-                        <button type="submit" class="btn btn-primary">Simpan</button>
-                    </div>
-                </form>
+                </div>
             </div>
         </div>
+
+
+        <div class="row clearfix">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="body">
+                        <div class="row">
+
+                        </div>
+
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Kode Pelanggan</th>
+                                        <th>Nama Pelanggan</th>
+                                        <th>No Telp</th>
+                                        <th>Email</th>
+                                        <th>Alamat</th>
+                                        <th>Jenis Kelamin</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php if (!empty($pelanggan) && is_array($pelanggan)): ?>
+                                    <?php $no = 1; ?>
+                                    <?php foreach ($pelanggan as $data): ?>
+                                    <tr>
+                                        <td><?= $no++ ?></td>
+                                        <td><?= esc($data['kode_pelanggan']) ?></td>
+                                        <td><?= esc($data['nama_pelanggan']) ?></td>
+                                        <td><?= esc($data['no_telp_pelanggan']) ?></td>
+                                        <td><?= esc($data['email_pelanggan']) ?></td>
+                                        <td><?= esc($data['alamat_pelanggan']) ?></td>
+                                        <td><?= esc($data['jenis_kelamin_pelanggan']) ?></td>
+
+                                    </tr>
+                                    <?php endforeach; ?>
+                                    <?php else: ?>
+                                    <tr>
+                                        <td colspan="12">No data available</td>
+                                    </tr>
+                                    <?php endif; ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>
 
-<!-- End content section -->
-<?= $this->endSection() ?>
+
+<?=$this->endSection('content-admin');?>

@@ -1,186 +1,141 @@
 <?= $this->extend('template/layout') ?>
 
-<!-- Content section -->
 <?= $this->section('content') ?>
 
-<!-- Link Bootstrap CSS -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-KyZXEJpP3p5q7jD5k2f2lCZ5TO9p4a9z2emMZ4vh6dZQp+djlG1+OG0gd3cnSxd3" crossorigin="anonymous">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
 
-<!-- Link CSS tambahan jika diperlukan -->
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
-<link rel="stylesheet" href="<?= base_url('assets/css/detail.css') ?>">
-<link rel="stylesheet" href="<?= base_url('assets/css/main.css') ?>">
-<link rel="stylesheet" href="<?= base_url('assets/css/animate.css') ?>">
-<link rel="stylesheet" href="<?= base_url('assets/css/bootstrap.css') ?>">
-
-<!-- Bootstrap JS Bundle (termasuk Popper.js) -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-pzjw8f+ua7Kw1TIq0v8Fqz1ccnxLx6i6L+UHpCqaYwFv9l5O8jPiVAPf8ow9tD3F" crossorigin="anonymous">
-</script>
 <style>
+.breadcrumb {
+    background-color: #f8f9fa;
+    padding: 10px 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.breadcrumb-item.active {
+    font-weight: bold;
+    color: #007bff;
+}
+
+.form-header {
+    font-size: 24px;
+    font-weight: bold;
+    color: #343a40;
+    margin-bottom: 20px;
+}
+
+.card {
+    border: 1px solid #e3e6f0;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+.card:hover,
+.card.selected {
+    transform: scale(1.02);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+    border: 2px solid #007bff;
+}
+
 .breadcrumb-item+.breadcrumb-item::before {
     content: none;
 }
 </style>
-<div class="home" id="home">
 
-    <!-- Start page title -->
-    <div class="breadcrumb">
-        <div class="breadcrumb-item">
-            <span>Registrasi</span>
-        </div>
-        <div class="breadcrumb-item active">
-            <a href="<?= base_url('pemesanan/add_data_pemesanan') ?>"></a>
-            <span>Pesan</span>
-        </div>
-        <div class="breadcrumb-item">
-            <a href="<?= base_url('bayar') ?>">Bayar</a>
-        </div>
+<div class="container mt-4">
+    <!-- Flash Message -->
+    <?php if (session()->getFlashdata('success')): ?>
+    <div class="alert alert-success" id="success-alert">
+        <strong>Success!</strong> <?= session()->getFlashdata('success') ?>
     </div>
-    <!-- End page title -->
+    <?php endif; ?>
+    <?php if (session()->getFlashdata('error')): ?>
+    <div class="alert alert-danger" id="error-alert">
+        <strong>Error!</strong> <?= session()->getFlashdata('error') ?>
+    </div>
+    <?php endif; ?>
+
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item" aria-current="page">Registrasi</li>
+            <li class="breadcrumb-item active" aria-current="page">Pesan</li>
+            <li class="breadcrumb-item"><a href="<?= base_url('bayar') ?>">Bayar</a></li>
+        </ol>
+    </nav>
 
     <div class="container">
         <div class="row">
-            <div class="col">
-                <h4 class="form-header">Data Anda</h4>
+            <div class="col-lg-12">
+                <h4 class="form-header">Book Now</h4>
+                <form action="<?= base_url('pemesanan/create') ?>" method="POST" enctype="multipart/form-data">
+                    <div class="row">
+                        <!-- Kolom Kiri -->
+                        <div class="col-lg-6">
+                            <div class="mb-3">
+                                <label class="form-label">Kode Pemesanan</label>
+                                <input type="text" class="form-control" value="<?= $kode_pemesanan ?>" disabled>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Tanggal Awal</label>
+                                <input type="date" class="form-control" name="tanggal_awal" id="tanggal_awal" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Tanggal Akhir</label>
+                                <input type="date" class="form-control" name="tanggal_akhir" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Lama Pemesanan (hari)</label>
+                                <input type="number" class="form-control" name="lama_pemesanan" id="lama_pemesanan"
+                                    required readonly>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Jaminan Identitas</label>
+                                <input type="file" class="form-control" name="jaminan_identitas" required>
+                            </div>
+                        </div>
 
-                <!-- Form Input Pelanggan -->
-                <form action="/customer/store" method="post" id="pelangganForm">
-                    <?= csrf_field() ?>
-                    <div class="form-group">
-                        <label for="nama_pelanggan">Nama Pelanggan</label>
-                        <input type="text" class="form-control" id="nama_pelanggan" name="nama_pelanggan"
-                            value="<?= old('nama_pelanggan', session()->get('username')) ?>" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="email_pelanggan">Email</label>
-                        <input type="email" class="form-control" id="email_pelanggan" name="email_pelanggan"
-                            value="<?= old('email_pelanggan', session()->get('email')) ?>" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="no_telp_pelanggan">No Telepon</label>
-                        <input type="number" class="form-control" id="no_telp_pelanggan" name="no_telp_pelanggan"
-                            value="<?= old('no_telp_pelanggan') ?>" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="alamat_pelanggan">Alamat</label>
-                        <textarea class="form-control" id="alamat_pelanggan" name="alamat_pelanggan"
-                            required><?= old('alamat_pelanggan') ?></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="jenis_kelamin_pelanggan">Jenis Kelamin</label>
-                        <select class="form-control" id="jenis_kelamin_pelanggan" name="jenis_kelamin_pelanggan"
-                            required>
-                            <option value="">-- Pilih --</option>
-                            <option value="Laki-laki"
-                                <?= old('jenis_kelamin_pelanggan') === 'Laki-laki' ? 'selected' : '' ?>>
-                                Laki-laki
-                            </option>
-                            <option value="Perempuan"
-                                <?= old('jenis_kelamin_pelanggan') === 'Perempuan' ? 'selected' : '' ?>>
-                                Perempuan
-                            </option>
-                        </select>
-                    </div>
+                        <!-- Kolom Kanan -->
+                        <div class="col-lg-6">
+                            <div class="mb-3">
+                                <label for="nama_pelanggan" class="form-label">Nama Pelanggan</label>
+                                <input type="text" class="form-control" id="nama_pelanggan" name="nama_pelanggan"
+                                    value="<?= old('nama_pelanggan', session()->get('username')) ?>" required disabled>
+                            </div>
 
-                    <!-- Tombol Simpan -->
-                    <?php if (!session()->getFlashdata('success')): ?>
-                    <button type="submit"
-                        class="btn btn-success btn-block rounded-pill shadow-sm d-flex align-items-center justify-content-center"
-                        id="btnSimpan">
-                        <span>Simpan Data</span>
-                    </button>
-                    <?php endif; ?>
+                            <div class="mb-3">
+                                <label class="form-label">Pilih Kendaraan</label>
+                                <div class="row">
+                                    <?php foreach ($kendaraan as $data): ?>
+                                    <div class="col-md-6">
+                                        <div class="card"
+                                            onclick="selectKendaraan(<?= htmlspecialchars($data['id_kendaraan']) ?>)">
+                                            <img src="<?= base_url('uploads/' . esc($data['gambar_kendaraan'])) ?>"
+                                                class="w-100" style="height: 150px; object-fit: cover;">
+                                            <div class="card-body text-center">
+                                                <h5 class="card-title"><?= esc($data['nama_kendaraan']) ?></h5>
+                                                <p class="card-text">
+                                                    Rp<?= number_format($data['harga_sewa_kendaraan'], 2) ?> / hari
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <?php endforeach; ?>
+                                </div>
+                                <input type="hidden" name="kendaraan_id" id="kendaraan_id" required>
+                            </div>
 
-                    <!-- Tombol Lanjut -->
-                    <?php if (session()->getFlashdata('success')): ?>
-                    <button id="btnLanjut" class="btn btn-primary btn-block rounded-pill">
-                        <a href="/pemesanan/add_data_pemesanan">Lanjut</a>
-                    </button>
-                    <?php endif; ?>
-                </form>
-            </div>
-
-            <div class="col">
-                <form action="<?= base_url('pemesanan/create') ?>" method="POST" enctype="multipart/form-data"
-                    class="needs-validation" novalidate>
-                    <div class="mb-3">
-                        <label class="form-label">Kode Pemesanan</label>
-                        <input type="text" class="form-control" name="kode_pemesanan" value="<?= $kode_pemesanan ?>"
-                            autocomplete="off" disabled>
+                            <div class="mb-3">
+                                <label class="form-label">Total Harga</label>
+                                <input type="number" class="form-control" name="total_harga" id="total_harga" required
+                                    readonly>
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="mb-3">
-                        <label class="form-label">Tanggal Awal</label>
-                        <input type="date" class="form-control" name="tanggal_pemesanan" id="tanggal_pemesanan"
-                            autocomplete="off" required>
-                        <?php if (isset($validation)): ?>
-                        <div class="invalid-feedback"><?= $validation->getError('tanggal_pemesanan') ?></div>
-                        <?php endif; ?>
-                    </div>
-
-                    <script>
-                    var today = new Date().toISOString().split('T')[0];
-                    document.getElementById('tanggal_pemesanan').setAttribute('min', today);
-                    </script>
-
-                    <div class="mb-3">
-                        <label class="form-label">Tanggal Akhir</label>
-                        <input type="date" class="form-control" name="tanggal_pemesanan" id="tanggal_pemesanan"
-                            autocomplete="off" required>
-                        <?php if (isset($validation)): ?>
-                        <div class="invalid-feedback"><?= $validation->getError('tanggal_pemesanan') ?></div>
-                        <?php endif; ?>
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label">Lama Pemesanan (hari)</label>
-                        <input type="number" class="form-control" name="lama_pemesanan" autocomplete="off" required>
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label">Total Harga</label>
-                        <input type="number" class="form-control" name="total_harga" autocomplete="off" required>
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label">Jaminan Identitas</label>
-                        <input type="file" class="form-control" name="jaminan_identitas" autocomplete="off" required>
-                        <?php if (isset($validation)): ?>
-                        <div class="invalid-feedback"><?= $validation->getError('jaminan_identitas') ?></div>
-                        <?php endif; ?>
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label">Pelanggan</label>
-                        <select class="form-control" name="pelanggan_id" required>
-                            <option value="" disabled selected>Pilih Pelanggan</option>
-                            <?php foreach ($pelanggan as $data): ?>
-                            <option value="<?= $data['id_pelanggan'] ?>"><?= $data['nama_pelanggan'] ?> -
-                                <?= $data['kode_pelanggan'] ?></option>
-                            <?php endforeach; ?>
-                        </select>
-                        <?php if (isset($validation)): ?>
-                        <div class="invalid-feedback"><?= $validation->getError('pelanggan_id') ?></div>
-                        <?php endif; ?>
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label">Kendaraan</label>
-                        <select class="form-control" name="kendaraan_id" required>
-                            <option value="" disabled selected>Pilih Kendaraan</option>
-                            <?php foreach ($kendaraan as $data): ?>
-                            <option value="<?= $data['id_kendaraan'] ?>"><?= $data['nama_kendaraan'] ?> -
-                                <?= nominal($data['harga_sewa_kendaraan']) ?></option>
-                            <?php endforeach; ?>
-                        </select>
-                    </div>
-
-                    <hr>
-
-                    <div class="d-flex justify-content-between pt-2">
+                    <div class="d-flex justify-content-between pt-3">
                         <a href="<?= base_url('pelanggan') ?>" class="btn btn-warning">Batal</a>
                         <button type="submit" class="btn btn-primary">Simpan</button>
                     </div>
@@ -188,15 +143,66 @@
             </div>
         </div>
     </div>
-</div>
 
-<script>
-setTimeout(function() {
-    let alert = document.querySelector('.alert');
-    if (alert) {
-        alert.remove();
+    <script>
+    function selectKendaraan(id) {
+        document.getElementById('kendaraan_id').value = id;
+        document.querySelectorAll('.card').forEach(card => card.classList.remove('selected'));
+        let selectedCard = document.querySelector(`.card[onclick="selectKendaraan(${id})"]`);
+        selectedCard.classList.add('selected');
+
+        // Ambil harga kendaraan yang dipilih
+        let hargaKendaraan = selectedCard.querySelector('.card-text').textContent;
+        hargaKendaraan = hargaKendaraan.replace('Rp', '').replace(/[^0-9,-]+/g, '').replace(',', '');
+
+        // Konversi harga kendaraan ke angka
+        hargaKendaraan = parseFloat(hargaKendaraan);
+
+        // Pastikan harga kendaraan valid sebelum diinputkan
+        if (!isNaN(hargaKendaraan)) {
+            document.querySelector("#total_harga").value = hargaKendaraan;
+            hitungTotalHarga(); // Panggil fungsi untuk menghitung total harga
+        }
     }
-}, 5000); // 5000 ms = 5 detik
-</script>
 
-<?= $this->endSection() ?>
+    function hitungLamaPemesanan() {
+        let tanggalAwal = document.getElementById("tanggal_awal").value;
+        let tanggalAkhir = document.querySelector("input[name='tanggal_akhir']").value;
+        let inputLamaPemesanan = document.getElementById("lama_pemesanan");
+
+        if (tanggalAwal && tanggalAkhir) {
+            let tglAwal = new Date(tanggalAwal);
+            let tglAkhir = new Date(tanggalAkhir);
+
+            if (tglAkhir >= tglAwal) {
+                let selisihHari = Math.ceil((tglAkhir - tglAwal) / (1000 * 60 * 60 * 24));
+                inputLamaPemesanan.value = selisihHari;
+                hitungTotalHarga(); // Panggil fungsi untuk menghitung total harga
+            } else {
+                alert("Tanggal akhir harus setelah atau sama dengan tanggal awal!");
+                document.querySelector("input[name='tanggal_akhir']").value = "";
+                inputLamaPemesanan.value = "";
+            }
+        }
+    }
+
+    function hitungTotalHarga() {
+        let lamaPemesanan = document.querySelector("input[name='lama_pemesanan']").value;
+        let hargaKendaraan = document.querySelector("#total_harga").value;
+
+        // Pastikan nilai lamaPemesanan dan hargaKendaraan adalah angka
+        lamaPemesanan = parseInt(lamaPemesanan);
+        hargaKendaraan = parseFloat(hargaKendaraan);
+
+        if (!isNaN(lamaPemesanan) && !isNaN(hargaKendaraan)) {
+            let totalHarga = lamaPemesanan * hargaKendaraan;
+            document.querySelector("#total_harga").value = totalHarga;
+        }
+    }
+
+    // Tambahkan event listener ke input tanggal awal dan akhir
+    document.getElementById("tanggal_awal").addEventListener("change", hitungLamaPemesanan);
+    document.querySelector("input[name='tanggal_akhir']").addEventListener("change", hitungLamaPemesanan);
+    </script>
+
+    <?= $this->endSection() ?>

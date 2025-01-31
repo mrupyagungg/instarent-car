@@ -58,7 +58,7 @@ class Kendaraan extends BaseController
             $gambarFile = $this->request->getFile('gambar_kendaraan');
             if ($gambarFile && $gambarFile->isValid() && !$gambarFile->hasMoved()) {
                 $newName = $gambarFile->getRandomName();
-                $gambarFile->move('uploads/kendaraan', $newName);  // Pastikan folder 'uploads/kendaraan' sudah ada
+                $gambarFile->move('uploads', $newName);  // Pastikan folder 'uploads/kendaraan' sudah ada
                 $kendaraan['gambar_kendaraan'] = $newName; // Simpan nama file gambar ke database
             }
 
