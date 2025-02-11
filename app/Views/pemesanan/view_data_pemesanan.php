@@ -37,14 +37,14 @@
                                     <tr>
                                         <th>No</th>
                                         <th>Kode Pemesanan</th>
-                                        <th>Hari Pemakaian</th>
-                                        <th>Lama Pemesanan</th>
-                                        <th>Tanggal Pengembalian</th>
+                                        <th>Tanggal Awal</th>
+                                        <th>Tanggal Akhir</th>
+                                        <th>Durasi</th>
                                         <th>Total Harga</th>
-                                        <th>Plat Nomor</th>
-                                        <th>Jaminan Identitas</th>
+                                        <th>Bukti</th>
                                         <th>Pelanggan</th>
                                         <th>Kendaraan</th>
+                                        <th>Nota</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -54,9 +54,11 @@
                                     <tr>
                                         <td><?= $no++ ?></td>
                                         <td><?= esc($data['kode_pemesanan']) ?></td>
-                                        <td><?= date('d F Y', strtotime($data['tanggal_pemesanan'])) ?></td>
+                                        <!-- <td><?= date('d F Y', strtotime($data['tanggal_pemesanan'])) ?></td> -->
+                                        <td><?= date('d F Y', strtotime($data['tanggal_awal'])) ?></td>
+                                        <td><?= date('d F Y', strtotime($data['tanggal_akhir'])) ?></td>
                                         <td><?= esc($data['lama_pemesanan']) ?> Hari</td>
-                                        <td><?= date('d F Y', strtotime($data['tanggal_pemesanan'] . ' +' . $data['lama_pemesanan'] . ' days')) ?>
+                                        <!-- <td><?= date('d F Y', strtotime($data['tanggal_pemesanan'] . ' +' . $data['lama_pemesanan'] . ' days')) ?> -->
                                         </td>
                                         <td><?= nominal($data['total_harga']) ?></td>
                                         <td>

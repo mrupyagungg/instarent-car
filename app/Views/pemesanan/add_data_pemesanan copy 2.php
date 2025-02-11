@@ -46,13 +46,16 @@
 
 <div class="container mt-4">
     <?php if (session()->getFlashdata('success')): ?>
-    <div class="alert alert-success" id="success-alert">
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
         <strong>Success!</strong> <?= session()->getFlashdata('success') ?>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
     <?php endif; ?>
+
     <?php if (session()->getFlashdata('error')): ?>
-    <div class="alert alert-danger" id="error-alert">
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
         <strong>Error!</strong> <?= session()->getFlashdata('error') ?>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
     <?php endif; ?>
 
@@ -65,27 +68,18 @@
     </nav>
 
     <h4 class="form-header">Book Now</h4>
-    <form action="<?= base_url('pemesanan/create') ?>" method="POST" enctype="multipart/form-data"
-        class="no-validated row g-3">
-        <div class="col-md-6 mb-3">
-            <label class="form-label">Kode Pemesanan</label>
-            <input type="text" class="form-control" name="kode_pemesanan" value="<?= $kode_pemesanan ?>" disabled>
+
+    <form action="<?= base_url('pemesanan/create') ?>" method="POST" enctype="multipart/form-data">
+
+
+        <div class="mb-3">
+            <label for="tanggal_awal" class="form-label">Tanggal Awal</label>
+            <input type="date" class="form-control" id="tanggal_awal" name="tanggal_awal" required>
         </div>
 
-        <div class="col-md-6 mb-3">
-            <label class="form-label">Tanggal Pemesanan</label>
-            <input type="date" class="form-control" name="tanggal_pemesanan" id="tanggal_pemesanan"
-                value="<?= date('Y-m-d') ?>" readonly>
-        </div>
-
-        <div class="col-md-6 mb-3">
-            <label class="form-label">Tanggal Awal</label>
-            <input type="date" class="form-control" name="tanggal_awal" id="tanggal_awal" required>
-        </div>
-
-        <div class="col-md-6 mb-3">
-            <label class="form-label">Tanggal Akhir</label>
-            <input type="date" class="form-control" name="tanggal_akhir" id="tanggal_akhir" required>
+        <div class="mb-3">
+            <label for="tanggal_akhir" class="form-label">Tanggal Akhir</label>
+            <input type="date" class="form-control" id="tanggal_akhir" name="tanggal_akhir" required>
         </div>
 
         <div class="mb-3">
@@ -93,30 +87,10 @@
             <input type="text" class="form-control" id="lama_pemesanan" name="lama_pemesanan" readonly>
         </div>
 
-        <div class="col-md-12 mb-3">
-            <label class="form-label">Jaminan Identitas</label>
-            <input type="file" class="form-control" name="jaminan_identitas">
-        </div>
-
-        <div class="col-md-12 mb-3">
-            <label class="form-label">Pelanggan</label>
-            <select class="form-control" name="pelanggan_id">
-                <option value="" disabled selected>Pilih Pelanggan</option>
-                <?php foreach ($pelanggan as $data): ?>
-                <option value="<?= $data['id_pelanggan'] ?>"><?= $data['nama_pelanggan'] ?> -
-                    <?= $data['kode_pelanggan'] ?></option>
-                <?php endforeach; ?>
-            </select>
-            <?php if (isset($validation)): ?>
-            <span class="badge bg-danger"> <?= $validation->getError('pelanggan_id') ?></span>
-            <?php endif; ?>
-        </div>
-
-
         <div class="mb-3">
             <label for="kendaraan_id" class="form-label">Pilih Kendaraan</label>
             <input type="hidden" id="kendaraan_id" name="kendaraan_id">
-            <div class="row">
+            <div class="row ">
                 <?php foreach ($kendaraan as $item): ?>
                 <div class="col-md-3 mb-2">
                     <div class="card p-3"
@@ -129,17 +103,14 @@
             </div>
         </div>
 
+
+
         <div class="mb-3">
             <label for="total_harga" class="form-label">Total Harga</label>
             <input type="text" class="form-control" id="total_harga" name="total_harga" readonly>
         </div>
 
-        <hr>
-
-        <div class="col-12 pt-2">
-            <a href="#" class="btn btn-warning">batal</a>
-            <button type="submit" class="btn btn-primary">Simpan</button>
-        </div>
+        <button type="submit" class="btn btn-primary">Pesan Sekarang</button>
     </form>
 </div>
 
@@ -147,23 +118,28 @@
 function selectKendaraan(id, harga, event) {
     document.getElementById('kendaraan_id').value = id;
     document.querySelectorAll('.card').forEach(card => card.classList.remove('selected'));
-    event.currentTarget.classList.add('selected');
-    hitungTotalHarga(harga);
+    event.target.closest('.card').classList.add('selected');
+    document.getElementById('total_harga').value = harga;
+    hitungTotalHarga();
 }
 
 function hitungLamaPemesanan() {
     let tglAwal = new Date(document.getElementById("tanggal_awal").value);
     let tglAkhir = new Date(document.getElementById("tanggal_akhir").value);
 
-    if (tglAkhir >= tglAwal) {
-        let selisihHari = (tglAkhir - tglAwal) / (1000 * 60 * 60 * 24);
+    if (tglAwal && tglAkhir && tglAkhir >= tglAwal) {
+        let selisihHari = Math.ceil((tglAkhir - tglAwal) / (1000 * 60 * 60 * 24));
         document.getElementById("lama_pemesanan").value = selisihHari;
         hitungTotalHarga();
+    } else {
+        document.getElementById("tanggal_akhir").value = "";
+        alert("Tanggal akhir harus setelah atau sama dengan tanggal awal!");
     }
 }
 
-function hitungTotalHarga(harga = 0) {
-    let lama = document.getElementById("lama_pemesanan").value || 0;
+function hitungTotalHarga() {
+    let lama = parseInt(document.getElementById("lama_pemesanan").value) || 0;
+    let harga = parseFloat(document.getElementById("total_harga").value) || 0;
     document.getElementById("total_harga").value = lama * harga;
 }
 

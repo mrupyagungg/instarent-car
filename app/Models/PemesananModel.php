@@ -8,13 +8,27 @@ class PemesananModel extends Model
 {
     protected $table = 'pemesanan';
     protected $primaryKey = 'id_pemesanan';
-    protected $allowedFields = ['kode_pemesanan', 'lama_pemesanan', 'tanggal_pemesanan', 'total_harga', 'plat_nomor', 'jaminan_identitas', 'pelanggan_id', 'kendaraan_id', 'persetujuan'];
+    protected $allowedFields = ['kode_pemesanan', 'lama_pemesanan','tanggal_pemesanan', 'tanggal_awal','tanggal_akhir', 'total_harga', 'jaminan_identitas', 'pelanggan_id', 'kendaraan_id', 'persetujuan'];
 
     public function rules()
     {
         return [
             'tanggal_pemesanan' => [
                 'label' => 'Tanggal Pemesanan',
+                'rules' => 'required',
+                'errors' => [
+                    'required' => '{field} mohon diisi',
+                ],
+            ],
+            'tanggal_awal' => [
+                'label' => 'Tanggal',
+                'rules' => 'required',
+                'errors' => [
+                    'required' => '{field} mohon diisi',
+                ],
+            ],
+            'tanggal_akhir' => [
+                'label' => 'Tanggal',
                 'rules' => 'required',
                 'errors' => [
                     'required' => '{field} mohon diisi',

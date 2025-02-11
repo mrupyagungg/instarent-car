@@ -69,23 +69,36 @@
         class="no-validated row g-3">
         <div class="col-md-6 mb-3">
             <label class="form-label">Kode Pemesanan</label>
-            <input type="text" class="form-control" name="kode_pemesanan" value="<?= $kode_pemesanan ?>" disabled>
+            <input type="text" class="form-control" name="kode_pemesanan" value="<?= $kode_pemesanan ?>"
+                autocomplete="off" disabled>
         </div>
 
         <div class="col-md-6 mb-3">
             <label class="form-label">Tanggal Pemesanan</label>
             <input type="date" class="form-control" name="tanggal_pemesanan" id="tanggal_pemesanan"
-                value="<?= date('Y-m-d') ?>" readonly>
+                value="<?= date('Y-m-d') ?>" autocomplete="off" readonly>
         </div>
+        <script>
+        var today = new Date().toISOString().split('T')[0];
+        document.getElementById('tanggal_pemesanan').setAttribute('min', today);
+        </script>
 
+        <!-- Tanggal Awal -->
         <div class="col-md-6 mb-3">
             <label class="form-label">Tanggal Awal</label>
             <input type="date" class="form-control" name="tanggal_awal" id="tanggal_awal" required>
+            <?php if (isset($validation)): ?>
+            <span class="badge bg-danger"> <?= $validation->getError('tanggal_awal') ?></span>
+            <?php endif; ?>
         </div>
 
+        <!-- Tanggal Akhir -->
         <div class="col-md-6 mb-3">
             <label class="form-label">Tanggal Akhir</label>
             <input type="date" class="form-control" name="tanggal_akhir" id="tanggal_akhir" required>
+            <?php if (isset($validation)): ?>
+            <span class="badge bg-danger"> <?= $validation->getError('tanggal_akhir') ?></span>
+            <?php endif; ?>
         </div>
 
         <div class="mb-3">
@@ -95,28 +108,22 @@
 
         <div class="col-md-12 mb-3">
             <label class="form-label">Jaminan Identitas</label>
-            <input type="file" class="form-control" name="jaminan_identitas">
-        </div>
-
-        <div class="col-md-12 mb-3">
-            <label class="form-label">Pelanggan</label>
-            <select class="form-control" name="pelanggan_id">
-                <option value="" disabled selected>Pilih Pelanggan</option>
-                <?php foreach ($pelanggan as $data): ?>
-                <option value="<?= $data['id_pelanggan'] ?>"><?= $data['nama_pelanggan'] ?> -
-                    <?= $data['kode_pelanggan'] ?></option>
-                <?php endforeach; ?>
-            </select>
+            <input type="file" class="form-control" name="jaminan_identitas" autocomplete="off">
             <?php if (isset($validation)): ?>
-            <span class="badge bg-danger"> <?= $validation->getError('pelanggan_id') ?></span>
+            <span class="badge bg-danger"> <?= $validation->getError('jaminan_identitas') ?></span>
             <?php endif; ?>
         </div>
 
+        <div class="col-md-12 mb-3">
+            <label class="form-label">Nama Pelanggan</label>
+            <input type="text" class="form-control" id="nama_pelanggan" name="nama_pelanggan"
+                value="<?= isset($lastPelanggan) ? $lastPelanggan['nama_pelanggan'] : '' ?>" readonly>
+        </div>
 
         <div class="mb-3">
             <label for="kendaraan_id" class="form-label">Pilih Kendaraan</label>
             <input type="hidden" id="kendaraan_id" name="kendaraan_id">
-            <div class="row">
+            <div class="row ">
                 <?php foreach ($kendaraan as $item): ?>
                 <div class="col-md-3 mb-2">
                     <div class="card p-3"
@@ -131,44 +138,62 @@
 
         <div class="mb-3">
             <label for="total_harga" class="form-label">Total Harga</label>
-            <input type="text" class="form-control" id="total_harga" name="total_harga" readonly>
+            <input type="text" class="form-control" id="total_harga" name="total_harga" disabled>
         </div>
 
         <hr>
 
         <div class="col-12 pt-2">
-            <a href="#" class="btn btn-warning">batal</a>
-            <button type="submit" class="btn btn-primary">Simpan</button>
+            <a href="<?= base_url('pelanggan') ?>" class="btn btn-warning"> Batal</a>
+            <button type="submit" class="btn btn-primary"> Simpan</button>
         </div>
     </form>
+
 </div>
 
 <script>
-function selectKendaraan(id, harga, event) {
+function selectKendaraan(id, harga) {
     document.getElementById('kendaraan_id').value = id;
     document.querySelectorAll('.card').forEach(card => card.classList.remove('selected'));
     event.currentTarget.classList.add('selected');
-    hitungTotalHarga(harga);
+    document.getElementById('total_harga').value = harga;
+    hitungTotalHarga();
 }
 
 function hitungLamaPemesanan() {
     let tglAwal = new Date(document.getElementById("tanggal_awal").value);
     let tglAkhir = new Date(document.getElementById("tanggal_akhir").value);
 
-    if (tglAkhir >= tglAwal) {
-        let selisihHari = (tglAkhir - tglAwal) / (1000 * 60 * 60 * 24);
+    if (tglAwal && tglAkhir && tglAkhir >= tglAwal) {
+        let selisihHari = Math.ceil((tglAkhir - tglAwal) / (1000 * 60 * 60 * 24));
         document.getElementById("lama_pemesanan").value = selisihHari;
         hitungTotalHarga();
+    } else {
+        document.getElementById("tanggal_akhir").value = "";
+        alert("Tanggal akhir harus setelah atau sama dengan tanggal awal!");
     }
 }
 
-function hitungTotalHarga(harga = 0) {
-    let lama = document.getElementById("lama_pemesanan").value || 0;
+function hitungTotalHarga() {
+    let lama = parseInt(document.getElementById("lama_pemesanan").value) || 0;
+    let harga = parseFloat(document.getElementById("total_harga").value) || 0;
     document.getElementById("total_harga").value = lama * harga;
 }
 
 document.getElementById("tanggal_awal").addEventListener("change", hitungLamaPemesanan);
 document.getElementById("tanggal_akhir").addEventListener("change", hitungLamaPemesanan);
+</script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    var pelangganSelect = document.querySelector("select[name='pelanggan_id']");
+    var namaPelangganInput = document.getElementById("nama_pelanggan");
+
+    pelangganSelect.addEventListener("change", function() {
+        var selectedOption = pelangganSelect.options[pelangganSelect.selectedIndex];
+        namaPelangganInput.value = selectedOption.text.split(" - ")[0];
+    });
+});
 </script>
 
 <?= $this->endSection() ?>

@@ -104,16 +104,17 @@
                         <?= session()->has('username') ? 'Welcome, ' . session()->get('username') : 'Welcome, Guest'; ?>
                     </h1><br>
                     <div class="hero-content">
-                        <h2 class="h1 hero-title">The easy way to takeover a lease</h2>
+                        <h2 class="h1 hero-title">𝗝𝗔𝗦𝗔 𝗦𝗘𝗪𝗔 𝗞𝗘𝗡𝗗𝗔𝗥𝗔𝗔𝗡 𝗞𝗛𝗨𝗦𝗨𝗦 𝗠𝗔𝗛𝗔𝗦𝗜𝗦𝗪𝗔
+                            𝗗𝗔𝗡 𝗪𝗜𝗦𝗔𝗧𝗔𝗪𝗔𝗡 𝟮𝟰 𝗝𝗔𝗠 𝗕𝗔𝗡𝗗𝗨𝗡𝗚</h2>
 
                         <p class="hero-text">
-                            Live in New York, New Jersey, and Connecticut!
+                            Buah Batu, Bandung, Jawa Barat
                         </p>
                     </div>
 
                     <div class="hero-banner"></div>
 
-                    <form action="" class="hero-form">
+                    <!-- <form action="" class="hero-form">
                         <div class="input-wrapper">
                             <label for="input-1" class="input-label">Car, model, or brand</label>
                             <input type="text" name="car-model" id="input-1" class="input-field"
@@ -133,8 +134,10 @@
                         </div>
 
                         <button type="submit" class="btn">Search</button>
-                    </form>
+                    </form> -->
+                    <button type="submit" class="btn"><a href="#featured-car">Pilih Kendaraan Anda</a></button>
                 </div>
+
             </section>
 
             <!-- 
@@ -145,7 +148,7 @@
                 <div class="container">
 
                     <div class="title-wrapper">
-                        <h2 class="h2 section-title">Featured Cars</h2>
+                        <h2 class="h2 section-title">Pilih Kendaraan</h2>
 
                         <a href="#" class="featured-car-link">
                             <span>View more</span>
@@ -195,8 +198,8 @@
                                         <p class="card-price">
                                             <strong>
                                                 <?= number_format($kendaraan['harga_sewa_kendaraan'], 2) ?>
-                                            </strong> / month
-                                        </p>    
+                                            </strong> / day
+                                        </p>
                                         <!-- <button class="btn fav-btn" aria-label="Add to favourite list">
                                             <ion-icon name="heart-outline"></ion-icon>
                                         </button> -->

@@ -26,68 +26,98 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
-                        <form action="<?=base_url('pemesanan/create')?>" method="POST" enctype="multipart/form-data" class="no-validated row g-3">
+                        <form action="<?= base_url('pemesanan/create') ?>" method="POST" enctype="multipart/form-data"
+                            class="no-validated row g-3">
                             <div class="col-md-6 mb-3">
                                 <label class="form-label">Kode Pemesanan</label>
-                                <input type="text" class="form-control" name="kode_pemesanan" value="<?=$kode_pemesanan?>" autocomplete="off" disabled>
+                                <input type="text" class="form-control" name="kode_pemesanan"
+                                    value="<?= $kode_pemesanan ?>" autocomplete="off" disabled>
                             </div>
+
                             <div class="col-md-12 mb-3">
                                 <label class="form-label">Tanggal Pemesanan</label>
-                                <input type="date" class="form-control" name="tanggal_pemesanan" id="tanggal_pemesanan" autocomplete="off">
+                                <input type="date" class="form-control" name="tanggal_pemesanan" id="tanggal_pemesanan"
+                                    autocomplete="off">
                                 <?php if (isset($validation)): ?>
-                                    <span class="badge bg-danger"> <?=$validation->getError('tanggal_pemesanan')?></span>
-                                <?php endif;?>
+                                <span class="badge bg-danger"> <?= $validation->getError('tanggal_pemesanan') ?></span>
+                                <?php endif; ?>
                             </div>
-                            <script>                           
-                            var today = new Date().toISOString().split('T')[0];                     
+                            <script>
+                            var today = new Date().toISOString().split('T')[0];
                             document.getElementById('tanggal_pemesanan').setAttribute('min', today);
                             </script>
+
+                            <!-- Tanggal Awal -->
+                            <div class="col-md-12 mb-3">
+                                <label class="form-label">Tanggal Awal</label>
+                                <input type="date" class="form-control" name="tanggal_awal" id="tanggal_awal" required>
+                                <?php if (isset($validation)): ?>
+                                <span class="badge bg-danger"> <?= $validation->getError('tanggal_awal') ?></span>
+                                <?php endif; ?>
+                            </div>
+
+                            <!-- Tanggal Akhir -->
+                            <div class="col-md-12 mb-3">
+                                <label class="form-label">Tanggal Akhir</label>
+                                <input type="date" class="form-control" name="tanggal_akhir" id="tanggal_akhir"
+                                    required>
+                                <?php if (isset($validation)): ?>
+                                <span class="badge bg-danger"> <?= $validation->getError('tanggal_akhir') ?></span>
+                                <?php endif; ?>
+                            </div>
 
                             <div class="col-md-12 mb-3">
                                 <label class="form-label">Lama Pemesanan</label>
                                 <input type="number" class="form-control" name="lama_pemesanan" autocomplete="off">
                                 <?php if (isset($validation)): ?>
-                                        <span class="badge bg-danger"> <?=$validation->getError('lama_pemesanan')?></span>
-                                <?php endif;?>
+                                <span class="badge bg-danger"> <?= $validation->getError('lama_pemesanan') ?></span>
+                                <?php endif; ?>
                             </div>
-                           
+
                             <div class="col-md-12 mb-3">
                                 <label class="form-label">Jaminan Identitas</label>
                                 <input type="file" class="form-control" name="jaminan_identitas" autocomplete="off">
                                 <?php if (isset($validation)): ?>
-                                        <span class="badge bg-danger"> <?=$validation->getError('jaminan_identitas')?></span>
-                                <?php endif;?>
+                                <span class="badge bg-danger"> <?= $validation->getError('jaminan_identitas') ?></span>
+                                <?php endif; ?>
                             </div>
+
                             <div class="col-md-12 mb-3">
                                 <label class="form-label">Pelanggan</label>
                                 <select class="form-control" name="pelanggan_id">
                                     <option value="" disabled selected>Pilih Pelanggan</option>
                                     <?php foreach ($pelanggan as $data): ?>
-                                        <option value="<?=$data['id_pelanggan']?>"><?=$data['nama_pelanggan']?> - <?=$data['kode_pelanggan']?></option>
-                                    <?php endforeach;?>
+                                    <option value="<?= $data['id_pelanggan'] ?>"><?= $data['nama_pelanggan'] ?> -
+                                        <?= $data['kode_pelanggan'] ?></option>
+                                    <?php endforeach; ?>
                                 </select>
                                 <?php if (isset($validation)): ?>
-                                        <span class="badge bg-danger"> <?=$validation->getError('pelanggan_id')?></span>
-                                <?php endif;?>
+                                <span class="badge bg-danger"> <?= $validation->getError('pelanggan_id') ?></span>
+                                <?php endif; ?>
                             </div>
+
                             <div class="col-md-12 mb-3">
                                 <label class="form-label">Kendaraan</label>
                                 <select class="form-control" name="kendaraan_id">
                                     <option value="" disabled selected>Pilih Kendaraan</option>
                                     <?php foreach ($kendaraan as $data): ?>
-                                        <option value="<?=$data['id_kendaraan']?>"><?=$data['nama_kendaraan']?> - <?=nominal($data['harga_sewa_kendaraan'])?></option>
-                                    <?php endforeach;?>
+                                    <option value="<?= $data['id_kendaraan'] ?>"><?= $data['nama_kendaraan'] ?> -
+                                        <?= nominal($data['harga_sewa_kendaraan']) ?></option>
+                                    <?php endforeach; ?>
                                 </select>
                                 <?php if (isset($validation)): ?>
-                                        <span class="badge bg-danger"> <?=$validation->getError('kendaraan_id')?></span>
-                                <?php endif;?>
+                                <span class="badge bg-danger"> <?= $validation->getError('kendaraan_id') ?></span>
+                                <?php endif; ?>
                             </div>
+
                             <hr>
+
                             <div class="col-12 pt-2">
-                                <a href="<?=base_url('pelanggan')?>" class="btn btn-warning"> Batal</a>
+                                <a href="<?= base_url('pelanggan') ?>" class="btn btn-warning"> Batal</a>
                                 <button type="submit" class="btn btn-primary"> Simpan</button>
                             </div>
                         </form>
+
                     </div>
                 </div>
             </div>

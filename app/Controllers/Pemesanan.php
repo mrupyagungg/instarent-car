@@ -29,6 +29,7 @@ class Pemesanan extends BaseController
         $data = [
             'title' => 'Transaksi Penerimaan',
             'pemesanan' => $this->pemesanans->getAll(),
+            // 'lastPelanggan' => $lastPelanggan,
         ];
         return view('pemesanan/view_data_pemesanan', $data);
     }
@@ -38,6 +39,9 @@ class Pemesanan extends BaseController
         // Ambil data kendaraan berdasarkan ID yang dipilih dari form
         $id_kendaraan = $this->request->getPost('kendaraan_id');
         $kendaraan = $this->kendaraanModel->find($id_kendaraan);
+        $pelanggan = $this->pelangganModel->orderBy('id_pelanggan', 'DESC')->findAll();
+        $lastPelanggan = $this->pelangganModel->orderBy('id_pelanggan', 'DESC')->first(); // Ambil pelanggan terakhir
+
 
         // Validasi jika kendaraan tidak ditemukan
         if (!$kendaraan) {
@@ -54,6 +58,7 @@ class Pemesanan extends BaseController
             'kode_pemesanan' => $kode_pemesanan,
             'pelanggan' => $this->pelangganModel->findAll(),
             'kendaraan' => $kendaraan,
+            'lastPelanggan' => $lastPelanggan,
         ];
 
         // Validasi data pemesanan
@@ -77,6 +82,8 @@ class Pemesanan extends BaseController
                 'kode_pemesanan' => $kode_pemesanan,
                 'lama_pemesanan' => $lama_pemesanan,
                 'tanggal_pemesanan' => $this->request->getPost('tanggal_pemesanan'),
+                'tanggal_awal' => $this->request->getPost('tanggal_awal'),
+                'tanggal_akhir' => $this->request->getPost('tanggal_akhir'),
                 'total_harga' => $total_harga,
                 'pelanggan_id' => $this->request->getPost('pelanggan_id'),
                 'kendaraan_id' => $id_kendaraan,
@@ -130,13 +137,14 @@ class Pemesanan extends BaseController
         // Ambil data pelanggan dan kendaraan terkait
         $pelanggan = $this->pelangganModel->find($pemesanan['pelanggan_id']);
         $kendaraan = $this->kendaraanModel->find($pemesanan['kendaraan_id']);
+        
 
         // Format konten nota pemesanan
         $content = "Nota Pemesanan\n\n";
         $content .= "Kode Pemesanan: {$pemesanan['kode_pemesanan']}\n";
         $content .= "Nama Pelanggan: {$pelanggan['nama_pelanggan']}\n";
         $content .= "Nama Kendaraan: {$kendaraan['nama_kendaraan']}\n";
-        $content .= "Tanggal Pemesanan: {$pemesanan['tanggal_pemesanan']}\n";
+        $content .= "Tanggal Pemesanan: {$pemesanan['tanggal_awal']}\n";
         $content .= "Lama Pemesanan: {$pemesanan['lama_pemesanan']} Hari\n";
         $content .= "Total Harga: {$pemesanan['total_harga']}\n";
 
