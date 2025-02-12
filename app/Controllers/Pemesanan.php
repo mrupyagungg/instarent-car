@@ -70,12 +70,14 @@ class Pemesanan extends BaseController
             $harga_sewa = $kendaraan['harga_sewa_kendaraan'];
             $lama_pemesanan = $this->request->getPost('lama_pemesanan');
             $total_harga = $lama_pemesanan * $harga_sewa;
-
-            // Tangani file upload jaminan identitas
             $jaminan_identitas = $this->request->getFile('jaminan_identitas');
-            if ($jaminan_identitas && !$jaminan_identitas->hasMoved()) {
-                $jaminan_identitas->move(WRITEPATH . 'uploads');
+          
+            if (!is_dir(ROOTPATH . 'uploads/images/')) {
+                mkdir(ROOTPATH . 'uploads/images/', 0777, true);
             }
+
+            $fileName = time() . '.' . $jaminan_identitas->getExtension();
+            $jaminan_identitas->move('uploads/images/', $fileName);
 
             // Simpan data pemesanan
             $pemesanan = [
@@ -85,6 +87,7 @@ class Pemesanan extends BaseController
                 'tanggal_awal' => $this->request->getPost('tanggal_awal'),
                 'tanggal_akhir' => $this->request->getPost('tanggal_akhir'),
                 'total_harga' => $total_harga,
+                'jaminan_identitas' => $fileName,
                 'pelanggan_id' => $this->request->getPost('pelanggan_id'),
                 'kendaraan_id' => $id_kendaraan,
             ];
