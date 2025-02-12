@@ -124,6 +124,17 @@ $routes->get('detail/(:num)', 'Customer::show/$1');
 $routes->post('pemesanan/store', 'PemesananController::store', ['as' => 'pemesanan_store']);
 $routes->post('pemesanan/store', 'PemesananController::store');
 
+// Midtrans Payment Routes
+$routes->group('payment', ['filter' => 'auth'], function ($routes) {
+    $routes->get('checkout/(:num)', 'Payment::checkout/$1', ['as' => 'payment_checkout']);
+    $routes->post('process', 'Payment::process', ['as' => 'payment_process']);
+    $routes->post('callback', 'Payment::callback', ['as' => 'payment_callback']);
+});
+
+$routes->get('payment/checkout/(:segment)', 'Payment::checkout/$1');
+$routes->post('payment/process', 'Payment::process');
+$routes->get('payment/success', 'Payment::success');
+$routes->get('payment/checkout', 'Payment::checkout');
 
 
 // Additional routes for environment-specific configs

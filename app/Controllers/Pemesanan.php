@@ -71,14 +71,14 @@ class Pemesanan extends BaseController
             $lama_pemesanan = $this->request->getPost('lama_pemesanan');
             $total_harga = $lama_pemesanan * $harga_sewa;
             $jaminan_identitas = $this->request->getFile('jaminan_identitas');
-          
+        
             if (!is_dir(ROOTPATH . 'uploads/images/')) {
                 mkdir(ROOTPATH . 'uploads/images/', 0777, true);
             }
-
+        
             $fileName = time() . '.' . $jaminan_identitas->getExtension();
             $jaminan_identitas->move('uploads/images/', $fileName);
-
+        
             // Simpan data pemesanan
             $pemesanan = [
                 'kode_pemesanan' => $kode_pemesanan,
@@ -91,10 +91,10 @@ class Pemesanan extends BaseController
                 'pelanggan_id' => $this->request->getPost('pelanggan_id'),
                 'kendaraan_id' => $id_kendaraan,
             ];
-
+        
             // Insert pemesanan ke database
             $this->pemesanans->insert($pemesanan);
-
+        
             // Insert data jurnal transaksi
             $jurnal = [
                 [
@@ -114,14 +114,14 @@ class Pemesanan extends BaseController
                     'transaksi' => 'Pendapatan Sewa',
                 ],
             ];
-
+        
             // Insert batch jurnal ke database
             $this->jurnalModel->insertBatch($jurnal);
-
-            // Beri notifikasi dan redirect
-            session()->setFlashdata('success', 'Data Pemesanan berhasil disimpan');
-            return redirect()->to(base_url('pemesanan'));
+        
+            // Redirect ke halaman pembayaran Midtrans
+            return redirect()->to(base_url('payment/checkout/' . $kode_pemesanan));
         }
+        
 
         // Jika validasi gagal, tampilkan form dengan error
         $data['validation'] = $this->validation;
