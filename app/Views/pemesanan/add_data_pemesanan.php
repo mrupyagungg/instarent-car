@@ -43,106 +43,107 @@
     content: none;
 }
 </style>
-
-<div class="container mt-4">
-    <?php if (session()->getFlashdata('success')): ?>
-    <div class="alert alert-success" id="success-alert">
-        <strong>Success!</strong> <?= session()->getFlashdata('success') ?>
-    </div>
-    <?php endif; ?>
-    <?php if (session()->getFlashdata('error')): ?>
-    <div class="alert alert-danger" id="error-alert">
-        <strong>Error!</strong> <?= session()->getFlashdata('error') ?>
-    </div>
-    <?php endif; ?>
-
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item">Registrasi</li>
-            <li class="breadcrumb-item active" aria-current="page">Pesan</li>
-            <li class="breadcrumb-item"><a href="<?= base_url('bayar') ?>">Bayar</a></li>
-        </ol>
-    </nav>
-
-    <h4 class="form-header">Book Now</h4>
-    <form action="<?= base_url('pemesanan/create') ?>" method="POST" enctype="multipart/form-data"
-        class="no-validated row g-3">
-        <div class="col-md-6 mb-3">
-            <label class="form-label">Kode Pemesanan</label>
-            <input type="text" class="form-control" name="kode_pemesanan" value="<?= $kode_pemesanan ?>" disabled>
+<div class="container">
+    <div class="container mt-4">
+        <?php if (session()->getFlashdata('success')): ?>
+        <div class="alert alert-success" id="success-alert">
+            <strong>Success!</strong> <?= session()->getFlashdata('success') ?>
         </div>
-
-        <div class="col-md-6 mb-3">
-            <label class="form-label">Tanggal Pemesanan</label>
-            <input type="date" class="form-control" name="tanggal_pemesanan" id="tanggal_pemesanan"
-                value="<?= date('Y-m-d') ?>" readonly>
+        <?php endif; ?>
+        <?php if (session()->getFlashdata('error')): ?>
+        <div class="alert alert-danger" id="error-alert">
+            <strong>Error!</strong> <?= session()->getFlashdata('error') ?>
         </div>
+        <?php endif; ?>
 
-        <div class="col-md-6 mb-3">
-            <label class="form-label">Tanggal Awal</label>
-            <input type="date" class="form-control" name="tanggal_awal" id="tanggal_awal" required>
-        </div>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">Registrasi</li>
+                <li class="breadcrumb-item active" aria-current="page">Pesan</li>
+                <li class="breadcrumb-item"><a href="<?= base_url('bayar') ?>">Bayar</a></li>
+            </ol>
+        </nav>
 
-        <div class="col-md-6 mb-3">
-            <label class="form-label">Tanggal Akhir</label>
-            <input type="date" class="form-control" name="tanggal_akhir" id="tanggal_akhir" required>
-        </div>
-
-        <div class="mb-3">
-            <label for="lama_pemesanan" class="form-label">Lama Pemesanan (Hari)</label>
-            <input type="text" class="form-control" id="lama_pemesanan" name="lama_pemesanan" readonly>
-        </div>
-
-        <div class="col-md-12 mb-3">
-            <label class="form-label">Jaminan Identitas</label>
-            <input type="file" class="form-control" name="jaminan_identitas">
-        </div>
-
-        <div class="col-md-12 mb-3">
-            <label class="form-label">Pelanggan</label>
-            <select class="form-control" name="pelanggan_id">
-                <option value="" disabled selected>Pilih Pelanggan</option>
-                <?php foreach ($pelanggan as $data): ?>
-                <option value="<?= $data['id_pelanggan'] ?>"><?= $data['nama_pelanggan'] ?> -
-                    <?= $data['kode_pelanggan'] ?></option>
-                <?php endforeach; ?>
-            </select>
-            <?php if (isset($validation)): ?>
-            <span class="badge bg-danger"> <?= $validation->getError('pelanggan_id') ?></span>
-            <?php endif; ?>
-        </div>
-
-
-        <div class="mb-3">
-            <label for="kendaraan_id" class="form-label">Pilih Kendaraan</label>
-            <input type="hidden" id="kendaraan_id" name="kendaraan_id">
-            <div class="row">
-                <?php foreach ($kendaraan as $item): ?>
-                <div class="col-md-3 mb-2">
-                    <div class="card p-3"
-                        onclick="selectKendaraan(<?= $item['id_kendaraan'] ?>, <?= $item['harga_sewa_kendaraan'] ?>, event)">
-                        <h5><?= $item['nama_kendaraan'] ?></h5>
-                        <p>Harga per hari: Rp<?= number_format($item['harga_sewa_kendaraan'], 0, ',', '.') ?></p>
-                    </div>
-                </div>
-                <?php endforeach; ?>
+        <h4 class="form-header">Book Now</h4>
+        <form action="<?= base_url('pemesanan/create') ?>" method="POST" enctype="multipart/form-data"
+            class="no-validated row g-3">
+            <div class="col-md-6 mb-3">
+                <label class="form-label">Kode Pemesanan</label>
+                <input type="text" class="form-control" name="kode_pemesanan" value="<?= $kode_pemesanan ?>" disabled>
             </div>
-        </div>
 
-        <div class="mb-3">
-            <label for="total_harga" class="form-label">Total Harga</label>
-            <input type="text" class="form-control" id="total_harga" name="total_harga" readonly>
-        </div>
+            <div class="col-md-6 mb-3">
+                <label class="form-label">Tanggal Pemesanan</label>
+                <input type="date" class="form-control" name="tanggal_pemesanan" id="tanggal_pemesanan"
+                    value="<?= date('Y-m-d') ?>" readonly>
+            </div>
 
-        <hr>
+            <div class="col-md-6 mb-3">
+                <label class="form-label">Tanggal Awal</label>
+                <input type="date" class="form-control" name="tanggal_awal" id="tanggal_awal" required>
+            </div>
 
-        <div class="col-12 pt-2">
-            <a href="#" class="btn btn-warning">batal</a>
-            <button type="submit" class="btn btn-primary">Simpan</button>
-        </div>
-    </form>
+            <div class="col-md-6 mb-3">
+                <label class="form-label">Tanggal Akhir</label>
+                <input type="date" class="form-control" name="tanggal_akhir" id="tanggal_akhir" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="lama_pemesanan" class="form-label">Lama Pemesanan (Hari)</label>
+                <input type="text" class="form-control" id="lama_pemesanan" name="lama_pemesanan" readonly>
+            </div>
+
+            <div class="col-md-12 mb-3">
+                <label class="form-label">Jaminan Identitas</label>
+                <input type="file" class="form-control" name="jaminan_identitas">
+            </div>
+            <?php
+            // Ambil ID pelanggan terakhir
+            $lastPelanggan = end($pelanggan);
+            $lastPelangganId = $lastPelanggan ? $lastPelanggan['id_pelanggan'] : '';
+            $lastPelangganName = $lastPelanggan ? $lastPelanggan['nama_pelanggan'] : '';
+            ?>
+
+            <div class="col-md-12 mb-3">
+                <label class="form-label">Pelanggan</label>
+                <input type="text" class="form-control" value="<?= $lastPelangganName ?>" readonly>
+                <input type="hidden" name="pelanggan_id" value="<?= $lastPelangganId ?>">
+                <?php if (isset($validation)): ?>
+                <span class="badge bg-danger"> <?= $validation->getError('pelanggan_id') ?></span>
+                <?php endif; ?>
+            </div>
+
+
+            <div class="mb-3">
+                <label for="kendaraan_id" class="form-label">Pilih Kendaraan</label>
+                <input type="hidden" id="kendaraan_id" name="kendaraan_id">
+                <div class="row">
+                    <?php foreach ($kendaraan as $item): ?>
+                    <div class="col-md-3 mb-2">
+                        <div class="card p-3"
+                            onclick="selectKendaraan(<?= $item['id_kendaraan'] ?>, <?= $item['harga_sewa_kendaraan'] ?>, event)">
+                            <h5><?= $item['nama_kendaraan'] ?></h5>
+                            <p>Harga per hari: Rp<?= number_format($item['harga_sewa_kendaraan'], 0, ',', '.') ?></p>
+                        </div>
+                    </div>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="total_harga" class="form-label">Total Harga</label>
+                <input type="text" class="form-control" id="total_harga" name="total_harga" readonly>
+            </div>
+
+            <hr>
+
+            <div class="col-12 pt-2">
+                <a href="#" class="btn btn-warning">batal</a>
+                <button type="submit" class="btn btn-primary">Simpan</button>
+            </div>
+        </form>
+    </div>
 </div>
-
 <script>
 function selectKendaraan(id, harga, event) {
     document.getElementById('kendaraan_id').value = id;
