@@ -9,7 +9,7 @@
     <!-- 
     - favicon
   -->
-  <link rel="shortcut icon" href="<?= base_url('assets/images/brand/instarentlogopng.png') ?>" type="image/svg+xml">
+    <link rel="shortcut icon" href="<?= base_url('assets/images/brand/instarentlogopng.png') ?>" type="image/svg+xml">
 
     <!-- 
     - custom css link
@@ -59,14 +59,19 @@
                     </li>
 
                     <li>
-                        <a href="/customer/dashboard" class="navbar-link" data-nav-link>Explore cars</a>
+                        <a href="/garasi" class="navbar-link" data-nav-link>Garasi</a>
                     </li>
 
                     <li>
-                        <a href="/customer/dashboard" class="navbar-link" data-nav-link>About us</a>
+                        <a href="/about" class="navbar-link" data-nav-link>About us</a>
+                    </li>
+
+                    <li>
+                        <a href="/contact" class="navbar-link" data-nav-link>Contact us</a>
                     </li>
 
                 </ul>
+
             </nav>
 
             <div class="header-actions">
@@ -77,7 +82,7 @@
                     <span class="contact-time">Mon - Sat: 9:00 am - 6:00 pm</span>
                 </div>
 
-             
+
             </div>
 
         </div>

@@ -90,6 +90,7 @@ class Pemesanan extends BaseController
                 'jaminan_identitas' => $fileName,
                 'pelanggan_id' => $this->request->getPost('pelanggan_id'),
                 'kendaraan_id' => $id_kendaraan,
+                'status' => 'approve',
             ];
         
             // Insert pemesanan ke database

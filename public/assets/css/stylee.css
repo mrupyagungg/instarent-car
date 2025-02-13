@@ -1232,3 +1232,93 @@ button, a { transition: var(--transition); }
 .btn-create:hover {
   background-color: #218838;
 }
+
+/* General styles */
+.testimonial {
+  padding: 60px 0;
+  background-color: #f8f9fa;
+  text-align: center;
+  overflow: hidden; /* Mencegah konten overflow */
+}
+
+.testimonial .container {
+  max-width: 900px;
+  margin: auto;
+}
+
+/* Title */
+.h2.section-title {
+  font-size: 2rem;
+  margin-bottom: 30px;
+  font-weight: bold;
+  color: #333;
+}
+
+/* Testimonial List */
+.testimonial-list {
+  display: flex;
+  width: max-content; /* Menghindari wrapping */
+  gap: 20px;
+  animation: scrollRight 15s linear infinite;
+}
+
+/* Testimonial Card */
+.testimonial-card {
+  min-width: 300px;
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  flex-shrink: 0;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.testimonial-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+/* Card Content */
+.card-text {
+  font-size: 1rem;
+  color: #555;
+  line-height: 1.5;
+  margin-bottom: 15px;
+}
+
+/* User Info */
+.card-user {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.card-user img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.user-name {
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+.user-role {
+  font-size: 0.9rem;
+  color: #777;
+}
+
+/* Animation for auto-scrolling testimonials */
+@keyframes scrollRight {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}

@@ -35,16 +35,17 @@
                             <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
                                 <thead>
                                     <tr>
-                                        <th>No</th>
-                                        <th>Kode Pemesanan</th>
-                                        <th>Tanggal Awal</th>
-                                        <th>Tanggal Akhir</th>
-                                        <th>Durasi</th>
-                                        <th>Total Harga</th>
-                                        <th>Bukti</th>
-                                        <th>Pelanggan</th>
-                                        <th>Kendaraan</th>
-                                        <th>Nota</th>
+                                        <th class=" text-center">No</th>
+                                        <th class=" text-center">Kode Pemesanan</th>
+                                        <th class=" text-center">Tanggal Awal</th>
+                                        <th class=" text-center">Tanggal Akhir</th>
+                                        <th class=" text-center">Durasi</th>
+                                        <th class=" text-center">Total Harga</th>
+                                        <th class=" text-center">Ktp/SIM</th>
+                                        <th class=" text-center">Pelanggan</th>
+                                        <th class=" text-center">Kendaraan</th>
+                                        <th class=" text-center">Nota</th>
+                                        <th class=" text-center">status</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -72,6 +73,7 @@
                                                 class="btn btn-primary">Download Nota</a>
                                         </td>
 
+                                        <td><?= esc($data['status']) ?></td>
                                     </tr>
                                     <?php endforeach; ?>
                                     <?php else: ?>

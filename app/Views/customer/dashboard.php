@@ -27,6 +27,8 @@
         rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
 </head>
 
 <style>
@@ -34,6 +36,57 @@
     font-family: 'Lobster', cursive;
     font-size: 35px;
     color: black;
+}
+
+.hero-forms {
+    /* max-width: 500px; */
+    background: rgba(255, 255, 255, 0.47);
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    margin: 50px auto;
+}
+
+.input-wrapper {
+    margin-bottom: 10px;
+}
+
+.input-label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    display: block;
+}
+
+.input-field {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+.input-field:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+    outline: none;
+}
+
+.btn {
+    width: 50%;
+    padding: 10px;
+    margin-left: 20px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 5px;
+    background: linear-gradient(135deg, #007bff, #0056b3);
+    border: none;
+    color: white;
+    transition: all 0.3s ease;
+}
+
+.btn:hover {
+    background: linear-gradient(135deg, #0056b3, #007bff);
+    transform: scale(1.05);
 }
 </style>
 
@@ -60,11 +113,15 @@
                     </li>
 
                     <li>
-                        <a href="#featured-car" class="navbar-link" data-nav-link>Explore cars</a>
+                        <a href="/garasi" class="navbar-link" data-nav-link>Garasi</a>
                     </li>
 
                     <li>
-                        <a href="/customer/about" class="navbar-link" data-nav-link>About us</a>
+                        <a href="/about" class="navbar-link" data-nav-link>About us</a>
+                    </li>
+
+                    <li>
+                        <a href="/contact" class="navbar-link" data-nav-link>Contact us</a>
                     </li>
 
                 </ul>
@@ -101,41 +158,56 @@
                 <div class="container">
                     <!-- Tampilkan pesan welcome jika username ada di session -->
                     <h1 class="hero-text">
-                        <?= session()->has('username') ? 'Welcome, ' . session()->get('username') : 'Welcome, Guest'; ?>
+                        <?= session()->get('username') ? 'Welcome, ' . esc(session()->get('username')) : 'Welcome, Guest'; ?>
                     </h1><br>
+
                     <div class="hero-content">
                         <h2 class="h1 hero-title">𝗝𝗔𝗦𝗔 𝗦𝗘𝗪𝗔 𝗞𝗘𝗡𝗗𝗔𝗥𝗔𝗔𝗡 𝗞𝗛𝗨𝗦𝗨𝗦 𝗠𝗔𝗛𝗔𝗦𝗜𝗦𝗪𝗔
                             𝗗𝗔𝗡 𝗪𝗜𝗦𝗔𝗧𝗔𝗪𝗔𝗡 𝟮𝟰 𝗝𝗔𝗠 𝗕𝗔𝗡𝗗𝗨𝗡𝗚</h2>
 
                         <p class="hero-text">
-                            Buah Batu, Bandung, Jawa Barat
+                            <i data-lucide="map-pin"></i> PBB RUKO R11 BDG, Buah Batu, Bandung, Jawa Barat
                         </p>
+
+                        <script src="https://unpkg.com/lucide@latest"></script>
+                        <script>
+                        lucide.createIcons();
+                        </script>
+
+
                     </div>
 
                     <div class="hero-banner"></div>
-
-                    <!-- <form action="" class="hero-form">
+                    <form action="javascript:void(0);" class="hero-forms" id="searchForm">
                         <div class="input-wrapper">
-                            <label for="input-1" class="input-label">Car, model, or brand</label>
-                            <input type="text" name="car-model" id="input-1" class="input-field"
-                                placeholder="What car are you looking for?">
+                            <label for="input-2" class="input-label">Nama Kendaraan</label>
+                            <select name="car-name" id="input-2" class="input-field">
+                                <option value="">Pilih kendaraan</option>
+                                <?php foreach ($kendaraans as $row) : ?>
+                                <option value="<?= $row['id_kendaraan']; ?>"><?= $row['nama_kendaraan']; ?></option>
+                                <?php endforeach; ?>
+                            </select>
                         </div>
 
-                        <div class="input-wrapper">
-                            <label for="input-2" class="input-label">Max. monthly payment</label>
-                            <input type="text" name="monthly-pay" id="input-2" class="input-field"
-                                placeholder="Add an amount in $">
-                        </div>
+                        <button type="submit" class="btn">Lihat Detail</button>
+                    </form>
 
-                        <div class="input-wrapper">
-                            <label for="input-3" class="input-label">Make Year</label>
-                            <input type="text" name="year" id="input-3" class="input-field"
-                                placeholder="Add a minimal make year">
-                        </div>
+                    <script>
+                    document.getElementById('searchForm').addEventListener('submit', function() {
+                        var kendaraanId = document.getElementById('input-2').value;
 
-                        <button type="submit" class="btn">Search</button>
-                    </form> -->
-                    <button type="submit" class="btn"><a href="#featured-car">Pilih Kendaraan Anda</a></button>
+                        if (kendaraanId !== '') {
+                            // Arahkan ke halaman detail kendaraan sesuai ID
+                            window.location.href = "http://localhost:8080/detail/" + kendaraanId;
+                        } else {
+                            alert("Silakan pilih kendaraan terlebih dahulu!");
+                        }
+                    });
+                    </script>
+
+
+
+                    <!-- <button type="submit" class="btn"><a href="#featured-car">Pilih Kendaraan Anda</a></button> -->
                 </div>
 
             </section>
@@ -150,14 +222,14 @@
                     <div class="title-wrapper">
                         <h2 class="h2 section-title">Pilih Kendaraan</h2>
 
-                        <a href="#" class="featured-car-link">
+                        <a href="/garasi" class="featured-car-link">
                             <span>View more</span>
                             <ion-icon name="arrow-forward-outline"></ion-icon>
                         </a>
                     </div>
 
                     <ul class="featured-car-list">
-                        <?php foreach ($kendaraans as $kendaraan): ?>
+                        <?php foreach (array_slice($kendaraans, 3, 6) as $kendaraan): ?>
                         <li>
                             <div class="featured-car-card">
 
@@ -303,7 +375,98 @@
                     </ul>
 
                 </div>
-            </section><br><br>
+            </section>
+
+            <section class="section testimonial">
+                <div class="container">
+
+                    <h2 class="h2 section-title">What Our Customers Say</h2>
+
+                    <ul class="testimonial-list">
+
+                        <li>
+                            <div class="testimonial-card">
+                                <p class="card-text">
+                                    "The rental process was seamless and the car was in perfect condition. Highly
+                                    recommend this service!"
+                                </p>
+                                <div class="card-user">
+                                    <img src="<?= base_url('assets/images/sm/avatar1.jpg') ?>" alt="User Photo">
+                                    <div>
+                                        <h3 class="user-name">John Doe</h3>
+                                        <span class="user-role">Businessman</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li>
+                            <div class="testimonial-card">
+                                <p class="card-text">
+                                    "Amazing experience! The customer service was top-notch, and I found the perfect car
+                                    for my trip."
+                                </p>
+                                <div class="card-user">
+                                    <img src="<?= base_url('assets/images/sm/avatar3.jpg') ?>" alt="User Photo">
+                                    <div>
+                                        <h3 class="user-name">Sarah Smith</h3>
+                                        <span class="user-role">Frequent Traveler</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li>
+                            <div class="testimonial-card">
+                                <p class="card-text">
+                                    "Best car rental service! The prices are affordable, and the cars are
+                                    well-maintained."
+                                </p>
+                                <div class="card-user">
+                                    <img src="<?= base_url('assets/images/sm/team-1.jpg') ?>" alt="User Photo">
+                                    <div>
+                                        <h3 class="user-name">Michael Brown</h3>
+                                        <span class="user-role">Entrepreneur</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="testimonial-card">
+                                <p class="card-text">
+                                    "Best car rental service! The prices are affordable, and the cars are
+                                    well-maintained."
+                                </p>
+                                <div class="card-user">
+                                    <img src="<?= base_url('assets/images/sm/avatar2.jpg') ?>" alt="User Photo">
+                                    <div>
+                                        <h3 class="user-name">Michael Brown</h3>
+                                        <span class="user-role">Entrepreneur</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="testimonial-card">
+                                <p class="card-text">
+                                    "Best car rental service! The prices are affordable, and the cars are
+                                    well-maintained."
+                                </p>
+                                <div class="card-user">
+                                    <img src="<?= base_url('assets/images/sm/avatar4.jpg') ?>" alt="User Photo">
+                                    <div>
+                                        <h3 class="user-name">Michael Brown</h3>
+                                        <span class="user-role">Entrepreneur</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+
+                    </ul>
+
+                </div>
+            </section>
+
 
             <!-- footer -->
             <link rel="stylesheet" href="<?= base_url('assets/css/detail.css') ?>">
@@ -351,6 +514,16 @@
                     </div>
                 </div>
             </footer>
+
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+            <script>
+            gsap.to(".testimonial-list", {
+                x: "-100%",
+                duration: 20,
+                repeat: 1,
+                ease: "linear"
+            });
+            </script>
 
             <!-- js -->
             <script src="./assets/js/script.js"></script>
