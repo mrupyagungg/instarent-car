@@ -16,7 +16,8 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600&family=Open+Sans&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600&family=Open+Sans&display=swap"
+        rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
 </head>
@@ -55,8 +56,18 @@
 
                     <!-- Hero Content -->
                     <div class="hero-content">
-                        <h2 class="h1 hero-title">Selamat Datang Di Instarent</h2>
-                        <p class="hero-text">Website Rental mobil untuk mempermudah pemesanan kendaraan <br>yang ingin anda pesan ... </p>
+                        <h2 class="h1 hero-title">Nyari Sewa Kendaraan di Bandung ?</h2>
+
+                        <h3 class="h2 hero-text">Instarent solusinya!</h3>
+
+                        <p class="hero-text">
+                            <i data-lucide="map-pin"></i> PBB RUKO R11 BDG, Buah Batu, Bandung, Jawa Barat
+                        </p>
+                        <script src="https://unpkg.com/lucide@latest"></script>
+                        <script>
+                        lucide.createIcons();
+                        </script>
+
                     </div>
 
                     <!-- Hero Banner -->
@@ -129,7 +140,7 @@
                             </div>
                         </li>
 
-                      
+
 
                         <li>
                             <div class="get-start-card">

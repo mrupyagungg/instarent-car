@@ -157,13 +157,13 @@
             <section class="section hero" id="home">
                 <div class="container">
                     <!-- Tampilkan pesan welcome jika username ada di session -->
-                    <h1 class="hero-text">
-                        <?= session()->get('username') ? 'Welcome, ' . esc(session()->get('username')) : 'Welcome, Guest'; ?>
-                    </h1><br>
 
                     <div class="hero-content">
-                        <h2 class="h1 hero-title">𝗝𝗔𝗦𝗔 𝗦𝗘𝗪𝗔 𝗞𝗘𝗡𝗗𝗔𝗥𝗔𝗔𝗡 𝗞𝗛𝗨𝗦𝗨𝗦 𝗠𝗔𝗛𝗔𝗦𝗜𝗦𝗪𝗔
-                            𝗗𝗔𝗡 𝗪𝗜𝗦𝗔𝗧𝗔𝗪𝗔𝗡 𝟮𝟰 𝗝𝗔𝗠 𝗕𝗔𝗡𝗗𝗨𝗡𝗚</h2>
+                        <h2 class="h1 hero-title">
+                            <?= session()->get('username') ? 'Selamat Datang  ' . esc(session()->get('username')) : 'Welcome, Guest'; ?>
+                        </h2>
+
+                        <h3 class="h2 hero-text">Instarent solusi terbaik </h3>
 
                         <p class="hero-text">
                             <i data-lucide="map-pin"></i> PBB RUKO R11 BDG, Buah Batu, Bandung, Jawa Barat
@@ -178,36 +178,8 @@
                     </div>
 
                     <div class="hero-banner"></div>
-                    <form action="javascript:void(0);" class="hero-forms" id="searchForm">
-                        <div class="input-wrapper">
-                            <label for="input-2" class="input-label">Nama Kendaraan</label>
-                            <select name="car-name" id="input-2" class="input-field">
-                                <option value="">Pilih kendaraan</option>
-                                <?php foreach ($kendaraans as $row) : ?>
-                                <option value="<?= $row['id_kendaraan']; ?>"><?= $row['nama_kendaraan']; ?></option>
-                                <?php endforeach; ?>
-                            </select>
-                        </div>
-
-                        <button type="submit" class="btn">Lihat Detail</button>
-                    </form>
-
-                    <script>
-                    document.getElementById('searchForm').addEventListener('submit', function() {
-                        var kendaraanId = document.getElementById('input-2').value;
-
-                        if (kendaraanId !== '') {
-                            // Arahkan ke halaman detail kendaraan sesuai ID
-                            window.location.href = "http://localhost:8080/detail/" + kendaraanId;
-                        } else {
-                            alert("Silakan pilih kendaraan terlebih dahulu!");
-                        }
-                    });
-                    </script>
-
-
-
-                    <!-- <button type="submit" class="btn"><a href="#featured-car">Pilih Kendaraan Anda</a></button> -->
+                    <!-- <button type="submit" class="btn"></button> -->
+                    <a class="view-more-btn" href="#featured-car">SELENGKAPNYA</a>
                 </div>
 
             </section>
@@ -281,13 +253,23 @@
                                             Rent now
                                         </a>
                                     </div>
+
                                 </div>
 
                             </div>
+
                         </li>
+
                         <?php endforeach; ?>
+
                     </ul>
 
+                </div>
+
+                <div class="container">
+                    <a href="<?= base_url('garasi') ?>" class=" view-more-btn">
+                        View More <ion-icon name="arrow-forward-outline"></ion-icon>
+                    </a>
                 </div>
             </section>
 
@@ -379,17 +361,14 @@
 
             <section class="section testimonial">
                 <div class="container">
-
                     <h2 class="h2 section-title">What Our Customers Say</h2>
-
                     <ul class="testimonial-list">
-
                         <li>
                             <div class="testimonial-card">
-                                <p class="card-text">
-                                    "The rental process was seamless and the car was in perfect condition. Highly
-                                    recommend this service!"
-                                </p>
+                                <p class="card-text">"Proses penyewaan sangat mudah, dan mobil dalam kondisi sempurna.
+                                    Sangat merekomendasikan layanan ini!"</p>
+
+                                <div class="stars">★★★★★</div>
                                 <div class="card-user">
                                     <img src="<?= base_url('assets/images/sm/avatar1.jpg') ?>" alt="User Photo">
                                     <div>
@@ -399,13 +378,12 @@
                                 </div>
                             </div>
                         </li>
-
                         <li>
                             <div class="testimonial-card">
-                                <p class="card-text">
-                                    "Amazing experience! The customer service was top-notch, and I found the perfect car
-                                    for my trip."
-                                </p>
+                                <p class="card-text">"Pengalaman luar biasa! Layanan pelanggan sangat baik, dan saya
+                                    menemukan mobil yang sempurna untuk perjalanan saya."</p>
+
+                                <div class="stars">★★★★☆</div>
                                 <div class="card-user">
                                     <img src="<?= base_url('assets/images/sm/avatar3.jpg') ?>" alt="User Photo">
                                     <div>
@@ -415,43 +393,12 @@
                                 </div>
                             </div>
                         </li>
+                        <li>
+                            <div class="testimonial-card">
+                                <p class="card-text">"Layanan rental mobil terbaik! Harga terjangkau dan mobil yang
+                                    terawat dengan baik membuat perjalanan saya sangat nyaman."</p>
 
-                        <li>
-                            <div class="testimonial-card">
-                                <p class="card-text">
-                                    "Best car rental service! The prices are affordable, and the cars are
-                                    well-maintained."
-                                </p>
-                                <div class="card-user">
-                                    <img src="<?= base_url('assets/images/sm/team-1.jpg') ?>" alt="User Photo">
-                                    <div>
-                                        <h3 class="user-name">Michael Brown</h3>
-                                        <span class="user-role">Entrepreneur</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="testimonial-card">
-                                <p class="card-text">
-                                    "Best car rental service! The prices are affordable, and the cars are
-                                    well-maintained."
-                                </p>
-                                <div class="card-user">
-                                    <img src="<?= base_url('assets/images/sm/avatar2.jpg') ?>" alt="User Photo">
-                                    <div>
-                                        <h3 class="user-name">Michael Brown</h3>
-                                        <span class="user-role">Entrepreneur</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="testimonial-card">
-                                <p class="card-text">
-                                    "Best car rental service! The prices are affordable, and the cars are
-                                    well-maintained."
-                                </p>
+                                <div class="stars">★★★★★</div>
                                 <div class="card-user">
                                     <img src="<?= base_url('assets/images/sm/avatar4.jpg') ?>" alt="User Photo">
                                     <div>
@@ -461,12 +408,9 @@
                                 </div>
                             </div>
                         </li>
-
                     </ul>
-
                 </div>
             </section>
-
 
             <!-- footer -->
             <link rel="stylesheet" href="<?= base_url('assets/css/detail.css') ?>">
@@ -516,14 +460,6 @@
             </footer>
 
             <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-            <script>
-            gsap.to(".testimonial-list", {
-                x: "-100%",
-                duration: 20,
-                repeat: 1,
-                ease: "linear"
-            });
-            </script>
 
             <!-- js -->
             <script src="./assets/js/script.js"></script>

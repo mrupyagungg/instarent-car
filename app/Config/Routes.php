@@ -138,6 +138,7 @@ $routes->get('payment/checkout', 'Payment::checkout');
 
 $routes->get('garasi', 'Garasi_C::index');
 $routes->get('about', 'About_C::index');
+$routes->get('contact', 'Contact_C::index');
 
 
 // Additional routes for environment-specific configs

@@ -91,19 +91,19 @@ p {
 }
 
 .btn-warning {
-    background-color: #ffc107;
-    color: #212529;
+    background-color:rgb(255, 255, 255);
+    color:rgb(9, 0, 0);
     border: none;
     padding: 10px 20px;
     font-size: 1rem;
     border-radius: 5px;
-    text-transform: uppercase;
+    /* text-transform: uppercase; */
     font-weight: bold;
 }
 
 .btn-warning:hover {
-    background-color: #e0a800;
-    color: #fff;
+    background-color:rgb(252, 189, 0);
+    color: black;
 }
 
 .text-center {

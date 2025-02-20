@@ -15,7 +15,34 @@
     </style>
 
     <div class="container mt-4">
-        <h2>About</h2>
+        <!-- <h2>About</h2> -->
+        <section class="section testimonial">
+            <div class="container">
+                <h2 class="h2 section-title">Tentang Kami</h2>
+                <p class="about-text">Kami adalah perusahaan rental mobil yang berdedikasi untuk memberikan pengalaman
+                    terbaik bagi pelanggan kami. Dengan berbagai pilihan kendaraan yang terawat dengan baik dan proses
+                    penyewaan yang mudah, kami memastikan perjalanan Anda nyaman dan bebas khawatir.</p>
+
+                <div class="about-features">
+                    <div class="feature">
+                        <i class="fas fa-car"></i>
+                        <h3>Kendaraan Berkualitas</h3>
+                        <p>Semua mobil kami selalu dalam kondisi prima dengan perawatan rutin.</p>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-user-check"></i>
+                        <h3>Pelayanan Terbaik</h3>
+                        <p>Tim kami selalu siap membantu dan memberikan solusi terbaik untuk kebutuhan Anda.</p>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-wallet"></i>
+                        <h3>Harga Terjangkau</h3>
+                        <p>Kami menawarkan harga yang kompetitif tanpa mengurangi kualitas layanan.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
     </div>
 </div>
 
