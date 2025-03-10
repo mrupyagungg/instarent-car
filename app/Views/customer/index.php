@@ -83,7 +83,7 @@
             <section class="section get-start">
                 <div class="container">
 
-                    <h2 class="h2 section-title">Get started with 4 simple steps</h2>
+                    <h2 class="h2 section-title">Mulai dengan 4 Langkah Sederhana</h2>
 
                     <ul class="get-start-list">
 
@@ -94,31 +94,13 @@
                                     <ion-icon name="person-add-outline"></ion-icon>
                                 </div>
 
-                                <h3 class="card-title">Create a profile</h3>
+                                <h3 class="card-title">1.Buat Profil Anda</h3>
 
                                 <p class="card-text">
-                                    If you are going to use a passage of Lorem Ipsum, you need to be sure.
+                                    Buat akun pribadi anda untuk mulai menggunakan layanan kami dengan mudah dan cepat.
                                 </p>
 
-                                <a href="/register" class="card-link">Get started</a>
-
-                            </div>
-                        </li>
-
-                        <li>
-                            <div class="get-start-card">
-
-                                <div class="card-icon icon-3">
-                                    <ion-icon name="person-outline"></ion-icon>
-                                </div>
-
-                                <h3 class="card-title">Match with seller</h3>
-
-                                <p class="card-text">
-                                    It to make a type specimen book. It has survived not only five centuries, but also
-                                    the leap into
-                                    electronic
-                                </p>
+                                <a href="/register" class="card-link">Mulai Sekarang</a>
 
                             </div>
                         </li>
@@ -130,17 +112,30 @@
                                     <ion-icon name="car-outline"></ion-icon>
                                 </div>
 
-                                <h3 class="card-title">Tell us what car you want</h3>
+                                <h3 class="card-title">2.Pilih Mobil yang Anda Inginkan</h3>
 
                                 <p class="card-text">
-                                    Various versions have evolved over the years, sometimes by accident, sometimes on
-                                    purpose
+                                    Pilih dari berbagai pilihan mobil yang tersedia sesuai dengan kebutuhan Anda.
                                 </p>
 
                             </div>
                         </li>
 
+                        <li>
+                            <div class="get-start-card">
 
+                                <div class="card-icon icon-3">
+                                    <ion-icon name="person-outline"></ion-icon>
+                                </div>
+
+                                <h3 class="card-title">3.Cocokkan dengan Penjual</h3>
+
+                                <p class="card-text">
+                                    Kami akan membantu Anda terhubung dengan penjual yang sesuai.
+                                </p>
+
+                            </div>
+                        </li>
 
                         <li>
                             <div class="get-start-card">
@@ -149,11 +144,10 @@
                                     <ion-icon name="card-outline"></ion-icon>
                                 </div>
 
-                                <h3 class="card-title">Make a deal</h3>
+                                <h3 class="card-title">4.Lakukan Transaksi Online</h3>
 
                                 <p class="card-text">
-                                    There are many variations of passages of Lorem available, but the majority have
-                                    suffered alteration
+                                    Selesaikan transaksi dengan aman dan nikmati perjalanan Anda dengan mobil pilihan.
                                 </p>
 
                             </div>

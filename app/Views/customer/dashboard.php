@@ -16,6 +16,14 @@
     - custom css link
   -->
     <link rel="stylesheet" href="<?= base_url('assets/css/stylee.css') ?>">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+        integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous">
+    </script>
     <script src="<?= base_url('assets/js/script.js') ?>"></script>
 
     <!-- 
@@ -32,10 +40,15 @@
 </head>
 
 <style>
+a {
+    text-decoration: none;
+}
+
 .navbar-header h3 {
     font-family: 'Lobster', cursive;
     font-size: 35px;
     color: black;
+    outline: none;
 }
 
 .hero-forms {
@@ -70,6 +83,19 @@
     box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
     outline: none;
 }
+
+.info-box {
+    background-color: #d4f4fc;
+    /* Warna biru muda */
+    padding: 15px 15px;
+    /* Ruang di dalam box */
+    border-radius: 5px;
+    /* Agar sudutnya sedikit melengkung */
+    border-left: 4px solid #007bff;
+    /* Garis kiri berwarna biru */
+
+}
+
 
 .btn {
     width: 50%;
@@ -166,7 +192,7 @@
                         <h3 class="h2 hero-text">Instarent solusi terbaik </h3>
 
                         <p class="hero-text">
-                            <i data-lucide="map-pin"></i> PBB RUKO R11 BDG, Buah Batu, Bandung, Jawa Barat
+                            <i data-lucide="map-pin"></i> PBB Ruko R.11 Buah Batu, Bandung, Jawa Barat
                         </p>
 
                         <script src="https://unpkg.com/lucide@latest"></script>
@@ -190,6 +216,71 @@
 
             <section class="section featured-car" id="featured-car">
                 <div class="container">
+                    <div class="container text-center">
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="info-box">
+                                    <h2 class="h2 section-title">Keterangan</h2>
+                                    <p>
+                                        Sistem pemakaian pertanggal mulai pk. 00.00 sampai 24.00
+                                        (Mulai dipakai kapan saja berakhir pk. 00.00 itu sudah hitungan sehari).
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <h2 class="h2 section-title">Syarat</h2>
+                                <div class="accordion accordion-flush" id="accordionFlushExample">
+
+                                    <!-- Mahasiswa -->
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header">
+                                            <button class="accordion-button collapsed" type="button"
+                                                data-bs-toggle="collapse" data-bs-target="#flush-collapseOne"
+                                                aria-expanded="false" aria-controls="flush-collapseOne">
+                                                Mahasiswa
+                                            </button>
+                                        </h2>
+                                        <div id="flush-collapseOne" class="accordion-collapse collapse"
+                                            data-bs-parent="#accordionFlushExample">
+                                            <div class="accordion-body">
+                                                <ul style="list-style: disc; margin-left: 20px; text-align: left;">
+                                                    <li>Kartu Tanda Mahasiswa (KTM)</li>
+                                                    <li>KTP</li>
+                                                    <li>SIM A/B/C</li>
+                                                    <li>Menitipkan 1 Identitas fisik</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <!-- Umum -->
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header">
+                                            <button class="accordion-button collapsed" type="button"
+                                                data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo"
+                                                aria-expanded="false" aria-controls="flush-collapseTwo">
+                                                Umum
+                                            </button>
+                                        </h2>
+                                        <div id="flush-collapseTwo" class="accordion-collapse collapse"
+                                            data-bs-parent="#accordionFlushExample">
+                                            <div class="accordion-body">
+                                                <ul>
+                                                    <li>KTP</li>
+                                                    <li>Kartu Tanda Mahasiswa (KTM)</li>
+                                                    <li>SIM A/B/C</li>
+                                                    <li>Menitipkan 1 Identitas fisik</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
 
                     <div class="title-wrapper">
                         <h2 class="h2 section-title">Pilih Kendaraan</h2>
@@ -273,142 +364,65 @@
                 </div>
             </section>
 
-            <!-- 
-        - #GET START
-      -->
-
             <section class="section get-start">
                 <div class="container">
 
-                    <h2 class="h2 section-title">Get started with 4 simple steps</h2>
+                    <h2 class="h2 section-title">Mulai dengan 4 Langkah Sederhana</h2>
 
-                    <ul class="get-start-list">
-
+                    <ul class="featured-car-list">
+                        <?php foreach (array_slice($kendaraans, 3, 6) as $kendaraan): ?>
                         <li>
-                            <div class="get-start-card">
+                            <div class="featured-car-card">
 
-                                <div class="card-icon icon-1">
-                                    <ion-icon name="person-add-outline"></ion-icon>
+                                <figure class="card-banner">
+                                    <img src="<?= base_url('uploads/' . esc($kendaraan['gambar_kendaraan'])) ?>"
+                                        alt="Car Image">
+                                </figure>
+
+                                <div class="card-content">
+                                    <div class="card-title-wrapper">
+                                        <h3 class="h3 card-title">
+                                            <a href="<?= base_url('detail/' . esc($kendaraan['id_kendaraan'])) ?>">
+                                                <?= esc(ucwords($kendaraan['nama_kendaraan'])) ?>
+                                            </a>
+                                        </h3>
+                                        <data class="year" value="<?= esc($kendaraan['tahun_kendaraan']) ?>">
+                                            <?= esc($kendaraan['tahun_kendaraan']) ?>
+                                        </data>
+                                    </div>
+
+                                    <ul class="card-list">
+                                        <li class="card-list-item">
+                                            <ion-icon name="flash-outline"></ion-icon>
+                                            <span class="card-item-text">Bensin</span>
+                                        </li>
+                                        <li class="card-list-item">
+                                            <ion-icon name="car-sport-outline"></ion-icon>
+                                            <span
+                                                class="card-item-text"><?= esc(ucwords($kendaraan['merk_kendaraan'])) ?></span>
+                                        </li>
+                                    </ul>
+
+                                    <div class="card-price-wrapper">
+                                        <p class="card-price">
+                                            <strong>Rp
+                                                <?= number_format($kendaraan['harga_sewa_kendaraan'], 0, ',', '.') ?></strong>
+                                            / hari
+                                        </p>
+
+                                        <a href="<?= base_url('detail/' . esc($kendaraan['id_kendaraan'])) ?>"
+                                            class="btn rent-btn">
+                                            Sewa Sekarang
+                                        </a>
+                                    </div>
                                 </div>
-
-                                <h3 class="card-title">Create a profile</h3>
-
-                                <p class="card-text">
-                                    If you are going to use a passage of Lorem Ipsum, you need to be sure.
-                                </p>
-
-                                <a href="#featured-car" class="card-link">Get started</a>
 
                             </div>
                         </li>
-
-                        <li>
-                            <div class="get-start-card">
-
-                                <div class="card-icon icon-2">
-                                    <ion-icon name="car-outline"></ion-icon>
-                                </div>
-
-                                <h3 class="card-title">Tell us what car you want</h3>
-
-                                <p class="card-text">
-                                    Various versions have evolved over the years, sometimes by accident, sometimes on
-                                    purpose
-                                </p>
-
-                            </div>
-                        </li>
-
-                        <li>
-                            <div class="get-start-card">
-
-                                <div class="card-icon icon-3">
-                                    <ion-icon name="person-outline"></ion-icon>
-                                </div>
-
-                                <h3 class="card-title">Match with seller</h3>
-
-                                <p class="card-text">
-                                    It to make a type specimen book. It has survived not only five centuries, but also
-                                    the leap into
-                                    electronic
-                                </p>
-
-                            </div>
-                        </li>
-
-                        <li>
-                            <div class="get-start-card">
-
-                                <div class="card-icon icon-4">
-                                    <ion-icon name="card-outline"></ion-icon>
-                                </div>
-
-                                <h3 class="card-title">Make a deal</h3>
-
-                                <p class="card-text">
-                                    There are many variations of passages of Lorem available, but the majority have
-                                    suffered alteration
-                                </p>
-
-                            </div>
-                        </li>
-
+                        <?php endforeach; ?>
                     </ul>
 
-                </div>
-            </section>
 
-            <section class="section testimonial">
-                <div class="container">
-                    <h2 class="h2 section-title">What Our Customers Say</h2>
-                    <ul class="testimonial-list">
-                        <li>
-                            <div class="testimonial-card">
-                                <p class="card-text">"Proses penyewaan sangat mudah, dan mobil dalam kondisi sempurna.
-                                    Sangat merekomendasikan layanan ini!"</p>
-
-                                <div class="stars">★★★★★</div>
-                                <div class="card-user">
-                                    <img src="<?= base_url('assets/images/sm/avatar1.jpg') ?>" alt="User Photo">
-                                    <div>
-                                        <h3 class="user-name">John Doe</h3>
-                                        <span class="user-role">Businessman</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="testimonial-card">
-                                <p class="card-text">"Pengalaman luar biasa! Layanan pelanggan sangat baik, dan saya
-                                    menemukan mobil yang sempurna untuk perjalanan saya."</p>
-
-                                <div class="stars">★★★★☆</div>
-                                <div class="card-user">
-                                    <img src="<?= base_url('assets/images/sm/avatar3.jpg') ?>" alt="User Photo">
-                                    <div>
-                                        <h3 class="user-name">Sarah Smith</h3>
-                                        <span class="user-role">Frequent Traveler</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="testimonial-card">
-                                <p class="card-text">"Layanan rental mobil terbaik! Harga terjangkau dan mobil yang
-                                    terawat dengan baik membuat perjalanan saya sangat nyaman."</p>
-
-                                <div class="stars">★★★★★</div>
-                                <div class="card-user">
-                                    <img src="<?= base_url('assets/images/sm/avatar4.jpg') ?>" alt="User Photo">
-                                    <div>
-                                        <h3 class="user-name">Michael Brown</h3>
-                                        <span class="user-role">Entrepreneur</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
                 </div>
             </section>
 
