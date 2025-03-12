@@ -7,7 +7,10 @@
     <meta name="description" content="">
     <meta name="author" content="Webpixels">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
-    <title>:: INSTARENT :: </title>
+    <!-- Tambahkan ini di dalam head -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <title>𝙄𝙉𝙎𝙏𝘼𝙍𝙀𝙉𝙏 (𝙈𝙤𝙗𝙞𝙡 & 𝙈𝙤𝙩𝙤𝙧) </title>
 
     <link rel="stylesheet" href="<?= base_url('assets/vendor/themify-icons/themify-icons.css') ?>">
     <link rel="stylesheet" href="<?= base_url('assets/vendor/fontawesome/css/font-awesome.min.css') ?>">
@@ -27,8 +30,9 @@
     <!-- Page Loader -->
     <div class="page-loader-wrapper">
         <div class="loader">
-            <div class="m-t-30"><img src="<?= base_url('assets/images/brand/icon_black.svg') ?>" width="48" height="48" alt="ArrOw"></div>
-            <p><b>Sabar ya sayang...</b></p>
+            <div class="m-t-30"><img src="<?= base_url('assets/images/prv/cars.gif') ?>" width="300" height="300"
+                    alt="ArrOw"></div>
+            <p><b>...</b></p>
         </div>
     </div>
     <?= $this->include('templates/navbar'); ?>

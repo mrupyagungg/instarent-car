@@ -29,7 +29,8 @@
                     <div class="body">
                         <div class="row">
                             <div class="pl-3 mb-4">
-                                <a href="<?= base_url('pengeluaran/add') ?>" class="btn btn-block btn-primary">Tambah</a>
+                                <a href="<?= base_url('pengeluaran/add') ?>"
+                                    class="btn btn-block btn-primary">Tambah</a>
                             </div>
                         </div>
 
@@ -42,25 +43,26 @@
                                         <th>Tanggal</th>
                                         <th>Keterangan</th>
                                         <th>Jumlah</th>
-                                        <th class="text-center"></th>
+                                        <th class="text-center"><i class="fa fa-cog fa-spin"></i></th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php
                                     $no = 1;
                                     foreach ($pengeluaran as $data) : ?>
-                                        <tr>
-                                            <td> <?= $no++ ?> </td>
-                                            <td> <?= $data['kode_transaksi'] ?> </td>
-                                            <td> <?= format_date($data['tanggal']) ?> </td>
-                                            <td> <?= $data['keterangan'] ?> </td>
-                                            <td> <?= nominal($data['jumlah']) ?> </td>
-                                            <td class="text-center">
-                                                <a href="<?= base_url('pengeluaran/edit/' . $data['kode_transaksi']) ?>" type="button" class="btn btn-sm btn-warning">
-                                                    <i class="fa fa-edit"></i>
-                                                </a>
-                                            </td>
-                                        </tr>
+                                    <tr>
+                                        <td> <?= $no++ ?> </td>
+                                        <td> <?= $data['kode_transaksi'] ?> </td>
+                                        <td> <?= format_date($data['tanggal']) ?> </td>
+                                        <td> <?= $data['keterangan'] ?> </td>
+                                        <td> <?= nominal($data['jumlah']) ?> </td>
+                                        <td class="text-center">
+                                            <a href="<?= base_url('pengeluaran/edit/' . $data['kode_transaksi']) ?>"
+                                                type="button" class="btn btn-sm btn-warning">
+                                                <i class="fa fa-edit"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
                                     <?php endforeach; ?>
                                 </tbody>
                             </table>

@@ -31,8 +31,8 @@
         <nav aria-label="breadcrumb ">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item active" aria-current="page">Registrasi</li>
-                <li class="breadcrumb-item"><a href="<?= base_url('pemesanan/add_data_pemesanan') ?>">Pesan</a></li>
-                <li class="breadcrumb-item"><a href="<?= base_url('bayar') ?>">Bayar</a></li>
+                <li class="breadcrumb-item">Pesan</li>
+                <li class="breadcrumb-item">Bayar</li>
             </ol>
         </nav>
 

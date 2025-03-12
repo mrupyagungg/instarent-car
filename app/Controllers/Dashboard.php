@@ -19,7 +19,7 @@ class Dashboard extends BaseController
         $pemesanan = $this->dashboardModel->getPemesananData();
         $pengeluaran = $this->dashboardModel->getPengeluaranData();
         $waktuData = $this->dashboardModel->getWaktuData();
-        $data['jenis_kendaraan'] = $model->select('jenis')->groupBy('jenis')->findAll();
+        // $data['jenis_kendaraan'] = $model->select('jenis')->groupBy('jenis')->findAll();
         $data = [
             'pemesanan' => $pemesanan,
             'pengeluaran' => $pengeluaran,

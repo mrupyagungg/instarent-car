@@ -108,9 +108,7 @@
                 <label class="form-label">Pelanggan</label>
                 <input type="text" class="form-control" value="<?= $lastPelangganName ?>" readonly>
                 <input type="hidden" name="pelanggan_id" value="<?= $lastPelangganId ?>">
-                <?php if (isset($validation)): ?>
-                <span class="badge bg-danger"> <?= $validation->getError('pelanggan_id') ?></span>
-                <?php endif; ?>
+
             </div>
 
 

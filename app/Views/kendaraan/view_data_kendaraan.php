@@ -42,39 +42,40 @@
                                         <th>Tahun</th>
                                         <th>Warna</th>
                                         <th>Harga</th>
-                                        <th>Gambar</th> <!-- Tambahkan kolom Gambar -->
-                                        <th class="text-center"></th>
+                                        <th>Gambar</th>
+                                        <th class="text-center"><i class="fa fa-cog fa-spin"></i></th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php
                                     $no = 1;
                                     foreach ($kendaraan as $data): ?>
-                                        <tr>
-                                            <td> <?= $no++ ?> </td>
-                                            <td> <?= $data['kode_kendaraan'] ?> </td>
-                                            <td> <?= $data['jenis_kendaraan'] ?> </td>
-                                            <td> <?= $data['nama_kendaraan'] ?> </td>
-                                            <td> <?= $data['merk_kendaraan'] ?> </td>
-                                            <td> <?= $data['tahun_kendaraan'] ?> </td>
-                                            <td> <?= $data['warna_kendaraan'] ?> </td>
-                                            <td> <?= nominal($data['harga_sewa_kendaraan']) ?> </td>
-                                            <td>
-                                                <?php if (!empty($data['gambar_kendaraan'])): ?>
-                                                    <img src="<?= base_url('uploads/' . $data['gambar_kendaraan']) ?>" alt="Gambar Kendaraan" style="width: 100px; height: auto;">
-                                                <?php else: ?>
-                                                    <span>No Image</span>
-                                                <?php endif; ?>
-                                            </td>
-                                            <td class="text-center">
-                                                <a href="<?= base_url('kendaraan/edit/' . $data['id_kendaraan']) ?>" type="button" class="btn btn-sm btn-warning">
-                                                    <i class="fa fa-edit"></i>
-                                                </a>
-                                                <button type="button" class="btn btn-sm btn-danger" onclick="deleteConfirm(this)" data-id="<?= $data['id_kendaraan'] ?>" data-kode="<?= $data['kode_kendaraan'] ?>">
-                                                    <i class="fa fa-trash"></i>
-                                                </button>
-                                            </td>
-                                        </tr>
+                                    <tr>
+                                        <td> <?= $no++ ?> </td>
+                                        <td> <?= $data['kode_kendaraan'] ?> </td>
+                                        <td> <?= $data['jenis_kendaraan'] ?> </td>
+                                        <td> <?= $data['nama_kendaraan'] ?> </td>
+                                        <td> <?= $data['merk_kendaraan'] ?> </td>
+                                        <td> <?= $data['tahun_kendaraan'] ?> </td>
+                                        <td> <?= $data['warna_kendaraan'] ?> </td>
+                                        <td> <?= nominal($data['harga_sewa_kendaraan']) ?> </td>
+                                        <td>
+                                            <?php if (!empty($data['gambar_kendaraan'])): ?>
+                                            <img src="<?= base_url('uploads/' . $data['gambar_kendaraan']) ?>"
+                                                alt="Gambar Kendaraan" style="width: 100px; height: auto;">
+                                            <?php else: ?>
+                                            <span>No Image</span>
+                                            <?php endif; ?>
+                                        </td>
+
+                                        <td class="text-center">
+                                            <a href="<?= base_url('kendaraan/edit/' . $data['id_kendaraan']) ?>"
+                                                type="button" class="btn btn-sm btn-warning">
+                                                <i class="fa fa-edit"></i>Edit
+                                            </a>
+                                        </td>
+
+                                    </tr>
                                     <?php endforeach; ?>
                                 </tbody>
 
@@ -90,49 +91,50 @@
 <!-- End Page-content -->
 
 <script>
-    function deleteConfirm(e) {
-        var tomboldelete = document.getElementById('btn-delete')
-        id = e.getAttribute('data-id');
-        kode = e.getAttribute('data-kode');
+function deleteConfirm(e) {
+    var tomboldelete = document.getElementById('btn-delete')
+    id = e.getAttribute('data-id');
+    kode = e.getAttribute('data-kode');
 
-        var url3 = "<?= base_url('kendaraan/delete/') ?>";
-        var url4 = url3.concat("/", id);
-        tomboldelete.setAttribute("href", url4); //akan meload kontroller delete
+    var url3 = "<?= base_url('kendaraan/delete/') ?>";
+    var url4 = url3.concat("/", id);
+    tomboldelete.setAttribute("href", url4); //akan meload kontroller delete
 
-        var pesan = "Data dengan Kode <b>"
-        var pesan2 = " </b>akan dihapus"
-        var res = kode;
-        document.getElementById("text").innerHTML = pesan.concat(res, pesan2);
+    var pesan = "Data dengan Kode <b>"
+    var pesan2 = " </b>akan dihapus"
+    var res = kode;
+    document.getElementById("text").innerHTML = pesan.concat(res, pesan2);
 
-        var myModal = new bootstrap.Modal(document.getElementById('deleteModal'), {
-            keyboard: false
-        });
+    var myModal = new bootstrap.Modal(document.getElementById('deleteModal'), {
+        keyboard: false
+    });
 
-        myModal.show();
-    }
+    myModal.show();
+}
 </script>
 
-<div id="deleteModal" class="modal fade" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div id="deleteModal" class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog"
+    aria-labelledby="mySmallModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header bg-primary">
-                <h5 class="modal-title mt-0 text-white">Apa Kamu Yakin ?</h5>
-                <a type="button" data-dismiss="modal" aria-hidden="true">×</a>
+                <h5 class="modal-title mt-0 text-white">Apa Kamu Yakin?</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body" id="text"></div>
-            <div class="modal-body">Data yang dihapus tidak akan bisa dikembalikan.</div>
             <div class="modal-body">
-                <div class="mb-2 mt-1">
-                    <div class="float-right d-none d-sm-block">
-                        <a href="#" class="btn btn-secondary" data-dismiss="modal"><i class="mdi mdi-close-thick fa-lg"></i> Batal</a>
-                        <a href="#" class="btn btn-danger" id="btn-delete" type="submit"><i class="mdi mdi-trash-can fa-lg"></i> Delete</a>
-                    </div>
-                </div>
+                <p id="text"></p>
+                <p>Data yang dihapus tidak akan bisa dikembalikan.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    <i class="mdi mdi-close-thick"></i> Batal
+                </button>
+                <a href="#" class="btn btn-danger" id="btn-delete">
+                    <i class="mdi mdi-trash-can"></i> Hapus
+                </a>
             </div>
         </div>
-        <!-- /.modal-content -->
     </div>
-    <!-- /.modal-dialog -->
 </div>
 
 <?= $this->endSection('content-admin'); ?>

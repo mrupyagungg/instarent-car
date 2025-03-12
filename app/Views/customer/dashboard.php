@@ -366,65 +366,55 @@ a {
 
             <section class="section get-start">
                 <div class="container">
-
-                    <h2 class="h2 section-title">Mulai dengan 4 Langkah Sederhana</h2>
-
-                    <ul class="featured-car-list">
-                        <?php foreach (array_slice($kendaraans, 3, 6) as $kendaraan): ?>
-                        <li>
-                            <div class="featured-car-card">
-
-                                <figure class="card-banner">
-                                    <img src="<?= base_url('uploads/' . esc($kendaraan['gambar_kendaraan'])) ?>"
-                                        alt="Car Image">
-                                </figure>
-
-                                <div class="card-content">
-                                    <div class="card-title-wrapper">
-                                        <h3 class="h3 card-title">
-                                            <a href="<?= base_url('detail/' . esc($kendaraan['id_kendaraan'])) ?>">
-                                                <?= esc(ucwords($kendaraan['nama_kendaraan'])) ?>
-                                            </a>
-                                        </h3>
-                                        <data class="year" value="<?= esc($kendaraan['tahun_kendaraan']) ?>">
-                                            <?= esc($kendaraan['tahun_kendaraan']) ?>
-                                        </data>
-                                    </div>
-
-                                    <ul class="card-list">
-                                        <li class="card-list-item">
-                                            <ion-icon name="flash-outline"></ion-icon>
-                                            <span class="card-item-text">Bensin</span>
-                                        </li>
-                                        <li class="card-list-item">
-                                            <ion-icon name="car-sport-outline"></ion-icon>
-                                            <span
-                                                class="card-item-text"><?= esc(ucwords($kendaraan['merk_kendaraan'])) ?></span>
-                                        </li>
-                                    </ul>
-
-                                    <div class="card-price-wrapper">
-                                        <p class="card-price">
-                                            <strong>Rp
-                                                <?= number_format($kendaraan['harga_sewa_kendaraan'], 0, ',', '.') ?></strong>
-                                            / hari
-                                        </p>
-
-                                        <a href="<?= base_url('detail/' . esc($kendaraan['id_kendaraan'])) ?>"
-                                            class="btn rent-btn">
-                                            Sewa Sekarang
-                                        </a>
-                                    </div>
+                    <h2 class="h2 section-title">Ulasan dari Pelanggan </h2>
+                    <div class="row">
+                        <!-- Ulasan 1 -->
+                        <div class="col-md-4">
+                            <div class="card text-center">
+                                <div class="card-body text-center d-flex flex-column align-items-center">
+                                    <h5 class="card-title mb-4">Budi Santoso</h5>
+                                    <img src="<?= base_url('assets/images/gif/face1.gif') ?>" width="250" height="200"
+                                        alt="ArrOw">
+                                    <h5 class="card-title text-success mt-3">Traveller</h5>
+                                    <p class="card-text text-center">"Layanan yang luar biasa! Prosesnya cepat dan
+                                        mudah. Pasti akan menggunakan layanan ini lagi."</p>
+                                    <small class="text-muted">★★★★★</small>
                                 </div>
 
                             </div>
-                        </li>
-                        <?php endforeach; ?>
-                    </ul>
-
-
+                        </div>
+                        <!-- Ulasan 2 -->
+                        <div class="col-md-4">
+                            <div class="card text-center">
+                                <div class="card-body text-center d-flex flex-column align-items-center">
+                                    <h5 class="card-title mb-4">Fachri Afif</h5>
+                                    <img src="<?= base_url('assets/images/gif/face2.gif') ?>" width="250" height="200"
+                                        alt="Car Image" class="rounded-circle mx-auto d-block mb-2">
+                                    <h5 class="card-title text-warning">Student</h5>
+                                    <p class="card-text">"Sangat puas dengan pelayanan dan kualitasnya. Mobil bersih dan
+                                        nyaman digunakan."</p>
+                                    <small class="text-muted">★★★★★</small>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Ulasan 3 -->
+                        <div class="col-md-4">
+                            <div class="card text-center">
+                                <div class="card-body text-center d-flex flex-column align-items-center">
+                                    <h5 class=" card-title mb-4">Siti Aisyah</h5>
+                                    <img src="<?= base_url('assets/images/gif/face3.gif') ?>" width="250" height="200"
+                                        alt="Car Image" class="rounded-circle mx-auto d-block mb-2">
+                                    <h5 class="card-title text-danger">Teacher</h5>
+                                    <p class="card-text">"Harga terjangkau dan pelayanan kualitas terbaik. Sangat
+                                        dekat dengan kampus Telkom University!"</p>
+                                    <small class="text-muted">★★★★☆</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </section>
+
 
             <!-- footer -->
             <link rel="stylesheet" href="<?= base_url('assets/css/detail.css') ?>">
