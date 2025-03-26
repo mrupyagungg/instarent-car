@@ -30,20 +30,23 @@
                         <form action="<?= base_url('pengeluaran/create') ?>" method="POST" class="no-validated row g-3">
                             <div class="col-md-6 mb-3">
                                 <label class="form-label">Kode Transaksi</label>
-                                <input type="text" class="form-control" name="kode_transaksi" value="<?= $kode_transaksi; ?>" autocomplete="off" disabled>
+                                <input type="text" class="form-control" name="kode_transaksi"
+                                    value="<?= $kode_transaksi; ?>" autocomplete="off" disabled>
                             </div>
                             <div class="col-md-12 mb-3">
                                 <label class="form-label">Pengeluaran</label>
                                 <select class="form-control" name="id_jenis_pengeluaran" required>
                                     <option value="" disabled selected>Pilih Pengeluaran</option>
                                     <?php foreach ($jenis_pengeluaran as $list) { ?>
-                                        <option value="<?= $list['id_jenis_pengeluaran'] ?>"><?= $list['nama_jenis_pengeluaran'] ?></option>
+                                    <option value="<?= $list['id_jenis_pengeluaran'] ?>">
+                                        <?= $list['nama_jenis_pengeluaran'] ?></option>
                                     <?php } ?>
                                 </select>
                             </div>
                             <div class="col-md-12 mb-3">
                                 <label class="form-label">Keterangan</label>
-                                <textarea type="text" class="form-control" name="keterangan" rows="3" autocomplete="off"></textarea>
+                                <textarea type="text" class="form-control" name="keterangan" rows="3"
+                                    autocomplete="off"></textarea>
                             </div>
                             <div class="col-md-12 mb-3">
                                 <label class="form-label">Jumlah</label>
@@ -53,9 +56,11 @@
                                             <span>Rp</span>
                                         </div>
                                     </div>
-                                    <input type="text" class="form-control jumlah" min=1 oninput="validity.valid||(value='');" name="jumlah" placeholder="Jumlah" autocomplete="off">
+                                    <input type="text" class="form-control jumlah" min=1
+                                        oninput="validity.valid||(value='');" name="jumlah" placeholder="Jumlah"
+                                        autocomplete="off">
                                     <?php if (isset($validation)) : ?>
-                                        <span class="badge bg-danger"> <?= $validation->getError('jumlah') ?></span>
+                                    <span class="badge bg-danger"> <?= $validation->getError('jumlah') ?></span>
                                     <?php endif; ?>
                                 </div>
                             </div>
@@ -77,6 +82,6 @@
 <?= $this->section('content-script'); ?>
 <!-- java script -->
 <script>
-    new AutoNumeric('.jumlah', autoNumericOptionsJumlah);
+new AutoNumeric('.jumlah', autoNumericOptionsJumlah);
 </script>
 <?= $this->endSection('content-script'); ?>

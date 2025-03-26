@@ -1,5 +1,5 @@
-<?=$this->extend('templates/head');?>
-<?=$this->section('content-admin');?>
+<?= $this->extend('templates/head'); ?>
+<?= $this->section('content-admin'); ?>
 <div class="page-content">
     <div class="container-fluid">
         <div class="row">
@@ -16,6 +16,7 @@
             </div>
         </div>
 
+        <!-- Form Filter -->
         <div class="row">
             <div class="col-lg-12">
                 <div class="card">
@@ -48,7 +49,7 @@
                                 </div>
                                 <div class="col-md-3">
                                     <button type="submit" class="btn btn-dark waves-effect waves-light">
-                                        <i class="bx bx-loader bx-spin font-size-16 align-middle me-2"></i> Filter
+                                        <i class="bx bx-filter font-size-16 align-middle me-2"></i> Filter
                                     </button>
                                 </div>
                             </div>
@@ -58,6 +59,7 @@
             </div>
         </div>
 
+        <!-- Buku Besar -->
         <div class="row">
             <div class="col-lg-12">
                 <div class="card">
@@ -68,6 +70,7 @@
                             <h6><b>Periode <?= $date ?> <?= $year ?></b></h6>
                             <h6><b><?= $nama_akun ?></b></h6>
                         </div>
+
                         <div class="table-responsive">
                             <table class="table table-striped align-middle dt-responsive nowrap" style="width: 100%;">
                                 <thead class="table-light">
@@ -85,24 +88,28 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <!-- Saldo Awal -->
                                     <tr>
                                         <td>-</td>
-                                        <td class="bg-light">Saldo Awal</td>
+                                        <td class="bg-light"><b>Saldo Awal</b></td>
                                         <td>-</td>
                                         <td>-</td>
                                         <td>-</td>
                                         <?php 
+                                        $saldo_debet = 0;
+                                        $saldo_kredit = 0;
+
                                         if ($posisi_saldo_normal === 'd') {
                                             $saldo_debet = $saldo_awal;
-                                            $saldo_kredit = 0;
-                                            echo "<td class='bg-light text-right'>" . nominal($saldo_awal) . "</td><td>-</td>";
+                                            echo "<td class='bg-light text-right'><b>" . nominal($saldo_awal) . "</b></td><td>-</td>";
                                         } else {
-                                            $saldo_debet = 0;
                                             $saldo_kredit = $saldo_awal;
-                                            echo "<td>-</td><td class='bg-light text-right'>" . nominal($saldo_awal) . "</td>";
+                                            echo "<td>-</td><td class='bg-light text-right'><b>" . nominal($saldo_awal) . "</b></td>";
                                         }
                                         ?>
                                     </tr>
+
+                                    <!-- Transaksi -->
                                     <?php foreach ($buku_besar as $data) { ?>
                                     <tr>
                                         <td><?= $data['tanggal'] ?></td>
@@ -122,24 +129,27 @@
                                     </tr>
                                     <?php } ?>
                                 </tbody>
+
+                                <!-- Saldo Akhir -->
                                 <tfoot>
                                     <tr>
                                         <td>-</td>
-                                        <td class="bg-light">Saldo Akhir</td>
+                                        <td class="bg-light"><b>Saldo Akhir</b></td>
                                         <td>-</td>
                                         <td>-</td>
                                         <td>-</td>
-                                        <td class="bg-light text-right"> <?= nominal($saldo_debet - $saldo_kredit) ?>
+                                        <td>-</td>
+                                        <td class="bg-light text-right">
+                                            <b><?= nominal($saldo_kredit - $saldo_debet) ?></b>
                                         </td>
-                                        <td>-</td>
                                     </tr>
                                 </tfoot>
                             </table>
-                        </div>
+                        </div> <!-- End Table -->
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<?=$this->endSection();?>
+<?= $this->endSection(); ?>
