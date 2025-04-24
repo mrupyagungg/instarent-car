@@ -140,6 +140,8 @@ $routes->get('garasi', 'Garasi_C::index');
 $routes->get('about', 'About_C::index');
 $routes->get('contact', 'Contact_C::index');
 
+$routes->get('laporan/jurnal/downloadPDF', 'Laporan\Jurnal::downloadPDF');
+
 
 // Additional routes for environment-specific configs
 if (is_file(APPPATH . 'Config/' . ENVIRONMENT . '/Routes.php')) {

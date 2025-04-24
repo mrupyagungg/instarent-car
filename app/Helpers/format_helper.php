@@ -1,148 +1,95 @@
-
 <?php
-function format_bulan($a)
-{
-    $a = str_pad($a, 2, "0", STR_PAD_LEFT);
-    $bulanIndonesia = array(
-        '01' => 'Januari',
-        '02' => 'Februari',
-        '03' => 'Maret',
-        '04' => 'April',
-        '05' => 'Mei',
-        '06' => 'Juni',
-        '07' => 'Juli',
-        '08' => 'Agustus',
-        '09' => 'September',
-        '10' => 'Oktober',
-        '11' => 'November',
-        '12' => 'Desember',
-    );
-    return $bulanIndonesia[$a];
+
+if (!function_exists('format_bulan')) {
+    function format_bulan($bulan)
+    {
+        $bulan = str_pad($bulan, 2, "0", STR_PAD_LEFT);
+        $bulanIndonesia = [
+            '01' => 'Januari', '02' => 'Februari', '03' => 'Maret',
+            '04' => 'April', '05' => 'Mei', '06' => 'Juni',
+            '07' => 'Juli', '08' => 'Agustus', '09' => 'September',
+            '10' => 'Oktober', '11' => 'November', '12' => 'Desember',
+        ];
+        return $bulanIndonesia[$bulan] ?? 'Tidak Valid';
+    }
 }
 
-//fungsi untuk format rupiah
-function format_rp($a)
-{
-    if (!is_numeric($a)) {
-        return null;
-    }
 
-    $jumlah_desimal = "0";
-    $pemisah_desimal = ",";
-    $pemisah_ribuan = ".";
-    $angka = "Rp " . number_format($a, $jumlah_desimal, $pemisah_desimal, $pemisah_ribuan);
-    return $angka;
+if (!function_exists('format_rupiah')) {
+    function format_rupiah($angka)
+    {
+        if (!is_numeric($angka)) return 'Rp 0';
+        return 'Rp ' . number_format($angka, 0, ',', '.');
+    }
 }
 
 if (!function_exists('nominal')) {
     function nominal($angka)
     {
-        $jd = number_format((int) $angka, 0, '.', '.');
-        return 'Rp ' . $jd;
-    }
-    function nominal_($angka)
-    {
-        $jd = number_format($angka, 0, '.', '.');
-        return $jd;
+        return format_rupiah($angka);
     }
 }
 
 if (!function_exists('format_indo')) {
-    function format_indo($date)
+    function format_indo($tanggal)
     {
-        // array hari dan bulan
-        // $Hari = array("Minggu","Senin","Selasa","Rabu","Kamis","Jumat","Sabtu");
-        $Bulan = array("Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember");
+        if (!$tanggal || !strtotime($tanggal)) return 'Tanggal Tidak Valid';
 
-        // pemisahan tahun, bulan, hari, dan waktu
-        $tahun = substr($date, 0, 4);
-        $bulan = substr($date, 5, 2);
-        $tgl = substr($date, 8, 2);
-        $waktu = substr($date, 11, 5);
-        $hari = date("w", strtotime($date));
-        $result = $tgl . " " . $Bulan[(int) $bulan - 1] . " " . $tahun . "" . $waktu;
+        $bulanIndonesia = [
+            'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
+            'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
+        ];
 
-        return $result;
+        $tahun = substr($tanggal, 0, 4);
+        $bulan = (int) substr($tanggal, 5, 2);
+        $hari = substr($tanggal, 8, 2);
+
+        return "{$hari} {$bulanIndonesia[$bulan - 1]} {$tahun}";
     }
 }
 
 if (!function_exists('format_indo2')) {
-    function format_indo2($date)
+    function format_indo2($tanggal)
     {
-        // array hari dan bulan
-        // $Hari = array("Minggu","Senin","Selasa","Rabu","Kamis","Jumat","Sabtu");
-        $Bulan = array("Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember");
+        if (!$tanggal || !strtotime($tanggal)) return 'Tanggal Tidak Valid';
 
-        // pemisahan tahun, bulan, hari, dan waktu
-        $tahun = substr($date, 0, 4);
-        $bulan = substr($date, 5, 2);
-        $tgl = substr($date, 8, 2);
-        $waktu = substr($date, 11, 5);
-        $hari = date("w", strtotime($date));
-        $result = $Bulan[(int) $bulan - 1] . " " . $tahun;
+        $bulanIndonesia = [
+            'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
+            'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
+        ];
 
-        return $result;
+        $tahun = substr($tanggal, 0, 4);
+        $bulan = (int) substr($tanggal, 5, 2);
+
+        return "{$bulanIndonesia[$bulan - 1]} {$tahun}";
     }
 }
 
-if (!function_exists('format_date1')) {
-    function format_date($date)
+if (!function_exists('format_date')) {
+    function format_date($tanggal)
     {
-        $waktu = date("d-m-Y", strtotime($date));
-        $result = $waktu;
-
-        return $result;
+        return date("d-m-Y", strtotime($tanggal));
     }
 }
 
 if (!function_exists('bulan')) {
     function bulan($bulan)
     {
-        switch ($bulan) {
-            case 'January':
-                return "Januari";
-                break;
-            case 'February':
-                return "Februari";
-                break;
-            case 'March':
-                return "Maret";
-                break;
-            case 'April':
-                return "April";
-                break;
-            case 'May':
-                return "Mei";
-                break;
-            case "June":
-                return "Juni";
-                break;
-            case 'July':
-                return "Juli";
-                break;
-            case 'August':
-                return "Agustus";
-                break;
-            case 'September':
-                return "September";
-                break;
-            case 'October':
-                return "Oktober";
-                break;
-            case 'November':
-                return "November";
-                break;
-            case 'December':
-                return "Desember";
-                break;
-        }
+        $bulanInggris = [
+            'January' => 'Januari', 'February' => 'Februari', 'March' => 'Maret',
+            'April' => 'April', 'May' => 'Mei', 'June' => 'Juni',
+            'July' => 'Juli', 'August' => 'Agustus', 'September' => 'September',
+            'October' => 'Oktober', 'November' => 'November', 'December' => 'Desember',
+        ];
+        return $bulanInggris[$bulan] ?? 'Tidak Valid';
     }
 }
 
-function replace_nominal($params)
-{
-    return str_replace('.', '', $params);
+if (!function_exists('replace_nominal')) {
+    function replace_nominal($angka)
+    {
+        return str_replace('.', '', $angka);
+    }
 }
 
 ?>
-

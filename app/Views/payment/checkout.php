@@ -104,7 +104,7 @@
                 <li class="list-group-item d-flex text-dark justify-content-between align-items-center"
                     style="font-size: 1rem;">
                     <strong><i class="fas fa-info-circle"></i> Status:</strong>
-                    <span class="badge badge-warning px-3 py-2" style="font-size: 1.1rem;">Bayar</span>
+                    <span class="badge badge-warning px-3 py-2" style="font-size: 1.1rem;">Menunggu Pembayaran</span>
                 </li>
                 <li class="list-group-item bg-dark d-flex text-light justify-content-between align-items-center"
                     style="font-size: 1.5rem; font-weight: bold;">
