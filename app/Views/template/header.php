@@ -69,6 +69,9 @@
                     <li>
                         <a href="/contact" class="navbar-link" data-nav-link>Contact us</a>
                     </li>
+                    <li>
+                        <a href="/contact" class="navbar-link" data-nav-link>Riwayat</a>
+                    </li>
 
                 </ul>
 

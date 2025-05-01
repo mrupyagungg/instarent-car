@@ -139,9 +139,12 @@
                                     <span class="card-item-text">Bensin</span>
                                 </li>
                                 <li class="card-list-item">
-                                    <ion-icon name="checkmark-circle"></ion-icon>
-                                    <span class="card-item-text">Ready</span>
+                                    <ion-icon name="color-palette"></ion-icon>
+                                    <span class="card-item-text">
+                                        <?= esc(ucwords($kendaraan['status_kendaraan'])) ?>
+                                    </span>
                                 </li>
+
                                 <li class="card-list-item">
                                     <ion-icon name="car-sport-outline"></ion-icon>
                                     <span class="card-item-text">

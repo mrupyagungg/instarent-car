@@ -9,9 +9,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Checkout Pembayaran</title>
 
-    <!-- Midtrans Snap.js -->
-    <script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="your-client-key"></script>
-
     <!-- Bootstrap & Font Awesome -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
@@ -19,11 +16,6 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="<?= base_url('assets/css/main.css') ?>">
 </head>
-<style>
-.breadcrumb-item+.breadcrumb-item::before {
-    content: none;
-}
-</style>
 
 <body>
     <div class="container mt-5">
@@ -40,7 +32,7 @@
         <?php endif; ?>
 
         <!-- Breadcrumb -->
-        <nav aria-label="breadcrumb ">
+        <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item" aria-current="page">Registrasi</li>
                 <li class="breadcrumb-item">Pesan</li>
@@ -52,21 +44,6 @@
             <h6 class="text-center mb-4 text-danger">
                 *silahkan melakukan pembayaran yang sudah disediakan, harap simpan bukti pembayaran !
             </h6>
-            <!-- Flash Messages -->
-            <?php if (session()->getFlashdata('success')): ?>
-            <div class="alert alert-success alert-dismissible fade show" id="success-alert" role="alert">
-                <strong><i class="fas fa-check-circle"></i> Success!</strong> <?= session()->getFlashdata('success') ?>
-                <button type="button" class="close" data-dismiss="alert">&times;</button>
-            </div>
-            <?php endif; ?>
-
-            <?php if (session()->getFlashdata('error')): ?>
-            <div class="alert alert-danger alert-dismissible fade show" id="error-alert" role="alert">
-                <strong><i class="fas fa-exclamation-circle"></i> Error!</strong>
-                <?= session()->getFlashdata('error') ?>
-                <button type="button" class="close" data-dismiss="alert">&times;</button>
-            </div>
-            <?php endif; ?>
 
             <!-- Detail Pesanan -->
             <ul class="list-group mb-4">
@@ -115,32 +92,18 @@
 
             <!-- Tombol Pembayaran -->
             <div class="text-center">
-                <button id="pay-button" class="btn btn-primary btn-lg px-4 py-2">
+                <a href="<?= esc($paymentUrl) ?>" class="btn btn-primary btn-lg px-4 py-2">
                     <i class="fas fa-credit-card"></i> Bayar Sekarang
-                </button>
+                </a>
             </div>
-        </div>
 
+        </div>
     </div>
 
-    <!-- Script Snap Midtrans -->
+    <!-- Script Xendit -->
     <script>
     document.getElementById('pay-button').onclick = function() {
-        snap.pay("<?= $snapToken ?>", {
-            onSuccess: function(result) {
-                console.log(result);
-                alert("Pembayaran sukses!");
-                window.location.href = "<?= base_url('customer/dashboard') ?>";
-            },
-            onPending: function(result) {
-                console.log(result);
-                alert("Menunggu pembayaran!");
-            },
-            onError: function(result) {
-                console.log(result);
-                alert("Pembayaran gagal!");
-            }
-        });
+        window.location.href = "<?= esc($snapToken) ?>"; // Redirect to Xendit payment page
     };
     </script>
 

@@ -149,6 +149,9 @@ a {
                     <li>
                         <a href="/contact" class="navbar-link" data-nav-link>Contact us</a>
                     </li>
+                    <li>
+                        <a href="/contact" class="navbar-link" data-nav-link>Riwayat</a>
+                    </li>
 
                 </ul>
 
@@ -247,7 +250,7 @@ a {
                                                     <li>Kartu Tanda Mahasiswa (KTM)</li>
                                                     <li>KTP</li>
                                                     <li>SIM A/B/C</li>
-                                                    <li>Menitipkan 1 Identitas fisik</li>
+                                                    <li>Menitipkan KTM Fisik</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -267,10 +270,10 @@ a {
                                             data-bs-parent="#accordionFlushExample">
                                             <div class="accordion-body">
                                                 <ul>
-                                                    <li>KTP</li>
-                                                    <li>Kartu Tanda Mahasiswa (KTM)</li>
+                                                    <li>KTP/Kartu Tanda Pengenal</li>
+                                                    <li></li>
                                                     <li>SIM A/B/C</li>
-                                                    <li>Menitipkan 1 Identitas fisik</li>
+                                                    <li>Fotocopy Identitas</li>
                                                 </ul>
                                             </div>
                                         </div>

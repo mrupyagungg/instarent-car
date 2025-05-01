@@ -136,12 +136,15 @@ $routes->post('payment/process', 'Payment::process');
 $routes->get('payment/success', 'Payment::success');
 $routes->get('payment/checkout', 'Payment::checkout');
 
+
 $routes->get('garasi', 'Garasi_C::index');
 $routes->get('about', 'About_C::index');
 $routes->get('contact', 'Contact_C::index');
 
 $routes->get('laporan/jurnal/downloadPDF', 'Laporan\Jurnal::downloadPDF');
 
+$routes->get('payment/success/(:segment)', 'Payment::success/$1');
+$routes->get('payment/download_invoice/(:any)', 'Payment::download_invoice/$1');
 
 // Additional routes for environment-specific configs
 if (is_file(APPPATH . 'Config/' . ENVIRONMENT . '/Routes.php')) {

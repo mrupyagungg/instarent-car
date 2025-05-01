@@ -2,6 +2,7 @@
 
 namespace Config;
 
+use Xendit\Xendit;
 use CodeIgniter\Config\AutoloadConfig;
 
 /**
@@ -44,6 +45,7 @@ class Autoload extends AutoloadConfig
     public $psr4 = [
         APP_NAMESPACE => APPPATH, // For custom app namespace
         'Config'      => APPPATH . 'Config',
+        'Xendit'      => ROOTPATH . 'vendor/xendit/xendit-php/src/Xendit',
     ];
 
     /**
