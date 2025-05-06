@@ -27,6 +27,8 @@ $routes->set404Override();
 // Auth routes
 $routes->get('/customer/dashboard', 'Customer::index');
 $routes->get('/', 'Customer::guest');
+$routes->post('login/login', 'Login::login');
+$routes->get('login', 'Login::index');
 
 $routes->get('/', 'Login::index');
 $routes->get('/login', 'Login::index');
@@ -145,6 +147,8 @@ $routes->get('laporan/jurnal/downloadPDF', 'Laporan\Jurnal::downloadPDF');
 
 $routes->get('payment/success/(:segment)', 'Payment::success/$1');
 $routes->get('payment/download_invoice/(:any)', 'Payment::download_invoice/$1');
+
+$routes->get('/riwayat', 'Riwayat::index');
 
 // Additional routes for environment-specific configs
 if (is_file(APPPATH . 'Config/' . ENVIRONMENT . '/Routes.php')) {

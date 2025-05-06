@@ -381,3 +381,93 @@ p {
     transform: scale(1.02); /* Sedikit pembesaran */
     transition: all 0.3s ease-in-out;
 }
+
+/* Form container */
+#pelangganForm {
+    max-width: 600px;
+    margin: auto;
+    padding: 2rem;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+    font-family: 'Segoe UI', sans-serif;
+  }
+  
+  /* Label styling */
+  #pelangganForm .form-label {
+    font-weight: 600;
+    margin-bottom: 6px;
+    display: block;
+    color: #333;
+  }
+  
+  /* Input, textarea, and select styling */
+  #pelangganForm .form-control {
+    width: 100%;
+    padding: 12px 14px;
+    font-size: 15px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    transition: 0.3s;
+    background-color: #fdfdfd;
+  }
+  
+  #pelangganForm .form-control:focus {
+    border-color: #4f46e5; /* Indigo */
+    box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.2);
+    background-color: #fff;
+    outline: none;
+  }
+  
+  /* Textarea adjustment */
+  #pelangganForm textarea {
+    resize: vertical;
+    min-height: 100px;
+  }
+  
+  /* Button style */
+  #pelangganForm button[type="submit"] {
+    background-color: #4f46e5;
+    border: none;
+    color: white;
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  #pelangganForm button[type="submit"]:hover {
+    background-color: #4338ca;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    #pelangganForm {
+      background-color: #1e1e2f;
+      color: #eee;
+    }
+  
+    #pelangganForm .form-label {
+      color: #ccc;
+    }
+  
+    #pelangganForm .form-control {
+      background-color: #2a2a40;
+      color: #eee;
+      border-color: #444;
+    }
+  
+    #pelangganForm .form-control:focus {
+      border-color: #818cf8;
+      box-shadow: 0 0 0 4px rgba(129, 140, 248, 0.2);
+    }
+  
+    #pelangganForm button[type="submit"] {
+      background-color: #6366f1;
+    }
+  
+    #pelangganForm button[type="submit"]:hover {
+      background-color: #4f46e5;
+    }
+  }
+  

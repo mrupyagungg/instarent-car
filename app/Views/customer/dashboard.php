@@ -114,6 +114,17 @@ a {
     background: linear-gradient(135deg, #0056b3, #007bff);
     transform: scale(1.05);
 }
+
+.dropdown-item {
+    display: block;
+    padding: 8px 12px;
+    color: #333;
+    text-decoration: none;
+}
+
+.dropdown-item:hover {
+    background-color: #f0f0f0;
+}
 </style>
 
 <body?>
@@ -150,7 +161,7 @@ a {
                         <a href="/contact" class="navbar-link" data-nav-link>Contact us</a>
                     </li>
                     <li>
-                        <a href="/contact" class="navbar-link" data-nav-link>Riwayat</a>
+                        <a href="/riwayat" class="navbar-link" data-nav-link>Riwayat</a>
                     </li>
 
                 </ul>
@@ -158,12 +169,28 @@ a {
             </nav>
 
             <div class="header-actions">
+                <div class="header-actions">
+                    <div class="header-contact dropdown">
+                        <a href="#" class="contact-link dropdown-toggle" id="userDropdown" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
+                            <?= esc(session()->get('username')) ?>
+                        </a>
+                        <span class="contact-time d-block"><?= esc(session()->get('email')) ?></span>
 
-                <div class="header-contact">
-                    <a href="tel:88002345678" class="contact-link">8 800 234 56 78</a>
-
-                    <span class="contact-time">Mon - Sat: 9:00 am - 6:00 pm</span>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                            <a class="dropdown-item" href="/profile">Profil</a>
+                            <a class="dropdown-item" href="/logout">Logout</a>
+                        </div>
+                    </div>
                 </div>
+
+                <!-- Bootstrap 4 CDN -->
+                <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+                <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+                <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+
+
 
                 <button class="nav-toggle-btn" data-nav-toggle-btn aria-label="Toggle Menu">
                     <span class="one"></span>
@@ -404,10 +431,10 @@ a {
                         <div class="col-md-4">
                             <div class="card text-center">
                                 <div class="card-body text-center d-flex flex-column align-items-center">
-                                    <h5 class=" card-title mb-4">Siti Aisyah</h5>
+                                    <h5 class=" card-title mb-4">Angel Putri</h5>
                                     <img src="<?= base_url('assets/images/gif/face3.gif') ?>" width="250" height="200"
                                         alt="Car Image" class="rounded-circle mx-auto d-block mb-2">
-                                    <h5 class="card-title text-danger">Teacher</h5>
+                                    <h5 class="card-title text-danger">Student</h5>
                                     <p class="card-text">"Harga terjangkau dan pelayanan kualitas terbaik. Sangat
                                         dekat dengan kampus Telkom University!"</p>
                                     <small class="text-muted">★★★★☆</small>

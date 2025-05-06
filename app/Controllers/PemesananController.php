@@ -175,15 +175,15 @@ class PemesananController extends BaseController
     }
     
 
-private function generateKodePemesanan()
-{
-    $prefix = 'PMS-'; // Prefix kode pemesanan
-    $date = date('Ymd'); // Format tanggal: TahunBulanHari
-    $lastId = $this->pemesanans->selectMax('id_pemesanan')->first()['id_pemesanan'] ?? 0; // Ambil ID terakhir dari database
-    $newId = $lastId + 1; // Tambahkan 1 untuk ID baru
+    private function generateKodePemesanan()
+    {
+        $prefix = 'PMS-'; // Prefix kode pemesanan
+        $date = date('Ymd'); // Format tanggal: TahunBulanHari
+        $lastId = $this->pemesanans->selectMax('id_pemesanan')->first()['id_pemesanan'] ?? 0; // Ambil ID terakhir dari database
+        $newId = $lastId + 1; // Tambahkan 1 untuk ID baru
 
-    return $prefix . $date . sprintf('%05d', $newId); // Format: INV2025011500001
-}
+        return $prefix . $date . sprintf('%05d', $newId); // Format: INV2025011500001
+    }
 
 
     

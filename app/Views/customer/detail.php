@@ -63,9 +63,11 @@
             </div>
 
             <!-- Form Pelanggan -->
-            <div class="col-md-6 card">
-                <h4>Input Pelanggan</h4>
+            <div class="col-md-6">
                 <form action="/customer/store" method="post" id="pelangganForm">
+                    <center>
+                        <h4>Formulir Data Pelanggan</h4>
+                    </center>
                     <?= csrf_field() ?>
                     <div class="mb-3">
                         <label for="nama_pelanggan" class="form-label">Nama Pelanggan</label>
@@ -79,33 +81,52 @@
                     </div>
                     <div class="mb-3">
                         <label for="no_telp_pelanggan" class="form-label">No Telepon</label>
-                        <input type="number" class="form-control" id="no_telp_pelanggan" name="no_telp_pelanggan"
+                        <input type="text" class="form-control" id="no_telp_pelanggan" name="no_telp_pelanggan"
                             value="<?= old('no_telp_pelanggan') ?>" required>
                     </div>
+                    <div class="mb-3">
+                        <label class="form-label">Jenis Kelamin</label>
+                        <div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" id="laki_laki"
+                                    name="jenis_kelamin_pelanggan" value="Laki-laki"
+                                    <?= old('jenis_kelamin_pelanggan') === 'Laki-laki' ? 'checked' : '' ?> required>
+                                <label class="form-check-label" for="laki_laki">Laki-laki</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" id="perempuan"
+                                    name="jenis_kelamin_pelanggan" value="Perempuan"
+                                    <?= old('jenis_kelamin_pelanggan') === 'Perempuan' ? 'checked' : '' ?> required>
+                                <label class="form-check-label" for="perempuan">Perempuan</label>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="mb-3">
                         <label for="alamat_pelanggan" class="form-label">Alamat</label>
                         <textarea class="form-control" id="alamat_pelanggan" name="alamat_pelanggan"
                             required><?= old('alamat_pelanggan') ?></textarea>
                     </div>
-                    <div class="mb-3">
-                        <label for="jenis_kelamin_pelanggan" class="form-label">Jenis Kelamin</label>
-                        <select class="form-control" id="jenis_kelamin_pelanggan" name="jenis_kelamin_pelanggan"
-                            required>
-                            <option value="">-- Pilih --</option>
-                            <option value="Laki-laki"
-                                <?= old('jenis_kelamin_pelanggan') === 'Laki-laki' ? 'selected' : '' ?>>Laki-laki
-                            </option>
-                            <option value="Perempuan"
-                                <?= old('jenis_kelamin_pelanggan') === 'Perempuan' ? 'selected' : '' ?>>Perempuan
-                            </option>
-                        </select>
-                    </div>
+
                     <button type="submit" class="btn btn-success w-100">Simpan Data</button>
                 </form>
+
                 <?php if (session()->getFlashdata('success')): ?>
                 <a href="/pemesanan/add_data_pemesanan" class="btn btn-primary w-100 mt-2">Lanjut</a>
                 <?php endif; ?>
             </div>
+
+            <style>
+            /* Check visibility and layout of select element */
+            #jenis_kelamin_pelanggan {
+                visibility: visible !important;
+                /* Ensure the dropdown is visible */
+                display: block !important;
+                /* Make sure the dropdown is not hidden */
+            }
+            </style>
+
+
         </div>
     </div>
 </div>
