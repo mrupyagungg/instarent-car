@@ -1,5 +1,6 @@
 <?= $this->extend('templates/head'); ?>
 <?= $this->section('content-admin'); ?>
+<<<<<<< HEAD
 <style>
 /* Semua kolom angka di tabel keuangan diratakan ke kanan */
 .table td.text-end,
@@ -31,6 +32,17 @@
                     <div class="page-title-right">
                         <ol class="breadcrumb m-0">
                             <li class="breadcrumb-item"><a href="#">Jurnal</a></li>
+=======
+<div class="page-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                    <h4 class="mb-sm-0 font-size-18">Buku Besar</h4>
+                    <div class="page-title-right">
+                        <ol class="breadcrumb m-0">
+                            <li class="breadcrumb-item"><a href="javascript:void(0);">Jurnal</a></li>
+>>>>>>> 71f6e5046be693041a2cc7f6a1792325ba72f1c1
                             <li class="breadcrumb-item active">Buku Besar</li>
                         </ol>
                     </div>
@@ -38,6 +50,7 @@
             </div>
         </div>
 
+<<<<<<< HEAD
         <!-- Filter Form -->
         <div class="row mb-4">
             <div class="col-lg-12">
@@ -75,6 +88,42 @@
                                 <div class="col-md-3">
                                     <button type="submit" class="btn btn-dark w-100">
                                         <i class="bx bx-filter me-1"></i> Filter
+=======
+        <!-- Form Filter -->
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <form action="<?= base_url('buku-besar/filter') ?>" method="post">
+                            <div class="row">
+                                <div class="form-group col-md-3 mb-1">
+                                    <select class="form-control" name="month" required>
+                                        <option value="" disabled selected>Bulan</option>
+                                        <?php for ($i = 1; $i <= 12; $i++) { ?>
+                                        <option value="<?= $i ?>"><?= format_bulan($i) ?></option>
+                                        <?php } ?>
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-3 mb-1">
+                                    <select class="form-control" name="year" required>
+                                        <option value="" disabled selected>Tahun</option>
+                                        <?php for ($y = date('Y') - 2; $y <= date('Y'); $y++) { ?>
+                                        <option value="<?= $y ?>"><?= $y ?></option>
+                                        <?php } ?>
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-3 mb-1">
+                                    <select class="form-control" name="id_akun" required>
+                                        <option value="" disabled selected>Akun</option>
+                                        <?php foreach ($list_akun as $list) { ?>
+                                        <option value="<?= $list['id_akun'] ?>"><?= $list['nama_akun'] ?></option>
+                                        <?php } ?>
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <button type="submit" class="btn btn-dark waves-effect waves-light">
+                                        <i class="bx bx-filter font-size-16 align-middle me-2"></i> Filter
+>>>>>>> 71f6e5046be693041a2cc7f6a1792325ba72f1c1
                                     </button>
                                 </div>
                             </div>
@@ -84,6 +133,7 @@
             </div>
         </div>
 
+<<<<<<< HEAD
         <!-- Table Buku Besar -->
         <div class="row">
             <div class="col-lg-12">
@@ -117,11 +167,28 @@
 
                         <div class="table-responsive">
                             <table class="table table-bordered table-hover align-middle">
+=======
+        <!-- Buku Besar -->
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="text-center pb-2">
+                            <h5><b>INSTA RENT</b></h5>
+                            <h5><b>BUKU BESAR</b></h5>
+                            <h6><b>Periode <?= $date ?> <?= $year ?></b></h6>
+                            <h6><b><?= $nama_akun ?></b></h6>
+                        </div>
+
+                        <div class="table-responsive">
+                            <table class="table table-striped align-middle dt-responsive nowrap" style="width: 100%;">
+>>>>>>> 71f6e5046be693041a2cc7f6a1792325ba72f1c1
                                 <thead class="table-light">
                                     <tr>
                                         <th rowspan="2">Tanggal</th>
                                         <th rowspan="2">Nama Akun</th>
                                         <th rowspan="2">REF</th>
+<<<<<<< HEAD
                                         <th rowspan="2" class="text-end">Debet</th>
                                         <th rowspan="2" class="text-end">Kredit</th>
                                         <th colspan="2">Saldo</th>
@@ -137,6 +204,18 @@
                                         $saldo_kredit = 0;
                                         ?>
 
+=======
+                                        <th rowspan="2" class="text-center">Debet</th>
+                                        <th rowspan="2" class="text-center">Kredit</th>
+                                        <th colspan="2" class="text-center">Saldo</th>
+                                    </tr>
+                                    <tr>
+                                        <th class="text-center">Debet</th>
+                                        <th class="text-center">Kredit</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+>>>>>>> 71f6e5046be693041a2cc7f6a1792325ba72f1c1
                                     <!-- Saldo Awal -->
                                     <tr>
                                         <td>-</td>
@@ -144,6 +223,7 @@
                                         <td>-</td>
                                         <td>-</td>
                                         <td>-</td>
+<<<<<<< HEAD
                                         <?php if ($posisi_saldo_normal === 'd'): ?>
                                         <?php $saldo_debet = $saldo_awal; ?>
                                         <td class="bg-light text-end"><b><?= nominal($saldo_awal) ?></b></td>
@@ -187,6 +267,44 @@
 
                                 <!-- Saldo Akhir -->
                                 <?php if (!empty($buku_besar)): ?>
+=======
+                                        <?php 
+                                        $saldo_debet = 0;
+                                        $saldo_kredit = 0;
+
+                                        if ($posisi_saldo_normal === 'd') {
+                                            $saldo_debet = $saldo_awal;
+                                            echo "<td class='bg-light text-right'><b>" . nominal($saldo_awal) . "</b></td><td>-</td>";
+                                        } else {
+                                            $saldo_kredit = $saldo_awal;
+                                            echo "<td>-</td><td class='bg-light text-right'><b>" . nominal($saldo_awal) . "</b></td>";
+                                        }
+                                        ?>
+                                    </tr>
+
+                                    <!-- Transaksi -->
+                                    <?php foreach ($buku_besar as $data) { ?>
+                                    <tr>
+                                        <td><?= $data['tanggal'] ?></td>
+                                        <td><?= $data['nama_akun'] ?></td>
+                                        <td><?= $data['id_akun'] ?></td>
+                                        <?php if ($data['posisi'] === 'd') { ?>
+                                        <td class="text-right"> <?= nominal($data['nominal']) ?> </td>
+                                        <td>-</td>
+                                        <?php $saldo_debet += $data['nominal']; ?>
+                                        <?php } else { ?>
+                                        <td>-</td>
+                                        <td class="text-right"> <?= nominal($data['nominal']) ?> </td>
+                                        <?php $saldo_kredit += $data['nominal']; ?>
+                                        <?php } ?>
+                                        <td class="text-right"> <?= nominal($saldo_debet) ?> </td>
+                                        <td class="text-right"> <?= nominal($saldo_kredit) ?> </td>
+                                    </tr>
+                                    <?php } ?>
+                                </tbody>
+
+                                <!-- Saldo Akhir -->
+>>>>>>> 71f6e5046be693041a2cc7f6a1792325ba72f1c1
                                 <tfoot>
                                     <tr>
                                         <td>-</td>
@@ -194,6 +312,7 @@
                                         <td>-</td>
                                         <td>-</td>
                                         <td>-</td>
+<<<<<<< HEAD
                                         <?php if ($posisi_saldo_normal === 'd'): ?>
                                         <?php $saldo_akhir = $saldo_debet - $saldo_kredit; ?>
                                         <td class="text-end"><b><?= nominal($saldo_akhir) ?></b></td>
@@ -208,12 +327,27 @@
                                 <?php endif; ?>
                             </table>
                         </div>
+=======
+                                        <td>-</td>
+                                        <td class="bg-light text-right">
+                                            <b><?= nominal($saldo_kredit - $saldo_debet) ?></b>
+                                        </td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div> <!-- End Table -->
+>>>>>>> 71f6e5046be693041a2cc7f6a1792325ba72f1c1
                     </div>
                 </div>
             </div>
         </div>
+<<<<<<< HEAD
 
     </div>
 </div>
 
+=======
+    </div>
+</div>
+>>>>>>> 71f6e5046be693041a2cc7f6a1792325ba72f1c1
 <?= $this->endSection(); ?>

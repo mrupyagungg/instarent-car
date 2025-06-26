@@ -149,6 +149,7 @@ $routes->get('payment/success/(:segment)', 'Payment::success/$1');
 $routes->get('payment/download_invoice/(:any)', 'Payment::download_invoice/$1');
 
 $routes->get('/riwayat', 'Riwayat::index');
+<<<<<<< HEAD
 $routes->get('pemesanan/kembalikan/(:num)', 'PemesananController::kembalikan/$1');
 $routes->get('pemesanan/add_data_pemesanan/(:num)', 'Pemesanan::create/$1');
 $routes->match(['get', 'post'], 'pemesanan/create/(:num)', 'Pemesanan::create/$1');
@@ -164,6 +165,8 @@ $routes->get('jurnal/download/excel/(:num)/(:num)', 'Laporan\Jurnal::downloadExc
 $routes->get('laba-rugi/pdf/(:num)/(:num)', 'Laporan\LabaRugi::downloadPDF/$1/$2');
 $routes->get('laba-rugi/excel/(:num)/(:num)', 'Laporan\LabaRugi::downloadExcel/$1/$2');
 
+=======
+>>>>>>> 71f6e5046be693041a2cc7f6a1792325ba72f1c1
 
 // Additional routes for environment-specific configs
 if (is_file(APPPATH . 'Config/' . ENVIRONMENT . '/Routes.php')) {

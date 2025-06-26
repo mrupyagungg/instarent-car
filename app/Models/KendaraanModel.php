@@ -6,7 +6,10 @@ use CodeIgniter\Model;
 
 class KendaraanModel extends Model
 {
+<<<<<<< HEAD
     protected $returnType = 'array';
+=======
+>>>>>>> 71f6e5046be693041a2cc7f6a1792325ba72f1c1
     protected $table = 'kendaraan';
     protected $primaryKey = 'id_kendaraan';
     protected $allowedFields = [
@@ -17,7 +20,10 @@ class KendaraanModel extends Model
         'tahun_kendaraan',
         'warna_kendaraan',
         'harga_sewa_kendaraan',
+<<<<<<< HEAD
         'status_kendaraan',
+=======
+>>>>>>> 71f6e5046be693041a2cc7f6a1792325ba72f1c1
         'gambar_kendaraan'
     ];
 
@@ -100,6 +106,7 @@ class KendaraanModel extends Model
         return $kode_kendaraan . $nomor;
     }
 
+<<<<<<< HEAD
     public function getAvailable()
     {
         $db = \Config\Database::connect();
@@ -117,6 +124,8 @@ class KendaraanModel extends Model
         return $builder->get()->getResultArray();
     }
 
+=======
+>>>>>>> 71f6e5046be693041a2cc7f6a1792325ba72f1c1
     // Menyimpan data kendaraan baru
     public function createKendaraan($data)
     {
@@ -134,4 +143,8 @@ class KendaraanModel extends Model
     {
         return $this->delete($id);
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 71f6e5046be693041a2cc7f6a1792325ba72f1c1

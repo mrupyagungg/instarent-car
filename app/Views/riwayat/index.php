@@ -1,6 +1,7 @@
 <?= $this->extend('template/layout') ?>
 <?= $this->section('content') ?>
 
+<<<<<<< HEAD
 <!-- Bootstrap & FontAwesome -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
@@ -154,15 +155,41 @@ a {
                 <h2>Riwayat Pemesanan</h2>
 
                 <table class="order-table">
+=======
+<!-- Link Bootstrap & CSS Tambahan -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="<?= base_url('assets/css/detail.css') ?>">
+<link rel="stylesheet" href="<?= base_url('assets/css/main.css') ?>">
+
+<div class="container">
+    <style>
+    .breadcrumb-item+.breadcrumb-item::before {
+        content: none;
+    }
+    </style>
+
+    <div class="container mt-4">
+
+        <section class="section contact">
+            <div class="container">
+                <h2>Riwayat Pemesanan</h2>
+
+                <table border="1" cellpadding="10" cellspacing="0">
+>>>>>>> 71f6e5046be693041a2cc7f6a1792325ba72f1c1
                     <thead>
                         <tr>
                             <th>No</th>
                             <th>Kode Pemesanan</th>
                             <th>Tanggal</th>
+<<<<<<< HEAD
                             <th>Lama Pesan</th>
                             <th>Total Harga</th>
                             <th>Status</th>
                             <th>Detail</th>
+=======
+                            <th>Status</th>
+>>>>>>> 71f6e5046be693041a2cc7f6a1792325ba72f1c1
                         </tr>
                     </thead>
                     <tbody>
@@ -172,6 +199,7 @@ a {
                             <td><?= $i + 1 ?></td>
                             <td><?= esc($r['kode_pemesanan']) ?></td>
                             <td><?= esc($r['tanggal_pemesanan']) ?></td>
+<<<<<<< HEAD
                             <td><?= esc($r['nama_kendaraan']) ?></td>
                             <td>Rp <?= number_format(esc($r['total_harga']), 0, ',', '.') ?></td>
                             <td class="status <?= strtolower($r['status']) ?>"><?= esc($r['status']) ?></td>
@@ -382,14 +410,33 @@ a {
                         <?php else : ?>
                         <tr>
                             <td colspan="7" class="empty">Belum ada pemesanan.</td>
+=======
+                            <td><?= esc($r['status']) ?></td>
+                        </tr>
+                        <?php endforeach ?>
+                        <?php else : ?>
+                        <tr>
+                            <td colspan="4">Belum ada pemesanan.</td>
+>>>>>>> 71f6e5046be693041a2cc7f6a1792325ba72f1c1
                         </tr>
                         <?php endif; ?>
                     </tbody>
                 </table>
+<<<<<<< HEAD
             </section>
         </div>
     </div>
 </div>
+=======
+
+
+            </div>
+        </section>
+
+    </div>
+</div>
+
+>>>>>>> 71f6e5046be693041a2cc7f6a1792325ba72f1c1
 <script>
 document.addEventListener("DOMContentLoaded", function() {
     setTimeout(() => {
@@ -398,5 +445,9 @@ document.addEventListener("DOMContentLoaded", function() {
     }, 4000);
 });
 </script>
+<<<<<<< HEAD
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+=======
+
+>>>>>>> 71f6e5046be693041a2cc7f6a1792325ba72f1c1
 <?= $this->endSection() ?>

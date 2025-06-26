@@ -45,8 +45,12 @@
                                         <th class=" text-center">Pelanggan</th>
                                         <th class=" text-center">Kendaraan</th>
                                         <th class=" text-center">Nota</th>
+<<<<<<< HEAD
                                         <th class="text-center">Status</th>
                                         <th class="text-center">Status Pemesanan</th>
+=======
+                                        <th class=" text-center">status</th>
+>>>>>>> 71f6e5046be693041a2cc7f6a1792325ba72f1c1
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -64,10 +68,16 @@
                                         </td>
                                         <td><?= nominal($data['total_harga']) ?></td>
                                         <td>
+<<<<<<< HEAD
                                             <img src="<?= base_url('uploads/images/' . $data['jaminan_identitas']) ?>"
                                                 alt="<?= esc($data['kode_pemesanan']) ?>" width="150px">
                                         </td>
 
+=======
+                                            <img src="/uploads/images/<?= esc($data['jaminan_identitas']) ?>"
+                                                alt="<?= esc($data['kode_pemesanan']) ?>" width="150px">
+                                        </td>
+>>>>>>> 71f6e5046be693041a2cc7f6a1792325ba72f1c1
                                         <td><?= esc($data['nama_pelanggan']) ?></td>
                                         <td><?= esc($data['nama_kendaraan']) ?></td>
                                         <td>
@@ -76,6 +86,7 @@
                                         </td>
 
                                         <td><?= esc($data['status']) ?></td>
+<<<<<<< HEAD
                                         <td class="text-center">
                                             <?php if ($data['status_pesan'] === 'pesan'): ?>
                                             <a href="<?= base_url('pemesanan/kembalikan/' . $data['id_pemesanan']) ?>"
@@ -88,6 +99,8 @@
                                             </span>
                                             <?php endif; ?>
                                         </td>
+=======
+>>>>>>> 71f6e5046be693041a2cc7f6a1792325ba72f1c1
                                     </tr>
                                     <?php endforeach; ?>
                                     <?php else: ?>

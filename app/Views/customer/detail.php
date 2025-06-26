@@ -4,6 +4,10 @@
 <!-- Link Bootstrap & CSS Tambahan -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+<<<<<<< HEAD
+=======
+<link rel="stylesheet" href="<?= base_url('assets/css/detail.css') ?>">
+>>>>>>> 71f6e5046be693041a2cc7f6a1792325ba72f1c1
 <link rel="stylesheet" href="<?= base_url('assets/css/main.css') ?>">
 
 <div class="container">
@@ -62,8 +66,13 @@
             </div>
 
             <!-- Form Pelanggan -->
+<<<<<<< HEAD
             <div class="col-md-6 bg-white">
                 <form action="/customer/store" method="post" id="pelangganForm" class="col-md-6 bg-white">
+=======
+            <div class="col-md-6">
+                <form action="/customer/store" method="post" id="pelangganForm">
+>>>>>>> 71f6e5046be693041a2cc7f6a1792325ba72f1c1
                     <center>
                         <h4>Formulir Data Pelanggan</h4>
                     </center>

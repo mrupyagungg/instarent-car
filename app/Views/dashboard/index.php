@@ -15,6 +15,7 @@
 
         <div class="row">
             <?php 
+<<<<<<< HEAD
             $cards = [
                 ["title" => "Total Pemesanan", "value" => nominal($total_pemesanan)],
                 ["title" => "Total Pengeluaran", "value" => nominal($total_pengeluaran)],
@@ -22,6 +23,15 @@
                 ["title" => "Transaksi Pengeluaran", "value" => "$data_pengeluaran Transaksi"]
             ];
             ?>
+=======
+      $cards = [
+        ["title" => "Total Pemesanan", "value" => nominal($total_pemesanan)],
+        ["title" => "Total Pengeluaran", "value" => nominal($total_pengeluaran)],
+        ["title" => "Transaksi Pemesanan", "value" => "$data_pemesanan Transaksi"],
+        ["title" => "Transaksi Pengeluaran", "value" => "$data_pengeluaran Transaksi"]
+      ];
+      ?>
+>>>>>>> 71f6e5046be693041a2cc7f6a1792325ba72f1c1
 
             <?php foreach ($cards as $card) : ?>
             <div class="col-lg-6">
@@ -34,6 +44,7 @@
             </div>
             <?php endforeach; ?>
         </div>
+<<<<<<< HEAD
         <div class="card mt-4 shadow-sm">
             <div class="card-body">
                 <h4 class="card-title text-center mb-4">Kendaraan yang Paling Sering Dipinjam</h4>
@@ -41,6 +52,8 @@
             </div>
         </div>
 
+=======
+>>>>>>> 71f6e5046be693041a2cc7f6a1792325ba72f1c1
     </div>
 </div>
 <?= $this->endSection(); ?>
@@ -103,6 +116,7 @@ var options = {
 
 new ApexCharts(document.querySelector("#grafik"), options).render();
 </script>
+<<<<<<< HEAD
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     var optionsKendaraan = {
@@ -148,4 +162,6 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 
+=======
+>>>>>>> 71f6e5046be693041a2cc7f6a1792325ba72f1c1
 <?= $this->endSection(); ?>

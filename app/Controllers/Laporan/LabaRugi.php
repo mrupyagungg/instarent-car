@@ -3,12 +3,17 @@
 namespace App\Controllers\Laporan;
 
 use App\Controllers\BaseController;
+<<<<<<< HEAD
 use App\Models\Laporan\BukuBesarModel;
 use App\Models\Laporan\LabaRugiModel;
 use Dompdf\Dompdf;
 use Dompdf\Options;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+=======
+use \App\Models\Laporan\BukuBesarModel;
+use \App\Models\Laporan\LabaRugiModel;
+>>>>>>> 71f6e5046be693041a2cc7f6a1792325ba72f1c1
 
 class LabaRugi extends BaseController
 {
@@ -24,6 +29,7 @@ class LabaRugi extends BaseController
     public function index()
     {
         $data = [
+<<<<<<< HEAD
             'title' => 'Laporan Laba Rugi',
             'pendapatan' => [],
             'beban' => [],
@@ -33,12 +39,21 @@ class LabaRugi extends BaseController
             'total_beban' => 0,
             'laba_kotor' => 0,
             'laba_bersih' => 0
+=======
+            'title' => 'Laporan Kas',
+            'saldo_awal_kas' => [],
+            'pemasukan' => [],
+            'pengeluaran' => [],
+            'date' => '',
+            'year' => '',
+>>>>>>> 71f6e5046be693041a2cc7f6a1792325ba72f1c1
         ];
 
         return view('laporan/view_data_lap_kas', $data);
     }
 
     public function show_data_laba_rugi()
+<<<<<<< HEAD
     {
         $month = esc($this->request->getPost('month') ?? date('m'));
         $year = esc($this->request->getPost('year') ?? date('Y'));
@@ -152,3 +167,33 @@ class LabaRugi extends BaseController
         exit;
     }
 }
+=======
+{
+    $month = $this->request->getPost('month');
+    $year = $this->request->getPost('year');
+    $bulan = format_bulan($month);
+
+    $pendapatan = $this->labarugiModel->getPendapatan($month, $year);
+    $beban = $this->labarugiModel->getBeban($month, $year);
+
+    $total_pendapatan = array_sum(array_column($pendapatan, 'nominal'));
+    $laba_kotor = $total_pendapatan;
+    $laba_bersih = $laba_kotor - array_sum(array_column($beban, 'nominal'));
+
+    $data = [
+        'title' => 'Laporan Laba Rugi',
+        'pendapatan' => $pendapatan,
+        'beban' => $beban,
+        'date' => $bulan,
+        'year' => $year,
+        'total_pendapatan' => $total_pendapatan,
+        'laba_kotor' => $laba_kotor,
+        'total_beban' => array_sum(array_column($beban, 'nominal')),
+        'laba_bersih' => $laba_bersih,
+    ];
+
+    return view('laporan/view_data_lap_kas', $data);
+}
+
+}
+>>>>>>> 71f6e5046be693041a2cc7f6a1792325ba72f1c1

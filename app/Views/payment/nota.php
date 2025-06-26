@@ -103,7 +103,11 @@
 
         <div class="right-info">
             <h2>NOTA BUKTI BAYAR</h2>
+<<<<<<< HEAD
             <!-- <p><strong>No. Pembayaran:</strong> <?= esc($kode_pemesanan) ?></p> -->
+=======
+            <p><strong>No. Pembayaran:</strong> <?= esc($kode_pemesanan) ?></p>
+>>>>>>> 71f6e5046be693041a2cc7f6a1792325ba72f1c1
         </div>
     </div>
 

@@ -34,6 +34,7 @@ class Pemesanan extends BaseController
         return view('pemesanan/view_data_pemesanan', $data);
     }
 
+<<<<<<< HEAD
  public function create($id_kendaraan = null)
 {
     // Pastikan kendaraan ID dikirim
@@ -85,6 +86,55 @@ class Pemesanan extends BaseController
 
             // Simpan pemesanan
             $this->pemesanans->insert([
+=======
+    public function create()
+    {
+        // Ambil data kendaraan berdasarkan ID yang dipilih dari form
+        $id_kendaraan = $this->request->getPost('kendaraan_id');
+        $kendaraan = $this->kendaraanModel->find($id_kendaraan);
+        $pelanggan = $this->pelangganModel->orderBy('id_pelanggan', 'DESC')->findAll();
+        $lastPelanggan = $this->pelangganModel->orderBy('id_pelanggan', 'DESC')->first(); // Ambil pelanggan terakhir
+
+
+        // Validasi jika kendaraan tidak ditemukan
+        if (!$kendaraan) {
+            session()->setFlashdata('error', 'Data kendaraan tidak ditemukan.');
+            return redirect()->back();
+        }
+
+        // Ambil kode pemesanan baru
+        $kode_pemesanan = $this->pemesanans->getKodePemesanan();
+
+        // Kirim data ke view
+        $data = [
+            'title' => 'Tambah Data Pemesanan',
+            'kode_pemesanan' => $kode_pemesanan,
+            'pelanggan' => $this->pelangganModel->findAll(),
+            'kendaraan' => $kendaraan,
+            'lastPelanggan' => $lastPelanggan,
+        ];
+
+        // Validasi data pemesanan
+        $this->validation->setRules($this->pemesanans->rules());
+        $isDataValid = $this->validation->withRequest($this->request)->run();
+
+        if ($isDataValid) {
+            // Hitung total harga berdasarkan lama pemesanan
+            $harga_sewa = $kendaraan['harga_sewa_kendaraan'];
+            $lama_pemesanan = $this->request->getPost('lama_pemesanan');
+            $total_harga = $lama_pemesanan * $harga_sewa;
+            $jaminan_identitas = $this->request->getFile('jaminan_identitas');
+        
+            if (!is_dir(ROOTPATH . 'uploads/images/')) {
+                mkdir(ROOTPATH . 'uploads/images/', 0777, true);
+            }
+        
+            $fileName = time() . '.' . $jaminan_identitas->getExtension();
+            $jaminan_identitas->move('uploads/images/', $fileName);
+        
+            // Simpan data pemesanan
+            $pemesanan = [
+>>>>>>> 71f6e5046be693041a2cc7f6a1792325ba72f1c1
                 'kode_pemesanan' => $kode_pemesanan,
                 'lama_pemesanan' => $lama_pemesanan,
                 'tanggal_pemesanan' => $this->request->getPost('tanggal_pemesanan'),
@@ -92,6 +142,7 @@ class Pemesanan extends BaseController
                 'tanggal_akhir' => $this->request->getPost('tanggal_akhir'),
                 'total_harga' => $total_harga,
                 'jaminan_identitas' => $fileName,
+<<<<<<< HEAD
                 'pelanggan_id' => $pelanggan['id_pelanggan'],
                 'kendaraan_id' => $id_kendaraan,
                 'status' => 'approve',
@@ -107,6 +158,25 @@ class Pemesanan extends BaseController
                     'posisi' => 'd',
                     'reff' => $kode_pemesanan,
                     'transaksi' => 'Bank',
+=======
+                'pelanggan_id' => $this->request->getPost('pelanggan_id'),
+                'kendaraan_id' => $id_kendaraan,
+                'status' => 'approve',
+            ];
+        
+            // Insert pemesanan ke database
+            $this->pemesanans->insert($pemesanan);
+        
+            // Insert data jurnal transaksi
+            $jurnal = [
+                [
+                    'tanggal' => date('Y-m-d'),
+                    'id_akun' => 101,
+                    'nominal' => $total_harga,
+                    'posisi' => 'd',
+                    'reff' => $kode_pemesanan,
+                    'transaksi' => 'Kas',
+>>>>>>> 71f6e5046be693041a2cc7f6a1792325ba72f1c1
                 ],
                 [
                     'tanggal' => date('Y-m-d'),
@@ -117,6 +187,7 @@ class Pemesanan extends BaseController
                     'transaksi' => 'Pendapatan Sewa',
                 ],
             ];
+<<<<<<< HEAD
             $this->jurnalModel->insertBatch($jurnal);
 
             return redirect()->to(base_url('payment/checkout/' . $kode_pemesanan));
@@ -134,6 +205,22 @@ class Pemesanan extends BaseController
 }
 
 
+=======
+        
+            // Insert batch jurnal ke database
+            $this->jurnalModel->insertBatch($jurnal);
+        
+            // Redirect ke halaman pembayaran Midtrans
+            return redirect()->to(base_url('payment/checkout/' . $kode_pemesanan));
+        }
+        
+
+        // Jika validasi gagal, tampilkan form dengan error
+        $data['validation'] = $this->validation;
+        return view('pemesanan/add_data_pemesanan', $data);
+    }
+
+>>>>>>> 71f6e5046be693041a2cc7f6a1792325ba72f1c1
     public function downloadNota($id)
     {
         // Ambil data pemesanan berdasarkan ID

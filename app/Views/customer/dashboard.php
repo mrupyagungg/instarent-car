@@ -96,6 +96,7 @@ a {
 
 }
 
+<<<<<<< HEAD
 .btn {
     display: inline-block;
     padding: 10px 24px;
@@ -124,6 +125,25 @@ a {
     background-color: #004494;
     box-shadow: 0 3px 6px rgba(0, 68, 148, 0.5);
     transform: translateY(1px);
+=======
+
+.btn {
+    width: 50%;
+    padding: 10px;
+    margin-left: 20px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 5px;
+    background: linear-gradient(135deg, #007bff, #0056b3);
+    border: none;
+    color: white;
+    transition: all 0.3s ease;
+}
+
+.btn:hover {
+    background: linear-gradient(135deg, #0056b3, #007bff);
+    transform: scale(1.05);
+>>>>>>> 71f6e5046be693041a2cc7f6a1792325ba72f1c1
 }
 
 .dropdown-item {

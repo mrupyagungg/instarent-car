@@ -185,6 +185,7 @@ class PemesananController extends BaseController
         return $prefix . $date . sprintf('%05d', $newId); // Format: INV2025011500001
     }
 
+<<<<<<< HEAD
     public function kembalikan($id)
     {
         $model = new \App\Models\Pemesanan();
@@ -194,6 +195,8 @@ class PemesananController extends BaseController
 
         return redirect()->to(base_url('pemesanan'))->with('success', 'Pemesanan berhasil dikembalikan.');
     }
+=======
+>>>>>>> 71f6e5046be693041a2cc7f6a1792325ba72f1c1
 
     
 }

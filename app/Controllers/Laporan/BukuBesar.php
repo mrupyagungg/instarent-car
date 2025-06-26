@@ -5,11 +5,15 @@ namespace App\Controllers\Laporan;
 use App\Controllers\BaseController;
 use \App\Models\Laporan\BukuBesarModel;
 use \App\Models\CoaModel;
+<<<<<<< HEAD
 use Dompdf\Dompdf;
 use Dompdf\Options;
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+=======
+
+>>>>>>> 71f6e5046be693041a2cc7f6a1792325ba72f1c1
 
 class BukuBesar extends BaseController
 {
@@ -40,6 +44,7 @@ class BukuBesar extends BaseController
 
     public function show_data_buku_besar()
     {
+<<<<<<< HEAD
         $akun  = $this->request->getPost('id_akun');
         $month = $this->request->getPost('month');
         $year  = $this->request->getPost('year');
@@ -186,3 +191,25 @@ public function downloadExcel($id_akun, $month, $year)
 
 
 }
+=======
+        $akun                       = $this->request->getPost('id_akun');
+        $month                      = $this->request->getPost('month');
+        $year                       = $this->request->getPost('year');
+        $bulan                      = format_bulan($month);
+
+        $data = [
+            'title'                 => 'Buku Besar',
+            'buku_besar'            => $this->bukuBesarModel->getBukuBesar($akun, $month, $year),
+            'list_akun'             => $this->coaModel->findAll(),
+            'posisi_saldo_normal'   => $this->bukuBesarModel->getPosisiSaldoNormal($akun),
+            'saldo_awal'            => $this->bukuBesarModel->getSaldoAwalBukuBesar($akun, $month, $year),
+            'date'                  => $bulan,
+            'year'                  => $year,
+            'id_akun'               => $akun,
+            'nama_akun'             => $this->coaModel->where('id_akun', $akun)->get()->getFirstRow()->nama_akun
+        ];
+        // dd($data);
+        return view('laporan/view_data_buku_besar', $data);
+    }
+}
+>>>>>>> 71f6e5046be693041a2cc7f6a1792325ba72f1c1

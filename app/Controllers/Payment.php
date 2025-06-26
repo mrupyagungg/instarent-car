@@ -27,9 +27,13 @@ class Payment extends BaseController
         $this->kendaraanModel = new KendaraanModel();
 
         // Konfigurasi API Key untuk Xendit
+<<<<<<< HEAD
         // Configuration::setXenditKey(getenv('XENDIT_API_KEY'));
         Configuration::setXenditKey('xnd_development_bbnUlIprgBHT3urVWvE0I4BsUjkYGjsYQDZ1wTwE67nR5CyWVSpLL6a3teydsOn');
 
+=======
+        Configuration::setXenditKey(getenv('XENDIT_API_KEY'));
+>>>>>>> 71f6e5046be693041a2cc7f6a1792325ba72f1c1
 
         // Inisialisasi InvoiceApi untuk membuat invoice
         $this->invoiceApi = new InvoiceApi();

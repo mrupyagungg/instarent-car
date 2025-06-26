@@ -4,6 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
+<<<<<<< HEAD
     "content-hash": "77c4c39777064e77d54248b1cacf8f70",
     "packages": [
         {
@@ -86,6 +87,11 @@
             "time": "2024-11-12T16:29:46+00:00"
         },
         {
+=======
+    "content-hash": "3c601870ad608badf9f66a82c7334175",
+    "packages": [
+        {
+>>>>>>> 71f6e5046be693041a2cc7f6a1792325ba72f1c1
             "name": "dompdf/dompdf",
             "version": "v3.1.0",
             "source": {
@@ -755,6 +761,7 @@
             "time": "2024-10-24T10:12:53+00:00"
         },
         {
+<<<<<<< HEAD
             "name": "maennchen/zipstream-php",
             "version": "3.1.2",
             "source": {
@@ -940,6 +947,8 @@
             "time": "2022-12-02T22:17:43+00:00"
         },
         {
+=======
+>>>>>>> 71f6e5046be693041a2cc7f6a1792325ba72f1c1
             "name": "masterminds/html5",
             "version": "2.9.0",
             "source": {
@@ -1063,6 +1072,7 @@
             "time": "2024-10-16T08:55:12+00:00"
         },
         {
+<<<<<<< HEAD
             "name": "phpoffice/phpspreadsheet",
             "version": "4.3.1",
             "source": {
@@ -1169,6 +1179,8 @@
             "time": "2025-05-26T18:51:08+00:00"
         },
         {
+=======
+>>>>>>> 71f6e5046be693041a2cc7f6a1792325ba72f1c1
             "name": "phpoption/phpoption",
             "version": "1.9.3",
             "source": {
@@ -1454,6 +1466,7 @@
             "time": "2021-05-03T11:20:27+00:00"
         },
         {
+<<<<<<< HEAD
             "name": "psr/simple-cache",
             "version": "3.0.0",
             "source": {
@@ -1505,6 +1518,8 @@
             "time": "2021-10-29T13:26:27+00:00"
         },
         {
+=======
+>>>>>>> 71f6e5046be693041a2cc7f6a1792325ba72f1c1
             "name": "ralouphie/getallheaders",
             "version": "3.0.3",
             "source": {
@@ -2005,6 +2020,7 @@
         },
         {
             "name": "xendit/xendit-php",
+<<<<<<< HEAD
             "version": "6.4.0",
             "source": {
                 "type": "git",
@@ -2015,6 +2031,18 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/xendit/xendit-php/zipball/1b525c90f88578d05593f7a714363544cd752620",
                 "reference": "1b525c90f88578d05593f7a714363544cd752620",
+=======
+            "version": "6.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/xendit/xendit-php.git",
+                "reference": "af0755029f15bd24ad3752342fea715562071317"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/xendit/xendit-php/zipball/af0755029f15bd24ad3752342fea715562071317",
+                "reference": "af0755029f15bd24ad3752342fea715562071317",
+>>>>>>> 71f6e5046be693041a2cc7f6a1792325ba72f1c1
                 "shasum": ""
             },
             "require": {
@@ -2059,9 +2087,15 @@
             ],
             "support": {
                 "issues": "https://github.com/xendit/xendit-php/issues",
+<<<<<<< HEAD
                 "source": "https://github.com/xendit/xendit-php/tree/6.4.0"
             },
             "time": "2025-05-16T04:31:28+00:00"
+=======
+                "source": "https://github.com/xendit/xendit-php/tree/6.3.0"
+            },
+            "time": "2025-03-13T05:39:26+00:00"
+>>>>>>> 71f6e5046be693041a2cc7f6a1792325ba72f1c1
         }
     ],
     "packages-dev": [
@@ -2120,6 +2154,88 @@
             "time": "2022-12-22T02:29:54+00:00"
         },
         {
+<<<<<<< HEAD
+=======
+            "name": "composer/pcre",
+            "version": "3.3.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/composer/pcre.git",
+                "reference": "b2bed4734f0cc156ee1fe9c0da2550420d99a21e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/composer/pcre/zipball/b2bed4734f0cc156ee1fe9c0da2550420d99a21e",
+                "reference": "b2bed4734f0cc156ee1fe9c0da2550420d99a21e",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.4 || ^8.0"
+            },
+            "conflict": {
+                "phpstan/phpstan": "<1.11.10"
+            },
+            "require-dev": {
+                "phpstan/phpstan": "^1.12 || ^2",
+                "phpstan/phpstan-strict-rules": "^1 || ^2",
+                "phpunit/phpunit": "^8 || ^9"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-main": "3.x-dev"
+                },
+                "phpstan": {
+                    "includes": [
+                        "extension.neon"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Composer\\Pcre\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jordi Boggiano",
+                    "email": "j.boggiano@seld.be",
+                    "homepage": "http://seld.be"
+                }
+            ],
+            "description": "PCRE wrapping library that offers type-safe preg_* replacements.",
+            "keywords": [
+                "PCRE",
+                "preg",
+                "regex",
+                "regular expression"
+            ],
+            "support": {
+                "issues": "https://github.com/composer/pcre/issues",
+                "source": "https://github.com/composer/pcre/tree/3.3.2"
+            },
+            "funding": [
+                {
+                    "url": "https://packagist.com",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/composer",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/composer/composer",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2024-11-12T16:29:46+00:00"
+        },
+        {
+>>>>>>> 71f6e5046be693041a2cc7f6a1792325ba72f1c1
             "name": "composer/semver",
             "version": "3.4.3",
             "source": {

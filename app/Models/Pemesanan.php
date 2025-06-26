@@ -20,8 +20,11 @@ class Pemesanan extends Model
         'pelanggan_id',
         'kendaraan_id',
         'status',
+<<<<<<< HEAD
         'status_pesan',
         'user_id',
+=======
+>>>>>>> 71f6e5046be693041a2cc7f6a1792325ba72f1c1
     ];
 
     // Timestamps otomatis
@@ -37,6 +40,10 @@ class Pemesanan extends Model
         'jaminan_identitas'=> 'required',
         'pelanggan_id'     => 'required|integer',
         'kendaraan_id'     => 'required|integer',
+<<<<<<< HEAD
+=======
+    
+>>>>>>> 71f6e5046be693041a2cc7f6a1792325ba72f1c1
     ];
 
     // Pesan validasi khusus
@@ -85,6 +92,7 @@ class Pemesanan extends Model
     /**
      * Validasi range tanggal.
      */
+<<<<<<< HEAD
    protected function validateDateRange(array $data)
 {
     // Jangan jalankan kalau tidak ada field tanggal
@@ -145,4 +153,51 @@ public function updateStatusOnly($id, $status)
 }
 
 
+=======
+    protected function validateDateRange(array $data)
+    {
+        if (isset($data['data']['tanggal_awal'], $data['data']['tanggal_akhir'])) {
+            $tanggalAwal = strtotime($data['data']['tanggal_awal']);
+            $tanggalAkhir = strtotime($data['data']['tanggal_akhir']);
+
+            if ($tanggalAwal >= $tanggalAkhir) {
+                throw new \RuntimeException('Tanggal akhir harus lebih besar dari tanggal awal.');
+            }
+        }
+
+        return $data;
+    }
+
+    /**
+     * Validasi keberadaan pelanggan dan kendaraan di database.
+     */
+    protected function checkPelangganKendaraan(array $data)
+    {
+        $db = \Config\Database::connect();
+
+        // Validasi pelanggan
+        if (isset($data['data']['pelanggan_id'])) {
+            $pelangganExists = $db->table('pelanggan')
+                ->where('id_pelanggan', $data['data']['pelanggan_id'])
+                ->countAllResults();
+
+            if ($pelangganExists == 0) {
+                throw new \RuntimeException('Pelanggan tidak ditemukan dalam database.');
+            }
+        }
+
+        // Validasi kendaraan
+        if (isset($data['data']['kendaraan_id'])) {
+            $kendaraanExists = $db->table('kendaraan')
+                ->where('id_kendaraan', $data['data']['kendaraan_id'])
+                ->countAllResults();
+
+            if ($kendaraanExists == 0) {
+                throw new \RuntimeException('Kendaraan tidak ditemukan dalam database.');
+            }
+        }
+
+        return $data;
+    }
+>>>>>>> 71f6e5046be693041a2cc7f6a1792325ba72f1c1
 }

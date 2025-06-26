@@ -12,11 +12,14 @@ body {
     padding-left: 1px;
 }
 
+<<<<<<< HEAD
   
 a {
     text-decoration: none;
 }
 
+=======
+>>>>>>> 71f6e5046be693041a2cc7f6a1792325ba72f1c1
 h2,
 h4 {
     color: #343a40;
@@ -126,7 +129,11 @@ p {
     padding: 10px;
     font-size: 1em;
     width: 100%;
+<<<<<<< HEAD
     /* margin-bottom: 15px; */
+=======
+    margin-bottom: 15px;
+>>>>>>> 71f6e5046be693041a2cc7f6a1792325ba72f1c1
 }
 
 .form-control:focus {
@@ -474,4 +481,9 @@ p {
     #pelangganForm button[type="submit"]:hover {
       background-color: #4f46e5;
     }
+<<<<<<< HEAD
   }
+=======
+  }
+  
+>>>>>>> 71f6e5046be693041a2cc7f6a1792325ba72f1c1

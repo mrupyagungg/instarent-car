@@ -51,7 +51,11 @@
         <h1>✅ Pembayaran Berhasil!</h1>
         <p>Kode Pemesanan Anda: <strong><?= esc($kode_pemesanan) ?></strong></p>
         <p>Terima kasih telah melakukan pembayaran. Pemesanan Anda sedang diproses.</p>
+<<<<<<< HEAD
         <a href="<?= base_url('customer/dashboard') ?>" class="btn btn-success mt-3">Kembali ke Beranda</a>
+=======
+        <a href="<?= base_url('/') ?>" class="btn btn-success mt-3">Kembali ke Beranda</a>
+>>>>>>> 71f6e5046be693041a2cc7f6a1792325ba72f1c1
         <!-- Tombol untuk download nota -->
         <a href="<?= base_url('payment/download_invoice/' . esc($kode_pemesanan)) ?>" class="btn btn-info">Download
             Nota

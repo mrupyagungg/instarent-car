@@ -6,8 +6,11 @@ use App\Controllers\BaseController;
 use App\Models\Laporan\JurnalModel;
 use Dompdf\Dompdf;
 use Dompdf\Options;
+<<<<<<< HEAD
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+=======
+>>>>>>> 71f6e5046be693041a2cc7f6a1792325ba72f1c1
 
 class Jurnal extends BaseController
 {
@@ -23,9 +26,14 @@ class Jurnal extends BaseController
         return view('laporan/view_data_jurnal_umum', [
             'title' => 'Jurnal Umum',
             'jurnal' => [],
+<<<<<<< HEAD
             'month' => '',
             'year' => '',
             'date' => ''
+=======
+            'date' => '',
+            'year' => ''
+>>>>>>> 71f6e5046be693041a2cc7f6a1792325ba72f1c1
         ]);
     }
 
@@ -43,6 +51,7 @@ class Jurnal extends BaseController
         return view('laporan/view_data_jurnal_umum', [
             'title' => 'Jurnal Umum',
             'jurnal' => $this->jurnalModel->getJurnal($month, $year),
+<<<<<<< HEAD
             'month' => $month,
             'year' => $year,
             'date' => $bulan
@@ -51,12 +60,25 @@ class Jurnal extends BaseController
 
     public function downloadPDF($month, $year)
     {
+=======
+            'date' => $bulan,
+            'year' => $year
+        ]);
+    }
+
+    public function downloadPDF()
+    {
+        $month = esc($this->request->getGet('month') ?? date('m'));
+        $year = esc($this->request->getGet('year') ?? date('Y'));
+
+>>>>>>> 71f6e5046be693041a2cc7f6a1792325ba72f1c1
         if (!$this->validateMonthYear($month, $year)) {
             return redirect()->back()->with('error', 'Bulan atau tahun tidak valid');
         }
 
         $jurnal = $this->jurnalModel->getJurnal($month, $year);
         $bulan = function_exists('format_bulan') ? format_bulan($month) : $month;
+<<<<<<< HEAD
         
         $html = view('laporan/pdf_jurnal_umum', [
             'title' => 'Jurnal Umum',
@@ -64,6 +86,14 @@ class Jurnal extends BaseController
             'month' => $month,
             'year' => $year,
             'date' => $bulan
+=======
+
+        $html = view('laporan/pdf_jurnal_umum', [
+            'title' => 'Jurnal Umum',
+            'jurnal' => $jurnal,
+            'date' => $bulan,
+            'year' => $year
+>>>>>>> 71f6e5046be693041a2cc7f6a1792325ba72f1c1
         ]);
 
         $dompdf = new Dompdf(new Options(['defaultFont' => 'Arial']));
@@ -73,6 +103,7 @@ class Jurnal extends BaseController
         $dompdf->stream("Jurnal_Umum_{$bulan}_{$year}.pdf", ["Attachment" => true]);
     }
 
+<<<<<<< HEAD
     public function downloadExcel($month, $year)
     {
         if (!$this->validateMonthYear($month, $year)) {
@@ -111,6 +142,8 @@ class Jurnal extends BaseController
         exit;
     }
 
+=======
+>>>>>>> 71f6e5046be693041a2cc7f6a1792325ba72f1c1
     private function validateMonthYear($month, $year)
     {
         return is_numeric($month) && $month >= 1 && $month <= 12 &&

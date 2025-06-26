@@ -14,6 +14,7 @@ class Dashboard extends BaseController
     }
 
     public function index()
+<<<<<<< HEAD
 {
     $pemesanan = $this->dashboardModel->getPemesananData();
     $pengeluaran = $this->dashboardModel->getPengeluaranData();
@@ -50,4 +51,26 @@ class Dashboard extends BaseController
     return view('dashboard/index', $data);
 }
 
+=======
+    {
+
+        $pemesanan = $this->dashboardModel->getPemesananData();
+        $pengeluaran = $this->dashboardModel->getPengeluaranData();
+        $waktuData = $this->dashboardModel->getWaktuData();
+        // $data['jenis_kendaraan'] = $model->select('jenis')->groupBy('jenis')->findAll();
+        $data = [
+            'pemesanan' => $pemesanan,
+            'pengeluaran' => $pengeluaran,
+            'waktu' => $waktuData,
+            'title' => 'Dashboard',
+            'grafik' => $this->dashboardModel->grafik(),
+            'total_pemesanan' => $this->dashboardModel->pemesananPerBulan()->total_pemesanan,
+            'total_pengeluaran' => $this->dashboardModel->pengeluaranPerBulan()->total_pengeluaran,
+            'data_pemesanan' => $this->dashboardModel->countPemesananPerBulan()->data_pemesanan,
+            'data_pengeluaran' => $this->dashboardModel->countPengeluaranPerBulan()->data_pengeluaran,
+        ];
+
+        return view('dashboard/index', $data);
+    }
+>>>>>>> 71f6e5046be693041a2cc7f6a1792325ba72f1c1
 }

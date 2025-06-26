@@ -15,8 +15,12 @@
         "midtrans/midtrans-php": "^2.6",
         "dompdf/dompdf": "^3.1",
         "guzzlehttp/guzzle": "^7.9",
+<<<<<<< HEAD
         "xendit/xendit-php": "^6.4",
         "phpoffice/phpspreadsheet": "^4.3"
+=======
+        "xendit/xendit-php": "^6.3"
+>>>>>>> 71f6e5046be693041a2cc7f6a1792325ba72f1c1
     },
     "require-dev": {
         "codeigniter/coding-standard": "^1.5",

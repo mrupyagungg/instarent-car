@@ -129,6 +129,7 @@ class Kendaraan extends BaseController
         session()->setFlashdata('success', 'Data Kendaraan berhasil dihapus');
         return redirect()->to('kendaraan');
     }
+<<<<<<< HEAD
     
         public function tersedia()
     {
@@ -140,4 +141,6 @@ class Kendaraan extends BaseController
         return view('kendaraan/view_kendaraan_tersedia', $data);
     }
 
+=======
+>>>>>>> 71f6e5046be693041a2cc7f6a1792325ba72f1c1
 }

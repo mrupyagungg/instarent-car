@@ -1,5 +1,9 @@
 <?php
+<<<<<<< HEAD
 // untuk model frontend
+=======
+
+>>>>>>> 71f6e5046be693041a2cc7f6a1792325ba72f1c1
 namespace App\Models;
 
 use CodeIgniter\Model;
@@ -8,7 +12,11 @@ class PemesananModel extends Model
 {
     protected $table = 'pemesanan';
     protected $primaryKey = 'id_pemesanan';
+<<<<<<< HEAD
     protected $allowedFields = ['kode_pemesanan', 'lama_pemesanan','tanggal_pemesanan', 'tanggal_awal','tanggal_akhir', 'total_harga', 'jaminan_identitas', 'pelanggan_id', 'kendaraan_id', 'persetujuan','user_id'];
+=======
+    protected $allowedFields = ['kode_pemesanan', 'lama_pemesanan','tanggal_pemesanan', 'tanggal_awal','tanggal_akhir', 'total_harga', 'jaminan_identitas', 'pelanggan_id', 'kendaraan_id', 'persetujuan'];
+>>>>>>> 71f6e5046be693041a2cc7f6a1792325ba72f1c1
 
     public function rules()
     {
